@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yayasan Harapan — Fund Help Others</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+/* ====== RESET & BASE ====== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#b5e153;--gd:#9acb3a;
+  --blk:#111;--wht:#fff;
+  --g50:#f8f8f8;--g100:#f0f0f0;--g200:#e2e2e2;--g300:#c8c8c8;
+  --g400:#aaa;--g500:#888;--g600:#555;--g700:#333;
+  --blue:#2563eb;
+  --r16:16px;--r20:20px;--r100:100px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;color:var(--blk);background:var(--wht);overflow-x:hidden}
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.88)}to{opacity:1;transform:scale(1)}}
+@keyframes countUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes navDrop{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.anim-fadeup{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.anim-fadeup.in{opacity:1;transform:translateY(0)}
+.anim-scalein{opacity:0;transform:scale(.92);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.anim-scalein.in{opacity:1;transform:scale(1)}
+.anim-left{opacity:0;transform:translateX(-36px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.anim-left.in{opacity:1;transform:translateX(0)}
+.anim-right{opacity:0;transform:translateX(36px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.anim-right.in{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.08s!important}.d2{transition-delay:.16s!important}.d3{transition-delay:.24s!important}.d4{transition-delay:.32s!important}
+
+/* ====== NAV ====== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--g200);height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,4vw,32px);
+  animation:navDrop .5s cubic-bezier(.22,1,.36,1) both;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;border-right:1px solid var(--g200);padding-right:20px;margin-right:20px}
+.nav-star{font-size:22px;line-height:1;animation:fadeIn .8s .3s both}
+.nav-name{font-size:16px;font-weight:800;letter-spacing:-.2px;color:var(--blk)}
+.nav-links{display:flex;gap:clamp(16px,3vw,28px)}
+.nav-links a{font-size:14px;font-weight:500;color:var(--blk);text-decoration:none;opacity:.65;cursor:pointer;transition:opacity .15s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--g);transform:scaleX(0);transition:transform .2s;border-radius:2px}
+.nav-links a:hover{opacity:1}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-left{display:flex;align-items:center}
+.nav-btn{
+  background:var(--g);color:var(--blk);border:none;
+  padding:9px 18px;border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;white-space:nowrap;
+  transition:background .15s,transform .15s,box-shadow .15s;
+}
+.nav-btn:hover{background:var(--gd);transform:translateY(-1px);box-shadow:0 4px 16px rgba(181,225,83,.4)}
+.nav-btn:active{transform:translateY(0)}
+.nav-logo-right{display:none;align-items:center;height:38px}
+.nav-logo-right img{height:34px;width:auto;max-width:150px;object-fit:contain}
+.nav-logo-right img[src=""]{display:none}
+#logo-text-fallback{display:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--blk);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:58px;left:0;right:0;
+  background:var(--wht);border-bottom:1px solid var(--g200);
+  padding:20px clamp(16px,4vw,32px);z-index:999;
+  flex-direction:column;gap:4px;
+  transform:translateY(-10px);opacity:0;transition:transform .25s,opacity .25s;
+}
+.mobile-menu.open{display:flex;transform:translateY(0);opacity:1}
+.mobile-menu a{font-size:15px;font-weight:500;color:var(--blk);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--g100);cursor:pointer}
+.mobile-menu .m-cta{margin-top:8px;background:var(--g);color:var(--blk);text-align:center;border-radius:var(--r100);padding:12px;font-weight:700;border-bottom:none}
+
+/* ====== HERO ====== */
+.hero-wrap{padding:74px 16px 0;background:var(--wht)}
+.hero{
+  border-radius:20px;overflow:hidden;
+  position:relative;height:clamp(320px,55vw,480px);
+  background:#c8d8c0;
+}
+.hero-img{
+  width:100%;height:100%;object-fit:cover;object-position:center 25%;
+  display:block;
+  animation:scaleIn .9s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.05) 55%)}
+.hero-content{
+  position:absolute;inset:0;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:clamp(16px,3vw,32px) clamp(20px,4vw,40px);
+  gap:12px;
+}
+.hero-big{
+  font-size:clamp(64px,13vw,130px);font-weight:900;
+  color:var(--wht);line-height:.92;letter-spacing:clamp(-3px,-0.5vw,-2px);
+  animation:fadeUp .7s .2s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-right{
+  display:flex;flex-direction:column;align-items:flex-end;gap:clamp(10px,2vw,20px);
+  padding-bottom:clamp(4px,1vw,10px);flex-shrink:0;
+}
+.hero-tagline{
+  font-size:clamp(18px,3.5vw,34px);font-weight:700;
+  color:var(--wht);line-height:1.15;text-align:right;
+  animation:slideLeft .7s .3s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-start{
+  background:var(--g);color:var(--blk);border:none;
+  padding:clamp(10px,1.5vw,14px) clamp(18px,2.5vw,28px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(13px,1.8vw,16px);font-weight:700;
+  cursor:pointer;white-space:nowrap;
+  transition:background .15s,transform .2s,box-shadow .2s;
+  animation:slideLeft .7s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-start:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 20px rgba(181,225,83,.45)}
+.btn-start:active{transform:translateY(0)}
+
+/* ====== FAST SECTION ====== */
+.fast-section{padding:clamp(36px,6vw,56px) clamp(16px,4vw,40px)}
+.fast-headline{font-size:clamp(20px,3.5vw,28px);font-weight:800;margin-bottom:6px;line-height:1.2;letter-spacing:-.3px}
+.fast-headline em{font-style:italic;font-weight:700}
+.fast-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);max-width:740px;margin-bottom:clamp(24px,4vw,36px);line-height:1.65}
+.fast-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,16px)}
+.fast-card{
+  border:1px solid var(--g200);border-radius:var(--r16);
+  padding:clamp(18px,3vw,24px);background:var(--wht);
+  transition:border-color .2s,transform .25s,box-shadow .25s;
+}
+.fast-card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
+.fast-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:clamp(12px,2vw,18px);background:var(--g100);
+  transition:background .2s;
+}
+.fast-card:hover .fast-icon{background:var(--g)}
+.fast-icon i{font-size:18px;color:var(--blk)}
+.fast-card h3{font-size:clamp(13.5px,2vw,15px);font-weight:700;margin-bottom:7px}
+.fast-card p{font-size:clamp(12px,1.6vw,13.5px);color:var(--g500);line-height:1.7}
+
+/* ====== URGENT ====== */
+.urgent-section{padding:0 clamp(16px,4vw,40px) clamp(40px,6vw,64px)}
+.urgent-section h2{font-size:clamp(22px,4vw,30px);font-weight:800;margin-bottom:5px;letter-spacing:-.3px}
+.urgent-sub{font-size:clamp(13px,2vw,14.5px);color:var(--g600);margin-bottom:clamp(20px,3vw,30px);line-height:1.6}
+.campaign-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--g200);border-radius:var(--r16);overflow:hidden;
+}
+.camp-card{
+  background:var(--wht);border-right:1px solid var(--g200);
+  cursor:pointer;transition:background .15s;overflow:hidden;
+}
+.camp-card:last-child{border-right:none}
+.camp-card:hover{background:var(--g50)}
+.camp-img{
+  width:100%;height:clamp(160px,22vw,220px);object-fit:cover;display:block;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.camp-card:hover .camp-img{transform:scale(1.04)}
+.camp-body{padding:clamp(12px,2vw,16px)}
+.camp-org{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--g500);margin-bottom:4px}
+.camp-org i{color:var(--blue);font-size:13px}
+.camp-card h3{font-size:clamp(13px,2vw,15px);font-weight:700;margin-bottom:clamp(8px,1.5vw,12px);line-height:1.3}
+.camp-prog{background:var(--g100);border-radius:100px;height:4px;overflow:hidden;margin-bottom:9px}
+.camp-bar{height:100%;background:var(--g);border-radius:100px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.camp-meta{display:flex;justify-content:space-between;font-size:clamp(11px,1.6vw,13px)}
+.camp-raised{font-weight:700}
+.camp-days{color:var(--g500)}
+.camp-days span{color:var(--blk);font-weight:600}
+.camp-btn{
+  width:100%;margin-top:10px;
+  background:var(--blk);color:var(--wht);border:none;
+  padding:9px;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:background .15s;
+}
+.camp-btn:hover{background:var(--g);color:var(--blk)}
+
+/* ====== COUNTER ====== */
+.counter-section{
+  padding:clamp(48px,8vw,80px) clamp(16px,4vw,40px);
+  display:grid;
+  grid-template-columns:120px 1fr 120px;
+  align-items:center;gap:24px;
+  max-width:1100px;margin:0 auto;
+}
+.c-side{display:flex;flex-direction:column;gap:12px;align-items:center}
+.c-img-big{
+  width:110px;height:110px;
+  border-radius:14px;object-fit:cover;
+  filter:grayscale(100%);display:block;
+  transition:filter .4s,transform .4s;
+}
+.c-img-big:hover{filter:grayscale(0%);transform:scale(1.03)}
+.c-img-sm{
+  width:80px;height:80px;
+  border-radius:12px;object-fit:cover;
+  filter:grayscale(100%);display:block;
+  transition:filter .4s,transform .4s;
+}
+.c-img-sm:hover{filter:grayscale(0%);transform:scale(1.04)}
+.c-center{text-align:center;min-width:0;}
+.c-pre{font-size:clamp(16px,2.4vw,22px);font-weight:700;margin-bottom:4px;line-height:1.4}
+.c-num{
+  font-size:clamp(56px,9vw,120px);font-weight:900;line-height:1;
+  letter-spacing:clamp(-3px,-0.5vw,-2px);margin:4px 0 6px;
+  white-space:nowrap;
+}
+.c-post{font-size:clamp(16px,2.4vw,22px);font-weight:700;margin-bottom:clamp(20px,3vw,30px)}
+.btn-join{
+  background:var(--g);color:var(--blk);border:none;
+  padding:clamp(12px,1.5vw,15px) clamp(24px,3vw,34px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(14px,2vw,16px);font-weight:700;
+  cursor:pointer;transition:background .15s,transform .2s,box-shadow .2s;
+}
+.btn-join:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 20px rgba(181,225,83,.4)}
+.btn-join:active{transform:translateY(0)}
+
+/* ====== FAQ ====== */
+.faq-section{padding:clamp(40px,6vw,64px) clamp(16px,4vw,40px)}
+.faq-section h2{font-size:clamp(28px,5vw,44px);font-weight:900;margin-bottom:clamp(24px,4vw,36px);line-height:1.1;letter-spacing:-.5px}
+.faq-item{border-bottom:1px solid var(--g200)}
+.faq-q{
+  width:100%;background:none;border:none;
+  padding:clamp(16px,2.5vw,22px) 0;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-family:'DM Sans',sans-serif;font-size:clamp(14px,2vw,16px);
+  font-weight:500;color:var(--blk);cursor:pointer;text-align:left;
+  transition:color .15s;
+}
+.faq-q:hover{color:var(--g600)}
+.faq-plus{
+  width:28px;height:28px;flex-shrink:0;
+  border:1.5px solid var(--g300);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--blk);
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.faq-item.open .faq-plus{background:var(--blk);color:var(--wht);border-color:var(--blk);transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  font-size:clamp(13px,1.8vw,14.5px);color:var(--g600);line-height:1.8;
+  transition:max-height .4s cubic-bezier(.22,1,.36,1),padding .35s;
+}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:18px}
+
+/* ====== FOOTER ====== */
+footer{
+  background:var(--blk);border-radius:20px 20px 0 0;margin-top:0;
+  color:rgba(255,255,255,.55);
+}
+.footer-inner{padding:clamp(36px,5vw,56px) clamp(20px,4vw,44px) 0}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(24px,4vw,48px);margin-bottom:clamp(32px,4vw,52px)}
+.footer-brand-row{display:flex;align-items:center;gap:8px;color:var(--wht);font-size:16px;font-weight:800;margin-bottom:12px}
+.footer-brand-row .fstar{color:var(--g);font-size:20px}
+.footer-desc{font-size:13px;line-height:1.8;color:rgba(255,255,255,.42)}
+.footer-col h4{color:var(--wht);font-size:13px;font-weight:700;margin-bottom:14px;letter-spacing:.1px}
+.footer-col a{display:inline-block;color:rgba(255,255,255,.48);text-decoration:none;font-size:13px;margin-bottom:9px;cursor:pointer;transition:color .15s}
+.footer-col a:hover{color:var(--wht)}
+.f-link-wrap{display:flex;gap:24px}
+.f-link-col{display:flex;flex-direction:column}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:clamp(18px,2.5vw,24px) clamp(20px,4vw,44px);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.3);line-height:1.6}
+.social-links{display:flex;gap:8px;flex-wrap:wrap}
+.social-link{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid rgba(255,255,255,.18);border-radius:100px;
+  padding:7px 16px;color:rgba(255,255,255,.7);
+  font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;
+  transition:all .2s;white-space:nowrap;
+}
+.social-link:hover{border-color:rgba(255,255,255,.6);color:var(--wht);transform:translateY(-1px)}
+.social-link i{font-size:15px}
+
+/* ====== MODAL ====== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+  padding:16px;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--wht);border-radius:20px;
+  width:100%;max-width:440px;max-height:90vh;overflow-y:auto;
+  transform:translateY(24px) scale(.97);
+  transition:transform .28s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 24px 80px rgba(0,0,0,.28);
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-header{
+  background:var(--blk);padding:18px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:1;
+}
+.modal-title{color:var(--wht);font-size:15px;font-weight:700}
+.modal-sub{color:rgba(255,255,255,.42);font-size:12px;margin-top:2px}
+.modal-x{background:rgba(255,255,255,.1);border:none;color:var(--wht);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.modal-x:hover{background:rgba(255,255,255,.2)}
+.modal-body{padding:18px}
+.m-camp{display:flex;align-items:center;gap:10px;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:10px 12px;margin-bottom:13px}
+.m-thumb{width:40px;height:40px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.m-cname{font-size:13px;font-weight:700}
+.m-corg{font-size:11.5px;color:var(--g400)}
+.m-amtrow{background:rgba(181,225,83,.12);border:1px solid rgba(181,225,83,.38);border-radius:10px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.m-alabel{font-size:13px;color:var(--g600)}
+.m-atype{font-size:11px;color:var(--g400);margin-top:2px}
+.m-aval{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.type-tabs{display:flex;background:var(--g100);border-radius:10px;padding:4px;gap:3px;margin-bottom:13px}
+.type-tab{flex:1;padding:8px 4px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--g500);cursor:pointer;border-radius:7px;transition:all .2s}
+.type-tab.act{background:var(--wht);color:var(--blk);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.flabel{font-size:11px;font-weight:700;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;display:block}
+.amt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.amt-btn{border:1.5px solid var(--g200);background:var(--wht);color:var(--blk);padding:9px 4px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+.amt-btn:hover{border-color:var(--g)}
+.amt-btn.act{background:var(--g);color:var(--blk);border-color:var(--g)}
+.m-inp{width:100%;border:1.5px solid var(--g200);border-radius:8px;padding:11px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--blk);outline:none;transition:border-color .18s;margin-bottom:9px}
+.m-inp:focus{border-color:var(--g)}
+.m-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:13px}
+.pay-opt{border:1.5px solid var(--g200);background:var(--wht);border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.pay-opt:hover{border-color:var(--g)}
+.pay-opt.act{border-color:var(--blk);background:var(--g50)}
+.pay-opt i{font-size:19px;color:var(--blk)}
+.pay-name{font-size:12.5px;font-weight:700}
+.pay-sub{font-size:11px;color:var(--g400)}
+.sub-btn{width:100%;background:var(--g);color:var(--blk);border:none;padding:13px;border-radius:var(--r100);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s,transform .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.sub-btn:hover{background:var(--gd);transform:translateY(-1px)}
+.sub-btn:active{transform:translateY(0)}
+.sec-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11.5px;color:var(--g400);margin-top:9px}
+.sec-note i{color:#22c55e;font-size:13px}
+.psteps{display:none}.psteps.act{display:block}
+.bank-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.bank-item{border:1.5px solid var(--g200);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.bank-item:hover{border-color:var(--g);background:rgba(181,225,83,.05)}
+.bank-item.sel{border-color:var(--blk);background:var(--g50)}
+.bank-logo{width:36px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--wht);flex-shrink:0}
+.bank-name{font-size:13.5px;font-weight:600}
+.bank-type{font-size:11px;color:var(--g400)}
+.bank-chk{margin-left:auto;color:var(--g);font-size:17px;opacity:0;transition:opacity .2s}
+.bank-item.sel .bank-chk{opacity:1}
+.card-prev{background:var(--blk);border-radius:12px;padding:18px;margin-bottom:12px;color:var(--wht)}
+.card-chip{width:28px;height:20px;background:rgba(181,225,83,.4);border-radius:4px;margin-bottom:14px}
+.card-num{font-size:15px;letter-spacing:2px;font-weight:600;margin-bottom:8px;font-family:monospace}
+.card-bot{display:flex;justify-content:space-between;font-size:11px;opacity:.75}
+.proc{text-align:center;padding:24px 0;display:none}
+.spinner{width:50px;height:50px;border:4px solid var(--g100);border-top-color:var(--g);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+.proc-title{font-size:16px;font-weight:700;margin-bottom:5px}
+.proc-sub{font-size:13px;color:var(--g400)}
+.succ{text-align:center;padding:8px 0;display:none}
+.succ-icon{width:66px;height:66px;background:rgba(181,225,83,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 13px;animation:pop .4s cubic-bezier(.175,.885,.32,1.275)}
+.succ-icon i{color:var(--g);font-size:32px}
+.succ-title{font-size:19px;font-weight:800;margin-bottom:5px}
+.succ-desc{font-size:13.5px;color:var(--g600);line-height:1.7;margin-bottom:13px}
+.receipt{background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:13px;text-align:left;margin-bottom:12px}
+.r-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--g200)}
+.r-row:last-child{border-bottom:none;font-weight:700}
+.r-key{color:var(--g400)}
+.done-btn{width:100%;background:var(--g);color:var(--blk);border:none;padding:13px;border-radius:var(--r100);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.done-btn:hover{background:var(--gd)}
+.back-btn{display:block;margin:9px auto 0;background:none;border:none;color:var(--g400);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:color .15s}
+.back-btn:hover{color:var(--blk)}
+
+/* ====== RESPONSIVE ====== */
+@media(max-width:900px){
+  .nav-links,.nav-brand{display:none}
+  .hamburger{display:flex}
+  .nav-logo-right{display:flex!important;order:-1;margin-right:auto;height:34px}
+  .nav-logo-right img[src=""]{display:none}
+  #logo-text-fallback{display:flex!important}
+  .counter-section{grid-template-columns:80px 1fr 80px;gap:12px}
+  .c-img-big{width:76px;height:76px}
+  .c-img-sm{width:56px;height:56px}
+  .fast-cards{grid-template-columns:1fr}
+  .campaign-grid{grid-template-columns:1fr;border-radius:var(--r16)}
+  .camp-card{border-right:none;border-bottom:1px solid var(--g200)}
+  .camp-card:last-child{border-bottom:none}
+  .c-side{flex-direction:row}
+  .footer-top{grid-template-columns:1fr 1fr;gap:24px}
+}
+@media(max-width:600px){
+  .counter-section{gap:16px}
+  .c-side:first-child .c-img-sm,.c-side:last-child .c-img-sm{display:none}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .social-links{flex-wrap:wrap}
+  .hero-big{font-size:52px}
+}
+
+/* ==== DONATION TOAST NOTIFICATION ==== */
+.toast-container{
+  position:fixed;top:72px;right:20px;z-index:9999;
+  display:flex;flex-direction:column;gap:10px;
+  pointer-events:none;
+}
+.toast{
+  display:flex;align-items:center;gap:12px;
+  background:var(--wht);
+  border:1px solid var(--g200);
+  border-radius:14px;
+  padding:12px 16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.12);
+  min-width:280px;max-width:340px;
+  pointer-events:all;
+  animation:toastIn .45s cubic-bezier(.22,1,.36,1) both;
+  position:relative;overflow:hidden;
+}
+.toast.toast-out{
+  animation:toastOut .35s cubic-bezier(.55,0,1,.45) both;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(110%)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes toastOut{
+  from{opacity:1;transform:translateX(0)}
+  to{opacity:0;transform:translateX(110%)}
+}
+.toast-progress{
+  position:absolute;bottom:0;left:0;height:3px;
+  background:var(--g);border-radius:0 2px 2px 0;
+  animation:toastProgress 5s linear both;
+}
+@keyframes toastProgress{from{width:100%}to{width:0%}}
+.toast-avatar{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:800;color:var(--wht);flex-shrink:0;
+}
+.toast-body{flex:1;min-width:0}
+.toast-name{font-size:13.5px;font-weight:700;color:var(--blk)}
+.toast-detail{font-size:12px;color:var(--g500);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast-amt{font-size:15px;font-weight:800;color:var(--blk);white-space:nowrap;flex-shrink:0}
+.toast-close{
+  position:absolute;top:8px;right:8px;
+  background:none;border:none;color:var(--g400);
+  font-size:16px;cursor:pointer;line-height:1;padding:0;
+  transition:color .15s;
+}
+.toast-close:hover{color:var(--blk)}
+@media(max-width:500px){
+  .toast-container{top:68px;left:auto;right:10px}
+  .toast{min-width:260px;max-width:calc(100vw - 20px)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-brand">
+      <span class="nav-star">✦</span>
+      <span class="nav-name">Yayasan Harapan</span>
+    </div>
+    <div class="nav-links">
+      <a onclick="goTo('home')">Home</a>
+      <a onclick="goTo('urgent')">Donation</a>
+      <a onclick="goTo('how')">How It Works</a>
+      <a onclick="goTo('faq')">About Us</a>
+    </div>
+  </div>
+  <div class="nav-logo-right">
+    <img src="" alt="Logo Syarikat" id="company-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onload="this.nextElementSibling.style.display='none'">
+    <div id="logo-text-fallback" style="display:flex;align-items:center;gap:7px;font-size:15px;font-weight:800;color:#111;letter-spacing:-.2px"><span style="color:#b5e153;font-size:20px">✦</span> Yayasan Harapan</div>
+  </div>
+  <button class="hamburger" id="hbg" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mmenu">
+  <a onclick="goTo('home');closeMenu()">Home</a>
+  <a onclick="goTo('urgent');closeMenu()">Donation</a>
+  <a onclick="goTo('how');closeMenu()">How It Works</a>
+  <a onclick="goTo('faq');closeMenu()">About Us</a>
+</div>
+
+<!-- HERO -->
+<div class="hero-wrap" id="home">
+  <div class="hero">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1400&q=85&auto=format&fit=crop&crop=top"
+      alt="Helping hands reaching toward each other">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-big">Yayasan<br>Harapan</div>
+      <div class="hero-right">
+        <div class="hero-tagline">Help<br>Others</div>
+        <button class="btn-start" onclick="goTo('urgent')">Mula Menyumbang</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAST -->
+<div class="fast-section">
+  <div class="fast-headline anim-fadeup">Fund, Fast As <em>Flash</em></div>
+  <div class="fast-sub anim-fadeup d1">Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform.</div>
+  <div class="fast-cards">
+    <div class="fast-card anim-fadeup d1">
+      <div class="fast-icon"><i class="ti ti-bolt"></i></div>
+      <h3>Ignite Impact</h3>
+      <p>Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference.</p>
+    </div>
+    <div class="fast-card anim-fadeup d2">
+      <div class="fast-icon"><i class="ti ti-speakerphone"></i></div>
+      <h3>Spread The Word</h3>
+      <p>Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms.</p>
+    </div>
+    <div class="fast-card anim-fadeup d3">
+      <div class="fast-icon"><i class="ti ti-world"></i></div>
+      <h3>Connect Globally</h3>
+      <p>Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities.</p>
+    </div>
+  </div>
+</div>
+
+<!-- URGENT -->
+<div class="urgent-section" id="urgent">
+  <h2 class="anim-fadeup">Urgent Fundraising!</h2>
+  <div class="urgent-sub anim-fadeup d1">Time is of the essence! Join our mission NOW to make an immediate impact. Every second counts!</div>
+  <div class="campaign-grid anim-scalein">
+    <div class="camp-card" onclick="openDonate('GreenFund: Sustain Earth Now','https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=120&q=80','We Care')">
+      <img class="camp-img" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=80&auto=format" alt="Green environment">
+      <div class="camp-body">
+        <div class="camp-org"><i class="ti ti-circle-check-filled"></i> We Care</div>
+        <h3>GreenFund: Sustain Earth Now</h3>
+        <div class="camp-prog"><div class="camp-bar" data-w="72%"></div></div>
+        <div class="camp-meta"><span class="camp-raised">RM 50,240</span><span class="camp-days"><span>7</span> days left</span></div>
+        <button class="camp-btn" onclick="event.stopPropagation();openDonate('GreenFund: Sustain Earth Now','https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=120&q=80','We Care')">Donate Now</button>
+      </div>
+    </div>
+    <div class="camp-card" onclick="openDonate('SeniorHealth: Support Campaign','https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=120&q=80','Unicef')">
+      <img class="camp-img" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&auto=format" alt="Senior health">
+      <div class="camp-body">
+        <div class="camp-org"><i class="ti ti-circle-check-filled"></i> Unicef</div>
+        <h3>SeniorHealth: Support Campaign</h3>
+        <div class="camp-prog"><div class="camp-bar" data-w="45%"></div></div>
+        <div class="camp-meta"><span class="camp-raised">RM 4,240</span><span class="camp-days"><span>19</span> days left</span></div>
+        <button class="camp-btn" onclick="event.stopPropagation();openDonate('SeniorHealth: Support Campaign','https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=120&q=80','Unicef')">Donate Now</button>
+      </div>
+    </div>
+    <div class="camp-card" onclick="openDonate('DisasterCare: Urgent Support','https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=120&q=80','Unity Foundation')">
+      <img class="camp-img" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=700&q=80&auto=format" alt="Disaster relief">
+      <div class="camp-body">
+        <div class="camp-org">Unity Foundation</div>
+        <h3>DisasterCare: Urgent Support</h3>
+        <div class="camp-prog"><div class="camp-bar" data-w="88%"></div></div>
+        <div class="camp-meta"><span class="camp-raised">RM 2,100</span><span class="camp-days"><span>23</span> days left</span></div>
+        <button class="camp-btn" onclick="event.stopPropagation();openDonate('DisasterCare: Urgent Support','https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=120&q=80','Unity Foundation')">Donate Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COUNTER -->
+<div style="width:100%;overflow:hidden">
+<div class="counter-section" id="how">
+  <div class="c-side anim-left">
+    <img class="c-img-big" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=280&q=80&fit=crop&auto=format" alt="">
+    <img class="c-img-sm" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=200&q=80&fit=crop&auto=format" alt="">
+  </div>
+  <div class="c-center anim-fadeup">
+    <div class="c-pre">Be The Part Of FundRaisers With Over</div>
+    <div class="c-num" id="cnum">217,924+</div>
+    <div class="c-post">People From Around The World Joined</div>
+    <button class="btn-join" onclick="openMainDonate()">Sertai Sekarang!</button>
+  </div>
+  <div class="c-side anim-right">
+    <img class="c-img-sm" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=200&q=80&fit=crop&auto=format" onerror="this.style.display='none'" alt="">
+    <img class="c-img-big" src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=280&q=80&fit=crop&auto=format" onerror="this.style.display='none'" alt="">
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section" id="faq">
+  <h2 class="anim-fadeup">Frequently Asked<br>Questions.</h2>
+  <div id="faq-list"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-row"><span class="fstar">✦</span> Yayasan Harapan</div>
+        <div class="footer-desc">Bersama membantu mereka yang memerlukan.<br>Setiap sumbangan memberi impak nyata.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Donate</h4>
+        <div class="f-link-wrap">
+          <div class="f-link-col"><a>Education</a><a>Medicine</a></div>
+          <div class="f-link-col"><a>Social</a><a>Disaster</a></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a>FAQ</a><a>Privacy Policy</a><a>Accessibility</a><a>Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a>About Us</a><a>Careers</a><a>Services</a><a>Pricing</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© Yayasan Harapan 2024<br>All Rights Reserved.</div>
+    <div class="social-links">
+      <a class="social-link"><i class="ti ti-brand-instagram"></i> Instagram</a>
+      <a class="social-link"><i class="ti ti-brand-facebook"></i> Facebook</a>
+      <a class="social-link"><i class="ti ti-brand-twitter"></i> Twitter</a>
+      <a class="social-link"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title"><i class="ti ti-lock"></i> Secure Payment Simulation</div>
+        <div class="modal-sub">Yayasan Harapan · Demo Gateway</div>
+      </div>
+      <button class="modal-x" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="m-camp" id="m-camp">
+        <img class="m-thumb" id="m-thumb" src="" alt="">
+        <div><div class="m-cname" id="m-cname">Best Use</div><div class="m-corg" id="m-corg">Yayasan Harapan</div></div>
+      </div>
+      <div class="m-amtrow">
+        <div><div class="m-alabel">Donation Amount</div><div class="m-atype" id="m-atype">One Time</div></div>
+        <div class="m-aval" id="m-aval">RM 30.00</div>
+      </div>
+
+      <!-- Step: Details -->
+      <div class="psteps act" id="s-details">
+        <div class="type-tabs">
+          <button class="type-tab act" onclick="setTab(this,'One Time')">Once</button>
+          <button class="type-tab" onclick="setTab(this,'Monthly')">Monthly</button>
+          <button class="type-tab" onclick="setTab(this,'Yearly')">Yearly</button>
+        </div>
+        <label class="flabel">Amount (RM)</label>
+        <div class="amt-grid">
+          <button class="amt-btn" onclick="pickAmt(this,10)">RM10</button>
+          <button class="amt-btn act" onclick="pickAmt(this,30)">RM30</button>
+          <button class="amt-btn" onclick="pickAmt(this,50)">RM50</button>
+          <button class="amt-btn" onclick="pickAmt(this,100)">RM100</button>
+          <button class="amt-btn" onclick="pickAmt(this,200)">RM200</button>
+          <button class="amt-btn" onclick="pickAmt(this,500)">RM500</button>
+          <button class="amt-btn" onclick="pickAmt(this,1000)">RM1K</button>
+          <button class="amt-btn" onclick="pickAmt(this,0,'c')">Other</button>
+        </div>
+        <input class="m-inp" id="camt" type="number" placeholder="Enter amount (RM)" style="display:none" oninput="setCA(this.value)">
+        <div class="m-row" style="margin-bottom:9px">
+          <input class="m-inp" style="margin-bottom:0" type="text" placeholder="Full name" id="dname">
+          <input class="m-inp" style="margin-bottom:0" type="email" placeholder="Email for receipt" id="demail">
+        </div>
+        <label class="flabel" style="margin-top:9px">Payment Method</label>
+        <div class="pay-grid">
+          <button class="pay-opt act" onclick="pickPay(this,'fpx')"><i class="ti ti-building-bank"></i><div><div class="pay-name">FPX Online</div><div class="pay-sub">Internet Banking</div></div></button>
+          <button class="pay-opt" onclick="pickPay(this,'card')"><i class="ti ti-credit-card"></i><div><div class="pay-name">Credit/Debit</div><div class="pay-sub">Visa / Mastercard</div></div></button>
+          <button class="pay-opt" onclick="pickPay(this,'qr')"><i class="ti ti-qrcode"></i><div><div class="pay-name">DuitNow QR</div><div class="pay-sub">Scan & Pay</div></div></button>
+          <button class="pay-opt" onclick="pickPay(this,'ew')"><i class="ti ti-wallet"></i><div><div class="pay-name">e-Wallet</div><div class="pay-sub">TnG / GrabPay</div></div></button>
+        </div>
+        <button class="sub-btn" onclick="goStep()"><i class="ti ti-lock"></i> Continue Payment</button>
+        <div class="sec-note"><i class="ti ti-shield-check"></i> Simulated secure · SSL 256-bit · PCI DSS</div>
+      </div>
+
+      <!-- Step: FPX -->
+      <div class="psteps" id="s-fpx">
+        <label class="flabel">Choose Your Bank</label>
+        <div class="bank-list">
+          <div class="bank-item" onclick="selBank(this,'fpx-go')"><div class="bank-logo" style="background:#cc0001">MAY</div><div><div class="bank-name">Maybank2u</div><div class="bank-type">Internet Banking</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'fpx-go')"><div class="bank-logo" style="background:#003087">CIMB</div><div><div class="bank-name">CIMB Clicks</div><div class="bank-type">Internet Banking</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'fpx-go')"><div class="bank-logo" style="background:#007dc5">PBB</div><div><div class="bank-name">Public Bank</div><div class="bank-type">Internet Banking</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'fpx-go')"><div class="bank-logo" style="background:#e10000">RHB</div><div><div class="bank-name">RHB Bank</div><div class="bank-type">Internet Banking</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'fpx-go')"><div class="bank-logo" style="background:#006838">BSN</div><div><div class="bank-name">BSN Malaysia</div><div class="bank-type">Internet Banking</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+        </div>
+        <button class="sub-btn" id="fpx-go" style="opacity:.35;pointer-events:none" onclick="doProc()">Continue to Bank <i class="ti ti-arrow-right"></i></button>
+        <button class="back-btn" onclick="goBack()">← Back</button>
+      </div>
+
+      <!-- Step: Card -->
+      <div class="psteps" id="s-card">
+        <div class="card-prev">
+          <div class="card-chip"></div>
+          <div class="card-num" id="cnum-d">•••• •••• •••• ••••</div>
+          <div class="card-bot"><div><div style="font-size:9px;opacity:.6;margin-bottom:2px">NAME</div><span id="cname-d">YOUR NAME</span></div><div><div style="font-size:9px;opacity:.6;margin-bottom:2px">EXPIRES</div><span id="cexp-d">MM/YY</span></div></div>
+        </div>
+        <input class="m-inp" type="text" placeholder="Name on card" oninput="document.getElementById('cname-d').textContent=this.value.toUpperCase()||'YOUR NAME'">
+        <input class="m-inp" type="text" placeholder="Card number (16 digits)" maxlength="19" oninput="fCard(this)">
+        <div class="m-row"><input class="m-inp" style="margin-bottom:0" type="text" placeholder="MM/YY" maxlength="5" oninput="fExp(this)"><input class="m-inp" style="margin-bottom:0" type="text" placeholder="CVV" maxlength="3"></div>
+        <div style="height:9px"></div>
+        <button class="sub-btn" onclick="doProc()"><i class="ti ti-lock"></i> Pay Now</button>
+        <button class="back-btn" onclick="goBack()">← Back</button>
+      </div>
+
+      <!-- Step: QR -->
+      <div class="psteps" id="s-qr">
+        <div style="text-align:center;padding:8px 0">
+          <div style="width:148px;height:148px;background:var(--g50);border:1px solid var(--g200);border-radius:12px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><i class="ti ti-qrcode" style="font-size:80px;color:var(--g200)"></i></div>
+          <div style="font-weight:700;margin-bottom:5px;font-size:15px">Scan DuitNow QR</div>
+          <div style="font-size:13px;color:var(--g500);line-height:1.7;margin-bottom:12px">Open your banking app → DuitNow QR → Scan</div>
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:9px 14px;font-size:12.5px;color:#166534;display:inline-block;margin-bottom:14px;animation:pulse 2s infinite">⏳ Waiting for confirmation...</div>
+          <button class="sub-btn" onclick="doProc()">I've Paid ✓</button>
+          <button class="back-btn" onclick="goBack()">← Back</button>
+        </div>
+      </div>
+
+      <!-- Step: eWallet -->
+      <div class="psteps" id="s-ew">
+        <label class="flabel">Choose e-Wallet</label>
+        <div class="bank-list">
+          <div class="bank-item" onclick="selBank(this,'ew-go')"><div class="bank-logo" style="background:#00a651">TnG</div><div><div class="bank-name">Touch 'n Go</div><div class="bank-type">e-Wallet Malaysia</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'ew-go')"><div class="bank-logo" style="background:#00b14f">GRB</div><div><div class="bank-name">GrabPay</div><div class="bank-type">e-Wallet</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'ew-go')"><div class="bank-logo" style="background:#1da462">BST</div><div><div class="bank-name">Boost</div><div class="bank-type">e-Wallet Malaysia</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+          <div class="bank-item" onclick="selBank(this,'ew-go')"><div class="bank-logo" style="background:#f60">SHP</div><div><div class="bank-name">ShopeePay</div><div class="bank-type">e-Wallet</div></div><i class="ti ti-circle-check bank-chk"></i></div>
+        </div>
+        <button class="sub-btn" id="ew-go" style="opacity:.35;pointer-events:none" onclick="doProc()">Continue <i class="ti ti-arrow-right"></i></button>
+        <button class="back-btn" onclick="goBack()">← Back</button>
+      </div>
+
+      <!-- Processing -->
+      <div class="proc" id="proc">
+        <div class="spinner"></div>
+        <div class="proc-title">Processing Payment...</div>
+        <div class="proc-sub">Please wait. Do not close this window.</div>
+      </div>
+
+      <!-- Success -->
+      <div class="succ" id="succ">
+        <div class="succ-icon"><i class="ti ti-check"></i></div>
+        <div class="succ-title">Thank You! 🎉</div>
+        <p class="succ-desc">Your donation has been received. May your generosity be blessed.</p>
+        <div class="receipt">
+          <div class="r-row"><span class="r-key">Reference No.</span><span id="r-ref">–</span></div>
+          <div class="r-row"><span class="r-key">Date & Time</span><span id="r-date">–</span></div>
+          <div class="r-row"><span class="r-key">Name</span><span id="r-name">–</span></div>
+          <div class="r-row"><span class="r-key">Campaign</span><span id="r-prog">–</span></div>
+          <div class="r-row"><span class="r-key">Method</span><span id="r-meth">–</span></div>
+          <div class="r-row"><span class="r-key">Amount</span><span id="r-amt">–</span></div>
+        </div>
+        <p style="font-size:11.5px;color:var(--g400);margin-bottom:12px"><i class="ti ti-mail"></i> Tax receipt will be emailed within 24 hours</p>
+        <button class="done-btn" onclick="closeModal()"><i class="ti ti-check"></i> Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── FAQ ── */
+const faqs=[
+  {q:'How Can I Make Donation?',a:'Choose a campaign, click Donate Now, select your amount, fill in your details, choose a payment method and complete checkout. The entire process takes under 2 minutes.'},
+  {q:'Is My Donation Tax-Deductible?',a:'Yes! Yayasan Harapan is approved under Section 44(6) of the Income Tax Act. An official LHDN receipt is automatically issued for every donation.'},
+  {q:'Can I Donate In Honor Or Memory Of Someone?',a:'Absolutely. You can dedicate a donation in honour or in memory of someone special. Enter their name during checkout and we will acknowledge the dedication.'},
+  {q:'How Will My Donation Be Used?',a:'98% of all donations go directly to beneficiaries. Only 2% covers essential operational costs. Annual financial reports are independently audited and published publicly.'},
+  {q:'Can I Set Up A Recurring Donation?',a:'Yes! Select Monthly or Yearly during the donation flow. You can cancel at any time by emailing us directly.'}
+];
+var fl=document.getElementById('faq-list');
+faqs.forEach(function(f,i){
+  var div=document.createElement('div');
+  div.className='faq-item anim-fadeup';
+  div.style.transitionDelay=(i*0.07)+'s';
+  var btn=document.createElement('button');
+  btn.className='faq-q';
+  btn.textContent=f.q;
+  var span=document.createElement('span');
+  span.className='faq-plus';
+  span.textContent='+';
+  btn.appendChild(span);
+  btn.onclick=function(){tFaq(this);};
+  var ans=document.createElement('div');
+  ans.className='faq-a';
+  ans.textContent=f.a;
+  div.appendChild(btn);
+  div.appendChild(ans);
+  fl.appendChild(div);
+});
+function tFaq(btn){
+  var it=btn.parentElement,was=it.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(e){e.classList.remove('open');});
+  if(!was)it.classList.add('open');
+}
+
+/* ── NAV mobile ── */
+function toggleMenu(){
+  document.getElementById('hbg').classList.toggle('open');
+  document.getElementById('mmenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mmenu').classList.remove('open');
+}
+function goTo(id){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ── SCROLL ANIMATIONS ── */
+var sObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');sObs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.anim-fadeup,.anim-scalein,.anim-left,.anim-right').forEach(function(el){sObs.observe(el);});
+
+/* ── PROGRESS BARS ── */
+var bObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.camp-bar').forEach(function(bar){
+        var w=bar.dataset.w;
+        setTimeout(function(){bar.style.width=w;},120);
+      });
+      bObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.campaign-grid').forEach(function(g){bObs.observe(g);});
+
+/* ── COUNTER ANIMATE ── */
+var baseCount=217924;
+var displayCount=0;
+var countStarted=false;
+
+function animateCount(target,duration){
+  var el=document.getElementById('cnum');
+  var startTime=performance.now();
+  function step(now){
+    var elapsed=now-startTime;
+    var progress=Math.min(elapsed/duration,1);
+    var ease=progress===1?1:1-Math.pow(2,-10*progress);
+    displayCount=Math.floor(target*ease);
+    el.textContent=displayCount.toLocaleString('ms-MY')+'+';
+    if(progress<1){requestAnimationFrame(step);}
+    else{displayCount=target;el.textContent=displayCount.toLocaleString('ms-MY')+'+';startLiveIncrement();}
+  }
+  requestAnimationFrame(step);
+}
+
+function startLiveIncrement(){
+  function tick(){
+    var add=Math.floor(Math.random()*3)+1;
+    displayCount+=add;
+    var el=document.getElementById('cnum');
+    if(el){
+      el.style.transform='scale(1.04)';
+      el.textContent=displayCount.toLocaleString('ms-MY')+'+';
+      setTimeout(function(){el.style.transform='scale(1)';},220);
+    }
+    setTimeout(tick,Math.random()*5000+4000);
+  }
+  setTimeout(tick,Math.random()*4000+3000);
+}
+
+var cnObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting&&!countStarted){
+      countStarted=true;
+      animateCount(baseCount,2200);
+      cnObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+var cnEl=document.getElementById('cnum');
+if(cnEl){cnEl.textContent='0+';cnObs.observe(cnEl);}
+
+/* ── DONOR FEED ── */
+var CAMPAIGNS=['GreenFund: Sustain Earth Now','SeniorHealth: Support Campaign','DisasterCare: Urgent Support'];
+var FIRST=['Ahmad','Siti','Muhammad','Nurul','Hafiz','Amirah','Zulkifli','Farah','Rashid','Liyana','Azri','Nadia','Khairul','Dina','Syafiq','Hana','Izzat','Rania','Faris','Ain'];
+var LAST=['Abdullah','Rahman','Hassan','Ibrahim','Yusof','Aziz','Ismail','Omar','Hamid','Karim','Lim','Tan','Lee','Wong','Kumar','Singh'];
+var COLORS=['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#059669','#9333ea','#ea580c','#0284c7'];
+var AMOUNTS=[10,20,30,50,100,150,200,500];
+var donorLog=[];
+
+function randFrom(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function initials(name){return name[0].toUpperCase();}
+function timeAgo(secs){
+  if(secs<60)return secs+'s ago';
+  if(secs<3600)return Math.floor(secs/60)+'m ago';
+  return Math.floor(secs/3600)+'h ago';
+}
+
+function maskName(name){
+  var parts=name.trim().split(' ');
+  var first=parts[0];
+  var masked=first.substring(0,Math.min(4,first.length));
+  for(var i=0;i<Math.max(2,first.length-Math.min(4,first.length));i++) masked+='*';
+  return masked;
+}
+function makeDonorObj(isNew){
+  var fname=randFrom(FIRST);
+  var campaign=randFrom(CAMPAIGNS);
+  var amount=randFrom(AMOUNTS);
+  var color=randFrom(COLORS);
+  var ts=isNew?0:Math.floor(Math.random()*3500+30);
+  return {name:maskName(fname),campaign:campaign,amount:amount,color:color,ts:ts,addedAt:0,id:Math.random()};
+}
+
+function showToast(d){
+  var container=document.getElementById('toast-container');
+  if(!container)return;
+  var toast=document.createElement('div');
+  toast.className='toast';
+  var av=document.createElement('div');
+  av.className='toast-avatar';
+  av.style.background=d.color;
+  av.textContent=initials(d.name);
+  var body=document.createElement('div');
+  body.className='toast-body';
+  var nm=document.createElement('div');
+  nm.className='toast-name';
+  nm.textContent=d.name+' baru sahaja menderma';
+  var dt=document.createElement('div');
+  dt.className='toast-detail';
+  dt.textContent=d.campaign;
+  body.appendChild(nm);
+  body.appendChild(dt);
+  var amt=document.createElement('div');
+  amt.className='toast-amt';
+  amt.textContent='RM '+d.amount;
+  var close=document.createElement('button');
+  close.className='toast-close';
+  close.textContent='x';
+  close.onclick=function(){dismissToast(toast);};
+  var prog=document.createElement('div');
+  prog.className='toast-progress';
+  toast.appendChild(av);
+  toast.appendChild(body);
+  toast.appendChild(amt);
+  toast.appendChild(close);
+  toast.appendChild(prog);
+  container.appendChild(toast);
+  if(container.children.length>3){
+    dismissToast(container.children[0]);
+  }
+  setTimeout(function(){dismissToast(toast);},5000);
+}
+
+function dismissToast(toast){
+  if(!toast||!toast.parentElement)return;
+  toast.classList.add('toast-out');
+  setTimeout(function(){if(toast.parentElement)toast.parentElement.removeChild(toast);},350);
+}
+
+function renderDonors(){
+  // kept for compatibility - no longer renders a list
+}
+
+function addNewDonor(customName,customCampaign,customAmt){
+  var d=makeDonorObj(true);
+  if(customName)d.name=customName;
+  if(customCampaign)d.campaign=customCampaign;
+  if(customAmt)d.amount=customAmt;
+  d.addedAt=Date.now();
+  showToast(d);
+  displayCount+=1;
+  var el=document.getElementById('cnum');
+  if(el&&countStarted){
+    el.style.transform='scale(1.06)';
+    el.textContent=displayCount.toLocaleString('ms-MY')+'+';
+    setTimeout(function(){el.style.transform='scale(1)';},260);
+  }
+}
+
+function seedDonors(){
+  // toast mode - no seed list needed
+}
+seedDonors();
+
+function scheduleDonor(){
+  setTimeout(function(){addNewDonor();scheduleDonor();},Math.random()*8000+6000);
+}
+scheduleDonor();
+
+/* ── MODAL STATE ── */
+var amt=30,method='fpx',camp={name:'Best Use',thumb:'',org:'Yayasan Harapan'},typ='One Time';
+
+function openDonate(name,thumb,org){
+  camp={name:name,thumb:thumb,org:org};
+  document.getElementById('m-cname').textContent=name;
+  document.getElementById('m-corg').textContent=org;
+  var th=document.getElementById('m-thumb');
+  th.src=thumb;th.style.display='block';
+  showModal();
+}
+function openMainDonate(){
+  camp={name:'Best Use',thumb:'',org:'Yayasan Harapan'};
+  document.getElementById('m-cname').textContent='Best Use';
+  document.getElementById('m-corg').textContent='Yayasan Harapan';
+  document.getElementById('m-thumb').style.display='none';
+  showModal();
+}
+function showModal(){resetM();document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
+function resetM(){
+  amt=30;method='fpx';
+  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+  document.getElementById('s-details').classList.add('act');
+  document.getElementById('proc').style.display='none';
+  document.getElementById('succ').style.display='none';
+  document.querySelectorAll('.amt-btn').forEach(function(b,i){b.classList.toggle('act',i===1);});
+  document.querySelectorAll('.pay-opt').forEach(function(b,i){b.classList.toggle('act',i===0);});
+  document.getElementById('camt').style.display='none';
+  updAmt();
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===document.getElementById('modal'))closeModal();});
+
+function pickAmt(btn,v,mode){
+  document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('act');});
+  btn.classList.add('act');
+  var cf=document.getElementById('camt');
+  if(mode==='c'){cf.style.display='block';cf.focus();amt=0;}
+  else{cf.style.display='none';amt=v;}
+  updAmt();
+}
+function setCA(v){amt=parseFloat(v)||0;updAmt();}
+function setTab(btn,t){
+  document.querySelectorAll('.type-tab').forEach(function(b){b.classList.remove('act');});
+  btn.classList.add('act');typ=t;
+  document.getElementById('m-atype').textContent=t;
+}
+function pickPay(btn,m){
+  document.querySelectorAll('.pay-opt').forEach(function(b){b.classList.remove('act');});
+  btn.classList.add('act');method=m;
+}
+function updAmt(){
+  document.getElementById('m-aval').textContent='RM '+(amt||0).toLocaleString('ms-MY',{minimumFractionDigits:2});
+}
+function goStep(){
+  if(!amt||amt<=0){alert('Please enter a valid donation amount.');return;}
+  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+  document.getElementById('s-'+method).classList.add('act');
+}
+function goBack(){
+  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+  document.getElementById('s-details').classList.add('act');
+}
+function selBank(item,btnId){
+  item.closest('.bank-list').querySelectorAll('.bank-item').forEach(function(i){i.classList.remove('sel');});
+  item.classList.add('sel');
+  var b=document.getElementById(btnId);
+  if(b){b.style.opacity='1';b.style.pointerEvents='auto';}
+}
+function doProc(){
+  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+  document.getElementById('proc').style.display='block';
+  var now=new Date();
+  document.getElementById('r-ref').textContent='YHM-'+now.getFullYear()+'-'+Math.floor(10000+Math.random()*89999);
+  document.getElementById('r-date').textContent=now.toLocaleDateString('ms-MY')+' - '+now.toLocaleTimeString('ms-MY',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('r-name').textContent=document.getElementById('dname').value||'-';
+  document.getElementById('r-prog').textContent=camp.name;
+  var methods={fpx:'FPX Internet Banking',card:'Credit/Debit Card',qr:'DuitNow QR',ew:'e-Wallet'};
+  document.getElementById('r-meth').textContent=methods[method]||method;
+  document.getElementById('r-amt').textContent='RM '+(amt||0).toLocaleString('ms-MY',{minimumFractionDigits:2});
+  setTimeout(function(){
+    document.getElementById('proc').style.display='none';
+    document.getElementById('succ').style.display='block';
+    var rawName=document.getElementById('dname').value;
+    var toastName=rawName&&rawName.trim()?maskName(rawName.trim()):maskName(randFrom(FIRST));
+    addNewDonor(toastName,camp.name,amt);
+  },2800);
+}
+function fCard(input){
+  var v=input.value.replace(/\D/g,'').substring(0,16);
+  input.value=v.match(/.{1,4}/g)?v.match(/.{1,4}/g).join(' '):v;
+  var d=document.getElementById('cnum-d');
+  if(d)d.textContent=v.padEnd(16,String.fromCharCode(8226)).replace(/(.{4})/g,'$1 ').trim();
+}
+function fExp(input){
+  var v=input.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2);
+  input.value=v;
+  var d=document.getElementById('cexp-d');
+  if(d)d.textContent=v||'MM/YY';
+}
+</script>
+
+<div class="toast-container" id="toast-container"></div>
+</body>
+</html>
