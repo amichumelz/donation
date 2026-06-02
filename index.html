@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yayasan Harapan — Fund Help Others</title>
+<title>Amal Satu Hati — Fund Help Others</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
@@ -92,21 +92,30 @@ nav{
 .mobile-menu a{font-size:15px;font-weight:500;color:var(--blk);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--g100);cursor:pointer}
 .mobile-menu .m-cta{margin-top:8px;background:var(--g);color:var(--blk);text-align:center;border-radius:var(--r100);padding:12px;font-weight:700;border-bottom:none}
 
-/* ====== HERO ====== */
+/* ====== HERO SLIDESHOW ====== */
+@keyframes slideFade{0%{opacity:0;transform:scale(1.04)}8%{opacity:1;transform:scale(1)}88%{opacity:1;transform:scale(1.02)}100%{opacity:0;transform:scale(1.02)}}
+@keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 .hero-wrap{padding:74px 16px 0;background:var(--wht)}
 .hero{
   border-radius:20px;overflow:hidden;
   position:relative;height:clamp(320px,55vw,480px);
   background:#c8d8c0;
 }
-.hero-img{
+.hero-slide{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  opacity:0;
+  transition:opacity .8s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.hero-slide.active{opacity:1;pointer-events:all;z-index:1}
+.hero-slide img{
   width:100%;height:100%;object-fit:cover;object-position:center 25%;
   display:block;
-  animation:scaleIn .9s cubic-bezier(.22,1,.36,1) both;
 }
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.05) 55%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.58) 0%,rgba(0,0,0,.08) 55%);z-index:2}
 .hero-content{
-  position:absolute;inset:0;
+  position:absolute;inset:0;z-index:3;
   display:flex;align-items:flex-end;justify-content:space-between;
   padding:clamp(16px,3vw,32px) clamp(20px,4vw,40px);
   gap:12px;
@@ -138,6 +147,14 @@ nav{
 }
 .btn-start:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 20px rgba(181,225,83,.45)}
 .btn-start:active{transform:translateY(0)}
+/* Slideshow controls */
+.hero-dots{position:absolute;bottom:clamp(12px,2vw,20px);left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:7px;align-items:center}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);border:none;cursor:pointer;padding:0;transition:all .3s;flex-shrink:0}
+.hero-dot.active{background:var(--g);width:22px;border-radius:10px}
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);color:var(--wht);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .2s,transform .2s;line-height:1}
+.hero-arrow:hover{background:rgba(255,255,255,.32);transform:translateY(-50%) scale(1.07)}
+.hero-arrow.prev{left:clamp(10px,2vw,18px)}
+.hero-arrow.next{right:clamp(10px,2vw,18px)}
 
 /* ====== FAST SECTION ====== */
 .fast-section{padding:clamp(36px,6vw,56px) clamp(16px,4vw,40px)}
@@ -162,44 +179,121 @@ nav{
 .fast-card h3{font-size:clamp(13.5px,2vw,15px);font-weight:700;margin-bottom:7px}
 .fast-card p{font-size:clamp(12px,1.6vw,13.5px);color:var(--g500);line-height:1.7}
 
-/* ====== URGENT ====== */
-.urgent-section{padding:0 clamp(16px,4vw,40px) clamp(40px,6vw,64px)}
-.urgent-section h2{font-size:clamp(22px,4vw,30px);font-weight:800;margin-bottom:5px;letter-spacing:-.3px}
-.urgent-sub{font-size:clamp(13px,2vw,14.5px);color:var(--g600);margin-bottom:clamp(20px,3vw,30px);line-height:1.6}
-.campaign-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--g200);border-radius:var(--r16);overflow:hidden;
+/* ====== BRANDS CAROUSEL ====== */
+.brands-section{
+  padding:clamp(20px,3vw,32px) 0;
+  border-top:1px solid var(--g100);
+  border-bottom:1px solid var(--g100);
+  background:var(--wht);
+  /* NO overflow:hidden here — causes section height to collapse */
 }
-.camp-card{
-  background:var(--wht);border-right:1px solid var(--g200);
-  cursor:pointer;transition:background .15s;overflow:hidden;
+.brands-label{text-align:center;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);margin-bottom:clamp(16px,2.5vw,24px);padding:0 16px}
+.brands-track-wrap{
+  position:relative;
+  overflow:hidden;        /* clipping lives here, not on parent */
+  width:100%;
 }
-.camp-card:last-child{border-right:none}
-.camp-card:hover{background:var(--g50)}
-.camp-img{
-  width:100%;height:clamp(160px,22vw,220px);object-fit:cover;display:block;
-  transition:transform .5s cubic-bezier(.22,1,.36,1);
+.brands-track-wrap::before,.brands-track-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;
 }
-.camp-card:hover .camp-img{transform:scale(1.04)}
-.camp-body{padding:clamp(12px,2vw,16px)}
-.camp-org{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--g500);margin-bottom:4px}
-.camp-org i{color:var(--blue);font-size:13px}
-.camp-card h3{font-size:clamp(13px,2vw,15px);font-weight:700;margin-bottom:clamp(8px,1.5vw,12px);line-height:1.3}
-.camp-prog{background:var(--g100);border-radius:100px;height:4px;overflow:hidden;margin-bottom:9px}
-.camp-bar{height:100%;background:var(--g);border-radius:100px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.camp-meta{display:flex;justify-content:space-between;font-size:clamp(11px,1.6vw,13px)}
-.camp-raised{font-weight:700}
-.camp-days{color:var(--g500)}
-.camp-days span{color:var(--blk);font-weight:600}
-.camp-btn{
-  width:100%;margin-top:10px;
-  background:var(--blk);color:var(--wht);border:none;
-  padding:9px;border-radius:8px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  cursor:pointer;transition:background .15s;
+.brands-track-wrap::before{left:0;background:linear-gradient(to right,var(--wht) 10%,transparent)}
+.brands-track-wrap::after{right:0;background:linear-gradient(to left,var(--wht) 10%,transparent)}
+.brands-track{
+  display:flex;
+  align-items:center;
+  gap:clamp(16px,3vw,32px);
+  padding:8px 0;
+  /* Use JS-driven duplicate trick — translate only the first half */
+  animation:brandScroll 32s linear infinite;
+  width:max-content;
 }
-.camp-btn:hover{background:var(--g);color:var(--blk)}
+.brands-track:hover{animation-play-state:paused}
+@keyframes brandScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.brand-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 18px 9px 10px;
+  border:1px solid var(--g200);border-radius:100px;
+  background:var(--wht);white-space:nowrap;
+  cursor:default;flex-shrink:0;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+.brand-item:hover{border-color:var(--g);box-shadow:0 2px 14px rgba(181,225,83,.3);transform:translateY(-1px)}
+.brand-logo{
+  width:32px;height:32px;border-radius:50%;
+  object-fit:contain;background:var(--g100);
+  flex-shrink:0;display:block;
+  padding:3px;
+}
+.brand-logo.fallback{
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900;color:var(--wht);
+  padding:0;
+}
+.brand-name{font-size:13px;font-weight:700;color:var(--blk)}
 
+/* ====== UNIFIED DONATION SECTION ====== */
+.donate-section{padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px);background:var(--g50)}
+.donate-inner{max-width:900px;margin:0 auto}
+.donate-section h2{font-size:clamp(26px,4.5vw,42px);font-weight:900;margin-bottom:8px;letter-spacing:-.5px;line-height:1.1}
+.donate-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);margin-bottom:clamp(28px,4vw,44px);line-height:1.65;max-width:560px}
+.donate-hero{background:var(--wht);border-radius:20px;padding:clamp(24px,4vw,40px);box-shadow:0 4px 32px rgba(0,0,0,.06);border:1px solid var(--g200)}
+.donate-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(16px,3vw,32px);margin-bottom:clamp(24px,3vw,32px)}
+.d-stat{text-align:center}
+.d-stat-val{font-size:clamp(22px,4vw,38px);font-weight:900;line-height:1.1;letter-spacing:-.5px}
+.d-stat-val.raised{color:var(--blk)}
+.d-stat-val.target{color:var(--g500)}
+.d-stat-val.donors{color:var(--blue)}
+.d-stat-lbl{font-size:clamp(11px,1.5vw,13px);color:var(--g500);font-weight:600;margin-top:3px;letter-spacing:.1px}
+.donate-bar-wrap{margin-bottom:10px}
+.donate-bar-bg{background:var(--g100);border-radius:100px;height:12px;overflow:hidden;margin-bottom:8px}
+.donate-bar-fill{height:100%;background:linear-gradient(90deg,var(--g),var(--gd));border-radius:100px;width:0;transition:width 1.6s cubic-bezier(.22,1,.36,1)}
+.donate-bar-info{display:flex;justify-content:space-between;font-size:12px;color:var(--g500);font-weight:600}
+.donate-bar-pct{color:var(--blk);font-weight:800;font-size:13px}
+.donate-cta{display:flex;align-items:center;gap:16px;margin-top:clamp(20px,3vw,28px);flex-wrap:wrap}
+.btn-donate-main{
+  background:var(--blk);color:var(--wht);border:none;
+  padding:clamp(12px,1.8vw,16px) clamp(28px,3.5vw,44px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(14px,1.8vw,16px);font-weight:700;
+  cursor:pointer;transition:background .15s,transform .2s,box-shadow .2s;
+  display:flex;align-items:center;gap:8px;
+}
+.btn-donate-main:hover{background:var(--g700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.btn-donate-main:active{transform:translateY(0)}
+.donate-secure{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--g400)}
+.donate-secure i{color:#22c55e;font-size:14px}
+
+/* ====== GALLERY ====== */
+.gallery-section{padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px)}
+.gallery-section h2{font-size:clamp(22px,4vw,34px);font-weight:900;margin-bottom:6px;letter-spacing:-.4px}
+.gallery-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);margin-bottom:clamp(20px,3vw,30px);line-height:1.65}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto;
+  gap:10px;
+}
+.gal-item{border-radius:12px;overflow:hidden;position:relative;cursor:pointer;background:var(--g100)}
+.gal-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gal-item:nth-child(4){grid-column:span 2}
+.gal-item:nth-child(7){grid-column:span 2}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1);aspect-ratio:1}
+.gal-item:nth-child(1) img,.gal-item:nth-child(4) img,.gal-item:nth-child(7) img{aspect-ratio:auto;height:100%;min-height:180px}
+.gal-item:hover img{transform:scale(1.06)}
+.gal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
+.gal-item:hover .gal-overlay{background:rgba(0,0,0,.3)}
+.gal-overlay i{color:var(--wht);font-size:28px;opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s}
+.gal-item:hover .gal-overlay i{opacity:1;transform:scale(1)}
+@media(max-width:700px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-item:nth-child(1){grid-column:span 2}
+  .gal-item:nth-child(4),.gal-item:nth-child(7){grid-column:span 1}
+}
+@media(max-width:900px){
+  .donate-stats{grid-template-columns:1fr 1fr 1fr}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .gal-item:nth-child(1){grid-column:span 2}
+}
 /* ====== COUNTER ====== */
 .counter-section{
   padding:clamp(48px,8vw,80px) clamp(16px,4vw,40px);
@@ -386,9 +480,6 @@ footer{
   .nav-logo-right img[src=""]{display:none}
   #logo-text-fallback{display:flex!important}
   .fast-cards{grid-template-columns:1fr}
-  .campaign-grid{grid-template-columns:1fr;border-radius:var(--r16)}
-  .camp-card{border-right:none;border-bottom:1px solid var(--g200)}
-  .camp-card:last-child{border-bottom:none}
   .footer-top{grid-template-columns:1fr 1fr;gap:24px}
 }
 @media(max-width:600px){
@@ -401,7 +492,25 @@ footer{
   .hero-tagline{font-size:clamp(14px,4vw,20px)}
 }
 
-/* ==== DONATION TOAST NOTIFICATION ==== */
+/* ====== LANG TOGGLE ====== */
+.lang-toggle{
+  display:flex;align-items:center;
+  background:var(--g100);border:1px solid var(--g200);
+  border-radius:100px;padding:3px;gap:2px;
+  margin-right:10px;flex-shrink:0;
+}
+.lang-opt{
+  padding:5px 11px;border-radius:100px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;
+  color:var(--g500);background:transparent;border:none;cursor:pointer;
+  transition:all .2s cubic-bezier(.22,1,.36,1);line-height:1;
+}
+.lang-opt.active{background:var(--blk);color:var(--wht);box-shadow:0 1px 6px rgba(0,0,0,.2)}
+
+/* text swap fade */
+.t-fade{transition:opacity .18s ease}
+.t-fade.fading{opacity:0}
+
 .toast-container{
   position:fixed;top:72px;right:20px;z-index:9999;
   display:flex;flex-direction:column;gap:10px;
@@ -465,18 +574,23 @@ footer{
   <div class="nav-left">
     <div class="nav-brand">
       <span class="nav-star">✦</span>
-      <span class="nav-name">Yayasan Harapan</span>
+      <span class="nav-name">Amal Satu Hati</span>
     </div>
     <div class="nav-links">
-      <a onclick="goTo('home')">Home</a>
-      <a onclick="goTo('urgent')">Donation</a>
-      <a onclick="goTo('how')">How It Works</a>
-      <a onclick="goTo('faq')">About Us</a>
+      <a onclick="goTo('home')" data-en="Home" data-my="Laman Utama">Home</a>
+      <a onclick="goTo('donate-section')" data-en="Donation" data-my="Derma">Donation</a>
+      <a onclick="goTo('how')" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
+      <a onclick="goTo('faq')" data-en="About Us" data-my="Tentang Kami">About Us</a>
     </div>
+  </div>
+  <!-- Language Toggle -->
+  <div class="lang-toggle" id="langToggle">
+    <button class="lang-opt active" id="btn-en" onclick="switchLang('en')">EN</button>
+    <button class="lang-opt" id="btn-my" onclick="switchLang('my')">BM</button>
   </div>
   <div class="nav-logo-right">
     <img src="" alt="Logo Syarikat" id="company-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onload="this.nextElementSibling.style.display='none'">
-    <div id="logo-text-fallback" style="display:flex;align-items:center;gap:7px;font-size:15px;font-weight:800;color:#111;letter-spacing:-.2px"><span style="color:#b5e153;font-size:20px">✦</span> Yayasan Harapan</div>
+    <div id="logo-text-fallback" style="display:flex;align-items:center;gap:7px;font-size:15px;font-weight:800;color:#111;letter-spacing:-.2px"><span style="color:#b5e153;font-size:20px">✦</span> Amal Satu Hati</div>
   </div>
   <button class="hamburger" id="hbg" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -485,89 +599,138 @@ footer{
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mmenu">
-  <a onclick="goTo('home');closeMenu()">Home</a>
-  <a onclick="goTo('urgent');closeMenu()">Donation</a>
-  <a onclick="goTo('how');closeMenu()">How It Works</a>
-  <a onclick="goTo('faq');closeMenu()">About Us</a>
+  <a onclick="goTo('home');closeMenu()" data-en="Home" data-my="Laman Utama">Home</a>
+  <a onclick="goTo('donate-section');closeMenu()" data-en="Donation" data-my="Derma">Donation</a>
+  <a onclick="goTo('how');closeMenu()" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
+  <a onclick="goTo('faq');closeMenu()" data-en="About Us" data-my="Tentang Kami">About Us</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO SLIDESHOW -->
 <div class="hero-wrap" id="home">
-  <div class="hero">
-    <img class="hero-img"
-      src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1400&q=85&auto=format&fit=crop&crop=top"
-      alt="Helping hands reaching toward each other">
+  <div class="hero" id="heroSlider">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1400&q=85&auto=format&fit=crop&crop=top" alt="Helping hands">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Community support">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Volunteer work">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Disaster relief">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Environmental cause">
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-big">Yayasan<br>Harapan</div>
       <div class="hero-right">
-        <div class="hero-tagline">Help<br>Others</div>
-        <button class="btn-start" onclick="goTo('urgent')">Mula Menyumbang</button>
+        <div class="hero-tagline" data-en="Help<br>Others" data-my="Bantu<br>Sesama">Help<br>Others</div>
+        <button class="btn-start" onclick="goTo('donate-section')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
       </div>
     </div>
+    <!-- Arrows -->
+    <button class="hero-arrow prev" onclick="heroSlide(-1)" aria-label="Previous">&#8249;</button>
+    <button class="hero-arrow next" onclick="heroSlide(1)" aria-label="Next">&#8250;</button>
+    <!-- Dots -->
+    <div class="hero-dots" id="heroDots"></div>
   </div>
 </div>
 
-<!-- FAST -->
+<!-- BRANDS CAROUSEL -->
+<div class="brands-section">
+  <div class="brands-label" data-en="Brands We Collaborate With" data-my="Jenama Yang Bekerjasama Dengan Kami">Brands We Collaborate With</div>
+  <div class="brands-track-wrap">
+    <div class="brands-track">
+      <!-- set 1 -->
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/maybank.com" alt="Maybank" data-fb="M" data-bg="#cc0001"><span class="brand-name">Maybank</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/cimb.com" alt="CIMB" data-fb="C" data-bg="#003087"><span class="brand-name">CIMB Foundation</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/tngdigital.com.my" alt="TnG" data-fb="T" data-bg="#00a651"><span class="brand-name">Touch 'n Go</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/unicef.org" alt="Unicef" data-fb="U" data-bg="#009cde"><span class="brand-name">Unicef Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/petronas.com" alt="Petronas" data-fb="P" data-bg="#0f4c81"><span class="brand-name">Petronas</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/tm.com.my" alt="TM" data-fb="TM" data-bg="#009a44"><span class="brand-name">Telekom Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/shopee.com.my" alt="Shopee" data-fb="S" data-bg="#f60"><span class="brand-name">Shopee Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/grab.com" alt="Grab" data-fb="G" data-bg="#1da462"><span class="brand-name">GrabPay</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/axiata.com" alt="Axiata" data-fb="A" data-bg="#e4002b"><span class="brand-name">Axiata Group</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/bnm.gov.my" alt="BNM" data-fb="BNM" data-bg="#006838"><span class="brand-name">Bank Negara</span></div>
+      <!-- set 2 (duplicate for seamless loop) -->
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/maybank.com" alt="Maybank" data-fb="M" data-bg="#cc0001"><span class="brand-name">Maybank</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/cimb.com" alt="CIMB" data-fb="C" data-bg="#003087"><span class="brand-name">CIMB Foundation</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/tngdigital.com.my" alt="TnG" data-fb="T" data-bg="#00a651"><span class="brand-name">Touch 'n Go</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/unicef.org" alt="Unicef" data-fb="U" data-bg="#009cde"><span class="brand-name">Unicef Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/petronas.com" alt="Petronas" data-fb="P" data-bg="#0f4c81"><span class="brand-name">Petronas</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/tm.com.my" alt="TM" data-fb="TM" data-bg="#009a44"><span class="brand-name">Telekom Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/shopee.com.my" alt="Shopee" data-fb="S" data-bg="#f60"><span class="brand-name">Shopee Malaysia</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/grab.com" alt="Grab" data-fb="G" data-bg="#1da462"><span class="brand-name">GrabPay</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/axiata.com" alt="Axiata" data-fb="A" data-bg="#e4002b"><span class="brand-name">Axiata Group</span></div>
+      <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/bnm.gov.my" alt="BNM" data-fb="BNM" data-bg="#006838"><span class="brand-name">Bank Negara</span></div>
+    </div>
+  </div>
+</div>
 <div class="fast-section">
-  <div class="fast-headline anim-fadeup">Fund, Fast As <em>Flash</em></div>
-  <div class="fast-sub anim-fadeup d1">Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform.</div>
+  <div class="fast-headline anim-fadeup" data-en="Fund, Fast As <em>Flash</em>" data-my="Dana, Pantas Seperti <em>Kilat</em>">Fund, Fast As <em>Flash</em></div>
+  <div class="fast-sub anim-fadeup d1" data-en="Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform." data-my="Galang dana dengan pantas! Tingkatkan tujuan anda dalam masa seminit dengan platform pengumpulan dana kami yang super laju.">Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform.</div>
   <div class="fast-cards">
     <div class="fast-card anim-fadeup d1">
       <div class="fast-icon"><i class="ti ti-bolt"></i></div>
-      <h3>Ignite Impact</h3>
-      <p>Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference.</p>
+      <h3 data-en="Ignite Impact" data-my="Nyalakan Impak">Ignite Impact</h3>
+      <p data-en="Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference." data-my="Ceritakan tujuan anda dan impak positif yang dibawa. Nyatakan dengan jelas bagaimana sumbangan boleh membuat perbezaan yang bermakna.">Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference.</p>
     </div>
     <div class="fast-card anim-fadeup d2">
       <div class="fast-icon"><i class="ti ti-speakerphone"></i></div>
-      <h3>Spread The Word</h3>
-      <p>Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms.</p>
+      <h3 data-en="Spread The Word" data-my="Sebarkan Berita">Spread The Word</h3>
+      <p data-en="Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms." data-my="Gunakan kelajuan media sosial dan rangkaian dalam talian. Kongsikan kempen anda dengan pantas merentasi pelbagai platform.">Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms.</p>
     </div>
     <div class="fast-card anim-fadeup d3">
       <div class="fast-icon"><i class="ti ti-world"></i></div>
-      <h3>Connect Globally</h3>
-      <p>Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities.</p>
+      <h3 data-en="Connect Globally" data-my="Hubungi Dunia">Connect Globally</h3>
+      <p data-en="Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities." data-my="Bina rangkaian sosial yang kuat di sekeliling tujuan anda. Galakkan penyokong untuk berkongsi kempen dalam komuniti mereka.">Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities.</p>
     </div>
   </div>
 </div>
 
-<!-- URGENT -->
-<div class="urgent-section" id="urgent">
-  <h2 class="anim-fadeup">Urgent Fundraising!</h2>
-  <div class="urgent-sub anim-fadeup d1">Time is of the essence! Join our mission NOW to make an immediate impact. Every second counts!</div>
-  <div class="campaign-grid anim-scalein">
-    <div class="camp-card" onclick="openDonate('GreenFund: Sustain Earth Now','https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=120&q=80','We Care')">
-      <img class="camp-img" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=80&auto=format" alt="Green environment">
-      <div class="camp-body">
-        <div class="camp-org"><i class="ti ti-circle-check-filled"></i> We Care</div>
-        <h3>GreenFund: Sustain Earth Now</h3>
-        <div class="camp-prog"><div class="camp-bar" data-w="72%"></div></div>
-        <div class="camp-meta"><span class="camp-raised">RM 50,240</span><span class="camp-days"><span>7</span> days left</span></div>
-        <button class="camp-btn" onclick="event.stopPropagation();openDonate('GreenFund: Sustain Earth Now','https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=120&q=80','We Care')">Donate Now</button>
+<!-- UNIFIED DONATION SECTION -->
+<div class="donate-section" id="donate-section">
+  <div class="donate-inner">
+    <h2 class="anim-fadeup" data-en="Together We Can! 💚" data-my="Bersama Kita Boleh! 💚">Together We Can! 💚</h2>
+    <div class="donate-sub anim-fadeup d1" data-en="Every ringgit you donate makes a real impact on those in need. Join thousands of donors from across Malaysia and the world." data-my="Setiap ringgit yang anda sumbangkan memberi impak nyata kepada mereka yang memerlukan. Sertai ribuan penderma dari seluruh Malaysia dan dunia.">Every ringgit you donate makes a real impact on those in need. Join thousands of donors from across Malaysia and the world.</div>
+    <div class="donate-hero anim-scalein">
+      <div class="donate-stats">
+        <div class="d-stat">
+          <div class="d-stat-val raised" id="d-raised">RM 674,580</div>
+          <div class="d-stat-lbl" data-en="Total Raised" data-my="Jumlah Terkumpul">Total Raised</div>
+        </div>
+        <div class="d-stat">
+          <div class="d-stat-val target">RM 1,000,000</div>
+          <div class="d-stat-lbl" data-en="Our Target" data-my="Sasaran Kami">Our Target</div>
+        </div>
+        <div class="d-stat">
+          <div class="d-stat-val donors" id="d-donors">14,372+</div>
+          <div class="d-stat-lbl" data-en="People Have Donated" data-my="Orang Telah Menderma">People Have Donated</div>
+        </div>
       </div>
-    </div>
-    <div class="camp-card" onclick="openDonate('SeniorHealth: Support Campaign','https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=120&q=80','Unicef')">
-      <img class="camp-img" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&auto=format" alt="Senior health">
-      <div class="camp-body">
-        <div class="camp-org"><i class="ti ti-circle-check-filled"></i> Unicef</div>
-        <h3>SeniorHealth: Support Campaign</h3>
-        <div class="camp-prog"><div class="camp-bar" data-w="45%"></div></div>
-        <div class="camp-meta"><span class="camp-raised">RM 4,240</span><span class="camp-days"><span>19</span> days left</span></div>
-        <button class="camp-btn" onclick="event.stopPropagation();openDonate('SeniorHealth: Support Campaign','https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=120&q=80','Unicef')">Donate Now</button>
+      <div class="donate-bar-wrap">
+        <div class="donate-bar-bg">
+          <div class="donate-bar-fill" id="donateBar" data-pct="67.4"></div>
+        </div>
+        <div class="donate-bar-info">
+          <span>0</span>
+          <span class="donate-bar-pct" id="donatePct" data-en="67.4% achieved" data-my="67.4% tercapai">67.4% achieved</span>
+          <span>RM 1,000,000</span>
+        </div>
       </div>
-    </div>
-    <div class="camp-card" onclick="openDonate('DisasterCare: Urgent Support','https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=120&q=80','Unity Foundation')">
-      <img class="camp-img" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=700&q=80&auto=format" alt="Disaster relief">
-      <div class="camp-body">
-        <div class="camp-org">Unity Foundation</div>
-        <h3>DisasterCare: Urgent Support</h3>
-        <div class="camp-prog"><div class="camp-bar" data-w="88%"></div></div>
-        <div class="camp-meta"><span class="camp-raised">RM 2,100</span><span class="camp-days"><span>23</span> days left</span></div>
-        <button class="camp-btn" onclick="event.stopPropagation();openDonate('DisasterCare: Urgent Support','https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=120&q=80','Unity Foundation')">Donate Now</button>
+      <div class="donate-cta">
+        <button class="btn-donate-main" onclick="openMainDonate()" data-en="Donate Now" data-my="Derma Sekarang">
+          <i class="ti ti-heart"></i> <span data-en="Donate Now" data-my="Derma Sekarang">Donate Now</span>
+        </button>
+        <div class="donate-secure"><i class="ti ti-shield-check"></i> <span data-en="Secure &amp; verified payment" data-my="Bayaran selamat &amp; disahkan">Secure &amp; verified payment</span></div>
       </div>
     </div>
   </div>
 </div>
+
 
 <!-- COUNTER -->
 <div style="width:100%;overflow:hidden">
@@ -577,10 +740,10 @@ footer{
     <img class="c-img-sm" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=200&q=80&fit=crop&auto=format" alt="">
   </div>
   <div class="c-center anim-fadeup">
-    <div class="c-pre">Be The Part Of FundRaisers With Over</div>
+    <div class="c-pre" data-en="Be The Part Of FundRaisers With Over" data-my="Jadi Sebahagian Penggalang Dana Dengan Lebih">Be The Part Of FundRaisers With Over</div>
     <div class="c-num" id="cnum">217,924+</div>
-    <div class="c-post">People From Around The World Joined</div>
-    <button class="btn-join" onclick="openMainDonate()">Sertai Sekarang!</button>
+    <div class="c-post" data-en="People From Around The World Joined" data-my="Orang Dari Seluruh Dunia Telah Menyertai">People From Around The World Joined</div>
+    <button class="btn-join" onclick="openMainDonate()" data-en="Join Now!" data-my="Sertai Sekarang!">Join Now!</button>
   </div>
   <div class="c-side anim-right">
     <img class="c-img-sm" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=200&q=80&fit=crop&auto=format" onerror="this.style.display='none'" alt="">
@@ -589,9 +752,49 @@ footer{
 </div>
 </div>
 
+<!-- GALLERY -->
+<div class="gallery-section" id="gallery">
+  <h2 class="anim-fadeup" data-en="Our Gallery" data-my="Galeri Kami">Our Gallery</h2>
+  <div class="gallery-sub anim-fadeup d1" data-en="Meaningful moments with our community — from volunteer programs to community development projects." data-my="Momen-momen bermakna bersama komuniti kami — dari program sukarela hingga projek pembangunan komuniti.">Meaningful moments with our community — from volunteer programs to community development projects.</div>
+  <div class="gallery-grid anim-scalein">
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80&auto=format&fit=crop" alt="Community event">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80&auto=format&fit=crop" alt="Volunteers">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&q=80&auto=format&fit=crop" alt="Donation drive">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=700&q=80&auto=format&fit=crop" alt="Outreach program">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&q=80&auto=format&fit=crop" alt="Green project">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80&auto=format&fit=crop" alt="Healthcare">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=700&q=80&auto=format&fit=crop" alt="Relief work">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&q=80&auto=format&fit=crop" alt="Helping hands">
+      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
+    </div>
+  </div>
+</div>
+
 <!-- FAQ -->
 <div class="faq-section" id="faq">
-  <h2 class="anim-fadeup">Frequently Asked<br>Questions.</h2>
+  <h2 class="anim-fadeup" data-en="Frequently Asked<br>Questions." data-my="Soalan Lazim.">Frequently Asked<br>Questions.</h2>
   <div id="faq-list"></div>
 </div>
 
@@ -600,28 +803,40 @@ footer{
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <div class="footer-brand-row"><span class="fstar">✦</span> Yayasan Harapan</div>
-        <div class="footer-desc">Bersama membantu mereka yang memerlukan.<br>Setiap sumbangan memberi impak nyata.</div>
+        <div class="footer-brand-row"><span class="fstar">✦</span> Amal Satu Hati</div>
+        <div class="footer-desc" data-en="Together helping those in need.<br>Every donation makes a real impact." data-my="Bersama membantu mereka yang memerlukan.<br>Setiap sumbangan memberi impak nyata.">Together helping those in need.<br>Every donation makes a real impact.</div>
       </div>
       <div class="footer-col">
-        <h4>Donate</h4>
+        <h4 data-en="Donate" data-my="Derma">Donate</h4>
         <div class="f-link-wrap">
-          <div class="f-link-col"><a>Education</a><a>Medicine</a></div>
-          <div class="f-link-col"><a>Social</a><a>Disaster</a></div>
+          <div class="f-link-col">
+            <a data-en="Education" data-my="Pendidikan">Education</a>
+            <a data-en="Medicine" data-my="Perubatan">Medicine</a>
+          </div>
+          <div class="f-link-col">
+            <a data-en="Social" data-my="Sosial">Social</a>
+            <a data-en="Disaster" data-my="Bencana">Disaster</a>
+          </div>
         </div>
       </div>
       <div class="footer-col">
-        <h4>Help</h4>
-        <a>FAQ</a><a>Privacy Policy</a><a>Accessibility</a><a>Contact Us</a>
+        <h4 data-en="Help" data-my="Bantuan">Help</h4>
+        <a data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
+        <a data-en="Privacy Policy" data-my="Dasar Privasi">Privacy Policy</a>
+        <a data-en="Accessibility" data-my="Kebolehcapaian">Accessibility</a>
+        <a data-en="Contact Us" data-my="Hubungi Kami">Contact Us</a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
-        <a>About Us</a><a>Careers</a><a>Services</a><a>Pricing</a>
+        <h4 data-en="Company" data-my="Syarikat">Company</h4>
+        <a data-en="About Us" data-my="Tentang Kami">About Us</a>
+        <a data-en="Careers" data-my="Kerjaya">Careers</a>
+        <a data-en="Services" data-my="Perkhidmatan">Services</a>
+        <a data-en="Pricing" data-my="Harga">Pricing</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© Yayasan Harapan 2024<br>All Rights Reserved.</div>
+    <div class="footer-copy" data-en="© Amal Satu Hati 2024<br>All Rights Reserved." data-my="© Amal Satu Hati 2024<br>Hak Cipta Terpelihara.">© Amal Satu Hati 2024<br>All Rights Reserved.</div>
     <div class="social-links">
       <a class="social-link"><i class="ti ti-brand-instagram"></i> Instagram</a>
       <a class="social-link"><i class="ti ti-brand-facebook"></i> Facebook</a>
@@ -637,14 +852,14 @@ footer{
     <div class="modal-header">
       <div>
         <div class="modal-title"><i class="ti ti-lock"></i> Secure Payment Simulation</div>
-        <div class="modal-sub">Yayasan Harapan · Demo Gateway</div>
+        <div class="modal-sub">Amal Satu Hati · Demo Gateway</div>
       </div>
       <button class="modal-x" onclick="closeModal()"><i class="ti ti-x"></i></button>
     </div>
     <div class="modal-body">
       <div class="m-camp" id="m-camp">
         <img class="m-thumb" id="m-thumb" src="" alt="">
-        <div><div class="m-cname" id="m-cname">Best Use</div><div class="m-corg" id="m-corg">Yayasan Harapan</div></div>
+        <div><div class="m-cname" id="m-cname">Best Use</div><div class="m-corg" id="m-corg">Amal Satu Hati</div></div>
       </div>
       <div class="m-amtrow">
         <div><div class="m-alabel">Donation Amount</div><div class="m-atype" id="m-atype">One Time</div></div>
@@ -769,36 +984,86 @@ footer{
 <script>
 /* ── FAQ ── */
 const faqs=[
-  {q:'How Can I Make Donation?',a:'Choose a campaign, click Donate Now, select your amount, fill in your details, choose a payment method and complete checkout. The entire process takes under 2 minutes.'},
-  {q:'Is My Donation Tax-Deductible?',a:'Yes! Yayasan Harapan is approved under Section 44(6) of the Income Tax Act. An official LHDN receipt is automatically issued for every donation.'},
-  {q:'Can I Donate In Honor Or Memory Of Someone?',a:'Absolutely. You can dedicate a donation in honour or in memory of someone special. Enter their name during checkout and we will acknowledge the dedication.'},
-  {q:'How Will My Donation Be Used?',a:'98% of all donations go directly to beneficiaries. Only 2% covers essential operational costs. Annual financial reports are independently audited and published publicly.'},
-  {q:'Can I Set Up A Recurring Donation?',a:'Yes! Select Monthly or Yearly during the donation flow. You can cancel at any time by emailing us directly.'}
+  {
+    en:{q:'How Can I Make a Donation?',a:'Choose a campaign, click Donate Now, select your amount, fill in your details, choose a payment method and complete checkout. The entire process takes under 2 minutes.'},
+    my:{q:'Bagaimana Saya Boleh Membuat Derma?',a:'Pilih kempen, klik Derma Sekarang, pilih jumlah, isi maklumat anda, pilih kaedah bayaran dan selesaikan pembayaran. Keseluruhan proses mengambil masa kurang dari 2 minit.'}
+  },
+  {
+    en:{q:'Is My Donation Tax-Deductible?',a:'Yes! Amal Satu Hati is approved under Section 44(6) of the Income Tax Act. An official LHDN receipt is automatically issued for every donation.'},
+    my:{q:'Adakah Derma Saya Layak Potongan Cukai?',a:'Ya! Amal Satu Hati diluluskan di bawah Seksyen 44(6) Akta Cukai Pendapatan. Resit LHDN rasmi dikeluarkan secara automatik untuk setiap sumbangan.'}
+  },
+  {
+    en:{q:'Can I Donate In Honor Or Memory Of Someone?',a:'Absolutely. You can dedicate a donation in honour or in memory of someone special. Enter their name during checkout and we will acknowledge the dedication.'},
+    my:{q:'Bolehkah Saya Menderma Atas Nama Seseorang?',a:'Tentu sekali. Anda boleh mendedikasikan derma sebagai penghormatan kepada seseorang yang istimewa. Masukkan nama mereka semasa pembayaran dan kami akan mengiktirafnya.'}
+  },
+  {
+    en:{q:'How Will My Donation Be Used?',a:'98% of all donations go directly to beneficiaries. Only 2% covers essential operational costs. Annual financial reports are independently audited and published publicly.'},
+    my:{q:'Bagaimana Derma Saya Akan Digunakan?',a:'98% daripada semua derma pergi terus kepada penerima manfaat. Hanya 2% menampung kos operasi penting. Laporan kewangan tahunan diaudit secara bebas dan diterbitkan secara terbuka.'}
+  },
+  {
+    en:{q:'Can I Set Up A Recurring Donation?',a:'Yes! Select Monthly or Yearly during the donation flow. You can cancel at any time by emailing us directly.'},
+    my:{q:'Bolehkah Saya Tetapkan Derma Berulang?',a:'Ya! Pilih Bulanan atau Tahunan semasa proses derma. Anda boleh membatalkan pada bila-bila masa dengan menghantar e-mel kepada kami.'}
+  }
 ];
-var fl=document.getElementById('faq-list');
-faqs.forEach(function(f,i){
-  var div=document.createElement('div');
-  div.className='faq-item anim-fadeup';
-  div.style.transitionDelay=(i*0.07)+'s';
-  var btn=document.createElement('button');
-  btn.className='faq-q';
-  btn.textContent=f.q;
-  var span=document.createElement('span');
-  span.className='faq-plus';
-  span.textContent='+';
-  btn.appendChild(span);
-  btn.onclick=function(){tFaq(this);};
-  var ans=document.createElement('div');
-  ans.className='faq-a';
-  ans.textContent=f.a;
-  div.appendChild(btn);
-  div.appendChild(ans);
-  fl.appendChild(div);
-});
+
+var currentLang='en';
+
+function buildFaq(lang){
+  var fl=document.getElementById('faq-list');
+  fl.innerHTML='';
+  faqs.forEach(function(f,i){
+    var data=f[lang];
+    var div=document.createElement('div');
+    div.className='faq-item anim-fadeup';
+    div.style.transitionDelay=(i*0.07)+'s';
+    var btn=document.createElement('button');
+    btn.className='faq-q';
+    btn.textContent=data.q;
+    var span=document.createElement('span');
+    span.className='faq-plus';
+    span.textContent='+';
+    btn.appendChild(span);
+    btn.onclick=function(){tFaq(this);};
+    var ans=document.createElement('div');
+    ans.className='faq-a';
+    ans.textContent=data.a;
+    div.appendChild(btn);
+    div.appendChild(ans);
+    fl.appendChild(div);
+  });
+}
+buildFaq('en');
+
 function tFaq(btn){
   var it=btn.parentElement,was=it.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(function(e){e.classList.remove('open');});
   if(!was)it.classList.add('open');
+}
+
+/* ── LANGUAGE SWITCH ── */
+function switchLang(lang){
+  if(lang===currentLang)return;
+  currentLang=lang;
+
+  // update toggle buttons
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('btn-my').classList.toggle('active',lang==='my');
+
+  // fade out all translatable elements
+  var els=document.querySelectorAll('[data-en][data-my]');
+  els.forEach(function(el){el.classList.add('t-fade','fading');});
+
+  setTimeout(function(){
+    els.forEach(function(el){
+      el.innerHTML=el.getAttribute('data-'+lang);
+    });
+    // rebuild FAQ in new language
+    buildFaq(lang);
+    // unfade
+    els.forEach(function(el){el.classList.remove('fading');});
+    // re-sync live donation display with new language
+    updateDonateDisplay();
+  },180);
 }
 
 /* ── NAV mobile ── */
@@ -991,7 +1256,7 @@ function scheduleDonor(){
 scheduleDonor();
 
 /* ── MODAL STATE ── */
-var amt=30,method='fpx',camp={name:'Best Use',thumb:'',org:'Yayasan Harapan'},typ='One Time';
+var amt=30,method='fpx',camp={name:'Best Use',thumb:'',org:'Amal Satu Hati'},typ='One Time';
 
 function openDonate(name,thumb,org){
   camp={name:name,thumb:thumb,org:org};
@@ -1002,9 +1267,9 @@ function openDonate(name,thumb,org){
   showModal();
 }
 function openMainDonate(){
-  camp={name:'Best Use',thumb:'',org:'Yayasan Harapan'};
+  camp={name:'Best Use',thumb:'',org:'Amal Satu Hati'};
   document.getElementById('m-cname').textContent='Best Use';
-  document.getElementById('m-corg').textContent='Yayasan Harapan';
+  document.getElementById('m-corg').textContent='Amal Satu Hati';
   document.getElementById('m-thumb').style.display='none';
   showModal();
 }
@@ -1078,6 +1343,97 @@ function doProc(){
     addNewDonor(toastName,camp.name,amt);
   },2800);
 }
+/* ── HERO SLIDESHOW ── */
+var heroIdx=0;
+var heroSlides=document.querySelectorAll('.hero-slide');
+var heroDotsCont=document.getElementById('heroDots');
+var heroTimer;
+
+heroSlides.forEach(function(_,i){
+  var d=document.createElement('button');
+  d.className='hero-dot'+(i===0?' active':'');
+  d.setAttribute('aria-label','Slide '+(i+1));
+  d.onclick=function(){heroGoto(i);};
+  heroDotsCont.appendChild(d);
+});
+
+function heroGoto(n){
+  heroSlides[heroIdx].classList.remove('active');
+  heroDotsCont.children[heroIdx].classList.remove('active');
+  heroIdx=(n+heroSlides.length)%heroSlides.length;
+  heroSlides[heroIdx].classList.add('active');
+  heroDotsCont.children[heroIdx].classList.add('active');
+  clearInterval(heroTimer);
+  heroTimer=setInterval(function(){heroSlide(1);},5000);
+}
+function heroSlide(dir){heroGoto(heroIdx+dir);}
+heroTimer=setInterval(function(){heroSlide(1);},5000);
+
+/* ── BRAND LOGO FALLBACK ── */
+document.querySelectorAll('.brand-logo[data-fb]').forEach(function(img){
+  img.addEventListener('error',function(){
+    var fb=img.getAttribute('data-fb');
+    var bg=img.getAttribute('data-bg');
+    var span=document.createElement('div');
+    span.className='brand-logo fallback';
+    span.style.background=bg||'#888';
+    span.textContent=fb||'?';
+    img.parentNode.replaceChild(span,img);
+  });
+});
+
+/* ── DONATE BAR ANIMATE ── */
+var dBarObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var fill=document.getElementById('donateBar');
+      if(fill){
+        var pct=parseFloat(fill.getAttribute('data-pct'))||0;
+        setTimeout(function(){fill.style.width=pct+'%';},180);
+      }
+      dBarObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+var dHero=document.querySelector('.donate-hero');
+if(dHero)dBarObs.observe(dHero);
+
+/* ── LIVE DONATION TOTAL UPDATE ── */
+var donateTotal=674580;
+var donateDonors=14372;
+function updateDonateDisplay(){
+  var el=document.getElementById('d-raised');
+  var de=document.getElementById('d-donors');
+  var pe=document.getElementById('donatePct');
+  var bar=document.getElementById('donateBar');
+  var pct=Math.min(100,(donateTotal/1000000)*100).toFixed(1);
+  if(el)el.textContent='RM '+donateTotal.toLocaleString('ms-MY');
+  if(de)de.textContent=donateDonors.toLocaleString('ms-MY')+'+';
+  if(pe){
+    var pctEN=pct+'% achieved';
+    var pctMY=pct+'% tercapai';
+    pe.setAttribute('data-en',pctEN);
+    pe.setAttribute('data-my',pctMY);
+    pe.textContent=(currentLang==='my')?pctMY:pctEN;
+  }
+  if(bar){
+    bar.style.transition='width .8s cubic-bezier(.22,1,.36,1)';
+    bar.style.width=pct+'%';
+  }
+}
+/* wrap addNewDonor after it's defined */
+(function(){
+  var _orig=addNewDonor;
+  addNewDonor=function(n,c,a){
+    _orig(n,c,a);
+    /* if amount not passed (auto donor), pick one from AMOUNTS same as makeDonorObj */
+    var addAmt=parseFloat(a)||randFrom(AMOUNTS);
+    donateTotal+=addAmt;
+    donateDonors+=1;
+    updateDonateDisplay();
+  };
+})();
+
 function fCard(input){
   var v=input.value.replace(/\D/g,'').substring(0,16);
   input.value=v.match(/.{1,4}/g)?v.match(/.{1,4}/g).join(' '):v;
