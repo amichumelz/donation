@@ -625,7 +625,7 @@ footer{
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-big">Yayasan<br>Harapan</div>
+      <div class="hero-big">Amal Satu<br>Hati</div>
       <div class="hero-right">
         <div class="hero-tagline" data-en="Help<br>Others" data-my="Bantu<br>Sesama">Help<br>Others</div>
         <button class="btn-start" onclick="goTo('donate-section')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
@@ -1008,14 +1008,15 @@ const faqs=[
 
 var currentLang='en';
 
-function buildFaq(lang){
+function buildFaq(lang, animate){
   var fl=document.getElementById('faq-list');
   fl.innerHTML='';
   faqs.forEach(function(f,i){
     var data=f[lang];
     var div=document.createElement('div');
-    div.className='faq-item anim-fadeup';
-    div.style.transitionDelay=(i*0.07)+'s';
+    div.className='faq-item'+(animate?' anim-fadeup':'');
+    if(animate){div.style.transitionDelay=(i*0.07)+'s';}
+    else{div.style.opacity='1';}
     var btn=document.createElement('button');
     btn.className='faq-q';
     btn.textContent=data.q;
@@ -1032,7 +1033,7 @@ function buildFaq(lang){
     fl.appendChild(div);
   });
 }
-buildFaq('en');
+buildFaq('en', true);
 
 function tFaq(btn){
   var it=btn.parentElement,was=it.classList.contains('open');
@@ -1058,7 +1059,7 @@ function switchLang(lang){
       el.innerHTML=el.getAttribute('data-'+lang);
     });
     // rebuild FAQ in new language
-    buildFaq(lang);
+    buildFaq(lang, false);
     // unfade
     els.forEach(function(el){el.classList.remove('fading');});
     // re-sync live donation display with new language
@@ -1192,12 +1193,8 @@ function showToast(d){
   body.className='toast-body';
   var nm=document.createElement('div');
   nm.className='toast-name';
-  nm.textContent=d.name+' baru sahaja menderma';
-  var dt=document.createElement('div');
-  dt.className='toast-detail';
-  dt.textContent=d.campaign;
+  nm.textContent=d.name+(currentLang==='my'?' baru sahaja menderma':' just donated');
   body.appendChild(nm);
-  body.appendChild(dt);
   var amt=document.createElement('div');
   amt.className='toast-amt';
   amt.textContent='RM '+d.amount;
