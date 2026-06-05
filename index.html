@@ -179,6 +179,126 @@ nav{
 .fast-card h3{font-size:clamp(13.5px,2vw,15px);font-weight:700;margin-bottom:7px}
 .fast-card p{font-size:clamp(12px,1.6vw,13.5px);color:var(--g500);line-height:1.7}
 
+/* ====== INTRO SECTION ====== */
+.intro-section{
+  padding:clamp(48px,7vw,80px) clamp(16px,4vw,40px);
+  position:relative;
+  overflow:hidden;
+  background-image:url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&q=85&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+.intro-section::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,.72);
+  pointer-events:none;z-index:0;
+}
+.intro-section::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(181,225,83,.08) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+.intro-inner{position:relative;z-index:1}
+.intro-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(32px,6vw,72px);align-items:center;
+}
+.intro-left{}
+.intro-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(181,225,83,.12);border:1px solid rgba(181,225,83,.3);
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--g);margin-bottom:clamp(16px,2.5vw,22px);
+}
+.intro-eyebrow i{font-size:13px}
+.intro-heading{
+  font-size:clamp(28px,4.5vw,48px);font-weight:900;
+  color:var(--wht);line-height:1.08;letter-spacing:-.6px;
+  margin-bottom:clamp(14px,2vw,20px);
+}
+.intro-heading span{color:var(--g)}
+.intro-body{
+  font-size:clamp(13.5px,1.8vw,16px);color:rgba(255,255,255,.55);
+  line-height:1.8;max-width:460px;
+  margin-bottom:clamp(24px,3.5vw,36px);
+}
+.intro-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.intro-btn-primary{
+  background:var(--g);color:var(--blk);border:none;
+  padding:clamp(11px,1.5vw,14px) clamp(22px,3vw,32px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(13px,1.6vw,15px);font-weight:700;
+  cursor:pointer;transition:background .15s,transform .2s,box-shadow .2s;
+  display:flex;align-items:center;gap:7px;
+}
+.intro-btn-primary:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 22px rgba(181,225,83,.4)}
+.intro-btn-primary:active{transform:translateY(0)}
+.intro-btn-ghost{
+  background:transparent;color:rgba(255,255,255,.7);
+  border:1.5px solid rgba(255,255,255,.2);
+  padding:clamp(10px,1.5vw,13px) clamp(20px,3vw,28px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(13px,1.6vw,15px);font-weight:600;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:7px;
+}
+.intro-btn-ghost:hover{border-color:rgba(255,255,255,.55);color:var(--wht);transform:translateY(-1px)}
+.intro-right{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(10px,1.5vw,14px);
+}
+.intro-stat-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:clamp(18px,2.5vw,26px);
+  transition:border-color .25s,background .25s,transform .25s;
+  position:relative;overflow:hidden;
+}
+.intro-stat-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(181,225,83,.07) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.intro-stat-card:hover{
+  border-color:rgba(181,225,83,.4);
+  background:rgba(255,255,255,.08);
+  transform:translateY(-3px);
+}
+.intro-stat-card:hover::before{opacity:1}
+.intro-stat-card.featured{
+  grid-column:span 2;
+  background:rgba(181,225,83,.1);
+  border-color:rgba(181,225,83,.35);
+  display:flex;align-items:center;gap:clamp(14px,2vw,20px);
+}
+.intro-stat-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(181,225,83,.15);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;flex-shrink:0;
+}
+.intro-stat-card.featured .intro-stat-icon{margin-bottom:0}
+.intro-stat-icon i{font-size:20px;color:var(--g)}
+.intro-stat-num{
+  font-size:clamp(26px,3.5vw,38px);font-weight:900;
+  color:var(--wht);line-height:1;letter-spacing:-.5px;
+  margin-bottom:4px;
+}
+.intro-stat-label{font-size:clamp(11.5px,1.4vw,13px);color:rgba(255,255,255,.45);font-weight:600;line-height:1.4}
+.intro-stat-card.featured .intro-stat-body{}
+.intro-stat-card.featured .intro-stat-num{font-size:clamp(22px,2.8vw,30px)}
+@media(max-width:768px){
+  .intro-inner{grid-template-columns:1fr}
+  .intro-body{max-width:100%}
+  .intro-right{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .intro-stat-card.featured{flex-direction:column;align-items:flex-start;gap:10px}
+}
+
 /* ====== BRANDS CAROUSEL ====== */
 .brands-section{
   padding:clamp(20px,3vw,32px) 0;
@@ -666,6 +786,45 @@ footer{
       <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/grab.com" alt="Grab" data-fb="G" data-bg="#1da462"><span class="brand-name">GrabPay</span></div>
       <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/axiata.com" alt="Axiata" data-fb="A" data-bg="#e4002b"><span class="brand-name">Axiata Group</span></div>
       <div class="brand-item"><img class="brand-logo" src="https://logo.clearbit.com/bnm.gov.my" alt="BNM" data-fb="BNM" data-bg="#006838"><span class="brand-name">Bank Negara</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO SECTION -->
+<div class="intro-section">
+  <div class="intro-inner">
+    <div class="intro-left anim-left">
+      <div class="intro-eyebrow"><i class="ti ti-heart-filled"></i> <span data-en="About Amal Satu Hati" data-my="Tentang Amal Satu Hati">About Amal Satu Hati</span></div>
+      <h2 class="intro-heading" data-en="Every Ringgit <span>Matters.</span><br>Every Life <span>Changes.</span>" data-my="Setiap Ringgit <span>Bermakna.</span><br>Setiap Nyawa <span>Berubah.</span>">Every Ringgit <span>Matters.</span><br>Every Life <span>Changes.</span></h2>
+      <p class="intro-body" data-en="Amal Satu Hati is Malaysia's trusted donation platform — connecting generous hearts with those who need it most. From flood relief to education funds, your support reaches real people, fast." data-my="Amal Satu Hati adalah platform derma terpercaya Malaysia — menghubungkan hati yang murah hati dengan mereka yang paling memerlukan. Dari bantuan banjir hingga tabung pendidikan, sokongan anda sampai kepada orang sebenar, dengan cepat.">Amal Satu Hati is Malaysia's trusted donation platform — connecting generous hearts with those who need it most. From flood relief to education funds, your support reaches real people, fast.</p>
+      <div class="intro-actions">
+        <button class="intro-btn-primary" onclick="openMainDonate()"><i class="ti ti-heart"></i> <span data-en="Donate Now" data-my="Derma Sekarang">Donate Now</span></button>
+        <button class="intro-btn-ghost" onclick="goTo('how')"><i class="ti ti-info-circle"></i> <span data-en="How It Works" data-my="Cara Kerja">How It Works</span></button>
+      </div>
+    </div>
+    <div class="intro-right anim-right">
+      <div class="intro-stat-card anim-fadeup d1">
+        <div class="intro-stat-icon"><i class="ti ti-users"></i></div>
+        <div class="intro-stat-num">217K+</div>
+        <div class="intro-stat-label" data-en="Donors across Malaysia" data-my="Penderma di seluruh Malaysia">Donors across Malaysia</div>
+      </div>
+      <div class="intro-stat-card anim-fadeup d2">
+        <div class="intro-stat-icon"><i class="ti ti-award"></i></div>
+        <div class="intro-stat-num">98%</div>
+        <div class="intro-stat-label" data-en="Funds go directly to causes" data-my="Dana terus kepada tujuan">Funds go directly to causes</div>
+      </div>
+      <div class="intro-stat-card anim-fadeup d3">
+        <div class="intro-stat-icon"><i class="ti ti-clock"></i></div>
+        <div class="intro-stat-num">24h</div>
+        <div class="intro-stat-label" data-en="Average payout to recipients" data-my="Purata bayaran kepada penerima">Average payout to recipients</div>
+      </div>
+      <div class="intro-stat-card featured anim-fadeup d4">
+        <div class="intro-stat-icon"><i class="ti ti-shield-check"></i></div>
+        <div class="intro-stat-body">
+          <div class="intro-stat-num" data-en="Verified & Secure" data-my="Disahkan & Selamat">Verified & Secure</div>
+          <div class="intro-stat-label" data-en="All campaigns are verified. Payments protected via DuitNow &amp; SSL encryption." data-my="Semua kempen disahkan. Pembayaran dilindungi melalui DuitNow &amp; penyulitan SSL.">All campaigns are verified. Payments protected via DuitNow &amp; SSL encryption.</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
