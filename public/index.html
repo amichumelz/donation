@@ -556,7 +556,7 @@ footer{
 .footer-brand-row .fstar{color:var(--g);font-size:20px}
 .footer-desc{font-size:13px;line-height:1.8;color:rgba(255,255,255,.42)}
 .footer-col h4{color:var(--wht);font-size:13px;font-weight:700;margin-bottom:14px;letter-spacing:.1px}
-.footer-col a{display:inline-block;color:rgba(255,255,255,.48);text-decoration:none;font-size:13px;margin-bottom:9px;cursor:pointer;transition:color .15s}
+.footer-col a{display:inline-flex;align-items:center;gap:7px;word-break:break-word;color:rgba(255,255,255,.48);text-decoration:none;font-size:13px;margin-bottom:9px;cursor:pointer;transition:color .15s}
 .footer-col a:hover{color:var(--wht)}
 .f-link-wrap{display:flex;gap:24px}
 .f-link-col{display:flex;flex-direction:column}
@@ -724,6 +724,8 @@ footer{
 }
 .vid-empty i{font-size:34px;color:var(--g300);display:block;margin-bottom:12px}
 .vid-empty p{font-size:14px;color:var(--g500);line-height:1.7;margin-bottom:16px}
+#ttCreator{max-width:780px;margin:0 auto;min-height:520px}
+#ttCreator blockquote{margin:0!important}
 @media(max-width:900px){.videos-grid{grid-template-columns:repeat(2,1fr)}}
 
 
@@ -764,6 +766,15 @@ footer{
 .pa-frole{font-size:clamp(13px,1.7vw,15px);font-weight:700;color:#5f7d18;letter-spacing:.4px;text-transform:uppercase;margin-bottom:clamp(14px,2vw,20px)}
 .pa-ftext{font-size:clamp(14.5px,1.9vw,17px);line-height:1.9;color:var(--g600);max-width:540px;margin-bottom:clamp(20px,3vw,28px)}
 .pa-quote{border-left:3px solid var(--g);padding:4px 0 4px 18px;font-size:clamp(14px,1.9vw,17px);font-style:italic;font-weight:500;color:var(--blk);line-height:1.7}
+.pa-social{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(18px,2.6vw,24px)}
+.pa-social a{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--g200);border-radius:100px;padding:8px 16px;
+  font-size:13px;font-weight:600;color:var(--blk);text-decoration:none;
+  transition:border-color .15s,background .15s,transform .2s;
+}
+.pa-social a:hover{border-color:var(--g);background:rgba(181,225,83,.14);transform:translateY(-2px)}
+.pa-social i{font-size:16px}
 .pa-cta{padding:0 clamp(16px,4vw,40px) clamp(48px,7vw,80px)}
 .pa-cta-inner{max-width:1140px;margin:0 auto;background:var(--blk);color:var(--wht);border-radius:20px;padding:clamp(28px,5vw,52px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .pa-cta-inner h3{font-size:clamp(22px,3.6vw,34px);font-weight:900;line-height:1.15;letter-spacing:-.5px;margin-bottom:8px}
@@ -1084,6 +1095,7 @@ footer{
         <i class="ti ti-brand-tiktok"></i> <span data-en="View all videos" data-my="Lihat semua video">View all videos</span>
       </a>
     </div>
+    <div id="ttCreator" style="display:none"></div>
     <div class="videos-grid" id="videosGrid">
       <div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div>
     </div>
@@ -1273,6 +1285,11 @@ footer{
         <div class="pa-frole" data-en="Founder &amp; Content Creator" data-my="Pengasas &amp; Pencipta Kandungan">Founder &amp; Content Creator</div>
         <p class="pa-ftext" data-en="Syahmee Rahim is a content creator who uses digital platforms to share meaningful stories, connect with the community, and inspire positive change. With a passion for creating positive impact, Syahmee Rahim hopes to use content and influence as a platform to spread kindness, compassion, and unity within the community." data-my="Syahmee Rahim ialah seorang pencipta kandungan yang menggunakan platform digital untuk berkongsi kisah bermakna, mendekati komuniti dan memberi inspirasi ke arah perubahan positif. Dengan semangat untuk memberi impak yang baik, Syahmee Rahim berharap dapat menjadikan kandungan dan pengaruhnya sebagai wadah menyebarkan kebaikan, belas kasihan dan perpaduan dalam masyarakat.">Syahmee Rahim is a content creator who uses digital platforms to share meaningful stories, connect with the community, and inspire positive change. With a passion for creating positive impact, Syahmee Rahim hopes to use content and influence as a platform to spread kindness, compassion, and unity within the community.</p>
         <div class="pa-quote" data-en="&ldquo;Kindness should be easy to join. That is all we are trying to build here.&rdquo;" data-my="&ldquo;Kebaikan sepatutnya mudah untuk disertai. Itu sahaja yang cuba kami bina di sini.&rdquo;">&ldquo;Kindness should be easy to join. That is all we are trying to build here.&rdquo;</div>
+        <div class="pa-social">
+          <a href="https://www.tiktok.com/@syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-tiktok"></i> @syahmeerahim</a>
+          <a href="https://www.instagram.com/syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i> @syahmeerahim</a>
+          <a href="https://www.facebook.com/syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> @syahmeerahim</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1282,6 +1299,10 @@ footer{
       <div>
         <h3 data-en="Be part of the <span>next story.</span>" data-my="Jadi sebahagian <span>kisah seterusnya.</span>">Be part of the <span>next story.</span></h3>
         <p data-en="Your donation reaches real families across Malaysia. Every ringgit is accounted for." data-my="Sumbangan anda sampai kepada keluarga sebenar di seluruh Malaysia. Setiap ringgit dikira." >Your donation reaches real families across Malaysia. Every ringgit is accounted for.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px">
+          <a href="tel:+60142161179" style="color:var(--g);text-decoration:none;display:inline-flex;align-items:center;gap:7px"><i class="ti ti-phone"></i> 014-216 1179</a>
+          <a href="mailto:syahmiirahiim@gmail.com" style="color:var(--g);text-decoration:none;display:inline-flex;align-items:center;gap:7px;word-break:break-all"><i class="ti ti-mail"></i> syahmiirahiim@gmail.com</a>
+        </div>
       </div>
       <button class="pa-cta-btn" onclick="openMainDonate()"><i class="ti ti-heart"></i> <span data-en="Donate Now" data-my="Derma Sekarang">Donate Now</span></button>
     </div>
@@ -1312,27 +1333,26 @@ footer{
       </div>
       <div class="footer-col">
         <h4 data-en="Help" data-my="Bantuan">Help</h4>
-        <a data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
-        <a data-en="Privacy Policy" data-my="Dasar Privasi">Privacy Policy</a>
-        <a data-en="Accessibility" data-my="Kebolehcapaian">Accessibility</a>
-        <a data-en="Contact Us" data-my="Hubungi Kami">Contact Us</a>
+        <a onclick="goTo('faq')" data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
+        <a onclick="goTo('how')" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
+        <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
+        <a href="mailto:syahmiirahiim@gmail.com" data-en="Contact Us" data-my="Hubungi Kami">Contact Us</a>
       </div>
       <div class="footer-col">
-        <h4 data-en="Company" data-my="Syarikat">Company</h4>
-        <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
-        <a data-en="Careers" data-my="Kerjaya">Careers</a>
-        <a data-en="Services" data-my="Perkhidmatan">Services</a>
-        <a data-en="Pricing" data-my="Harga">Pricing</a>
+        <h4 data-en="Contact" data-my="Hubungi">Contact</h4>
+        <a href="tel:+60142161179"><i class="ti ti-phone"></i> 014-216 1179</a>
+        <a href="https://wa.me/60142161179" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:syahmiirahiim@gmail.com"><i class="ti ti-mail"></i> syahmiirahiim@gmail.com</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy" data-en="© Amal Satu Hati 2024<br>All Rights Reserved." data-my="© Amal Satu Hati 2024<br>Hak Cipta Terpelihara.">© Amal Satu Hati 2024<br>All Rights Reserved.</div>
+    <div class="footer-copy" data-en="© Amal Satu Hati 2026<br>All Rights Reserved." data-my="© Amal Satu Hati 2026<br>Hak Cipta Terpelihara.">© Amal Satu Hati 2026<br>All Rights Reserved.</div>
     <div class="social-links">
-      <a class="social-link"><i class="ti ti-brand-instagram"></i> Instagram</a>
-      <a class="social-link"><i class="ti ti-brand-facebook"></i> Facebook</a>
-      <a class="social-link"><i class="ti ti-brand-twitter"></i> Twitter</a>
-      <a class="social-link"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
+      <a class="social-link" href="https://www.tiktok.com/@syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-tiktok"></i> TikTok</a>
+      <a class="social-link" href="https://www.instagram.com/syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i> Instagram</a>
+      <a class="social-link" href="https://www.facebook.com/syahmeerahim" target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> Facebook</a>
+      <a class="social-link" href="https://wa.me/60142161179" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
     </div>
   </div>
 </footer>
@@ -1601,7 +1621,16 @@ function goTo(id){
    Contoh URL : https://www.tiktok.com/@amalsatuhati/video/7301234567890123456
    ID-nya     : 7301234567890123456
 ──────────────────────────────────────────────────────────── */
-var TIKTOK_HANDLE='amalsatuhati';
+var TIKTOK_HANDLE='syahmeerahim';
+
+/* TIKTOK_MODE:
+   'auto'   = widget rasmi TikTok, tarik 10 video terbaharu sendiri.
+              Tak perlu senarai, tak perlu update. Tapi rupa ikut
+              gaya TikTok, bukan gaya laman ni.
+   'manual' = grid 4 kad reka sendiri, guna /api/tiktok atau
+              senarai TIKTOK_FALLBACK di bawah.                     */
+var TIKTOK_MODE='auto';
+
 var TIKTOK_FALLBACK=[
   // {id:'7301234567890123456', title:'Agihan bantuan banjir Kelantan'},
   // {id:'7301234567890123457', title:'Program back to school 2025'},
@@ -1650,7 +1679,27 @@ function renderVideos(list){
   });
 }
 
+/* Widget rasmi TikTok — auto papar video terbaharu, tiada API key */
+function renderCreatorEmbed(){
+  var wrap=document.getElementById('ttCreator');
+  document.getElementById('videosGrid').style.display='none';
+  wrap.style.display='block';
+  wrap.innerHTML='<blockquote class="tiktok-embed" '+
+    'cite="https://www.tiktok.com/@'+TIKTOK_HANDLE+'" '+
+    'data-unique-id="'+TIKTOK_HANDLE+'" data-embed-type="creator" '+
+    'style="max-width:780px;min-width:288px;">'+
+    '<section><a target="_blank" rel="noopener" '+
+    'href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'?refer=creator_embed">@'+TIKTOK_HANDLE+'</a></section>'+
+    '</blockquote>';
+  if(!document.getElementById('tt-embed-js')){
+    var sc=document.createElement('script');
+    sc.id='tt-embed-js';sc.async=true;sc.src='https://www.tiktok.com/embed.js';
+    document.body.appendChild(sc);
+  }
+}
+
 function loadVideos(){
+  if(TIKTOK_MODE==='auto'){renderCreatorEmbed();return;}
   fetch('/api/tiktok',{headers:{'Accept':'application/json'}})
     .then(function(r){if(!r.ok)throw new Error('api');return r.json();})
     .then(function(d){
