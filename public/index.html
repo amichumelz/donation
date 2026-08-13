@@ -667,47 +667,58 @@ footer{
 .back-btn:hover{color:var(--blk)}
 
 /* ====== LATEST TIKTOK VIDEOS ====== */
-.videos-section{padding:clamp(8px,2vw,16px) clamp(16px,4vw,40px) clamp(44px,6vw,72px);background:var(--wht)}
+.videos-section{padding:clamp(48px,7vw,80px) clamp(16px,4vw,40px);background:var(--wht)}
 .videos-inner{max-width:1140px;margin:0 auto}
-.videos-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(18px,3vw,28px)}
-.videos-title{font-size:clamp(22px,4vw,34px);font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:6px}
-.videos-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);line-height:1.7;max-width:560px}
+.videos-head{text-align:center;margin-bottom:clamp(24px,4vw,38px)}
+.videos-eyebrow{
+  font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  color:#5f7d18;margin-bottom:clamp(10px,1.6vw,14px);
+}
+.videos-title{
+  font-size:clamp(26px,4.6vw,44px);font-weight:900;
+  letter-spacing:-.8px;line-height:1.1;margin-bottom:10px;
+}
+.videos-sub{
+  font-size:clamp(13px,2vw,15.5px);color:var(--g600);line-height:1.7;
+  max-width:560px;margin:0 auto;
+}
+.videos-frame{
+  border:1px solid var(--g200);border-radius:20px;
+  padding:clamp(10px,1.6vw,16px);background:var(--wht);
+}
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.4vw,14px)}
+.videos-cta{display:flex;justify-content:center;margin-top:clamp(20px,3vw,30px)}
 .tt-btn{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--blk);color:var(--wht);border:none;
-  padding:11px 22px;border-radius:var(--r100);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  padding:13px 30px;border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
   cursor:pointer;text-decoration:none;white-space:nowrap;
   transition:background .15s,transform .2s,box-shadow .2s;
 }
 .tt-btn:hover{background:var(--g700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .tt-btn i{font-size:17px}
-.videos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.6vw,14px)}
 .vid-card{
-  position:relative;border-radius:var(--r16);overflow:hidden;
-  background:var(--g100);border:1px solid var(--g200);
-  aspect-ratio:9/16;cursor:pointer;
-  transition:transform .25s,box-shadow .25s,border-color .2s;
+  position:relative;border-radius:14px;overflow:hidden;
+  background:#111;aspect-ratio:9/16;cursor:pointer;
+  transition:transform .25s,box-shadow .25s;
 }
-.vid-card:hover{transform:translateY(-4px);box-shadow:0 12px 34px rgba(0,0,0,.14);border-color:var(--g)}
-.vid-card.playing{cursor:default;transform:none}
-.vid-card.playing:hover{transform:none;box-shadow:none}
+.vid-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.18)}
 .vid-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
-.vid-card:hover img{transform:scale(1.06)}
-.vid-card iframe{width:100%;height:100%;border:0;display:block}
+.vid-card:hover img{transform:scale(1.05)}
 .vid-fallback{
   position:absolute;inset:0;
   background:linear-gradient(150deg,#1f1f1f 0%,#111 60%);
   display:flex;align-items:center;justify-content:center;
 }
 .vid-fallback i{font-size:44px;color:rgba(255,255,255,.16)}
-.vid-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.05) 55%);pointer-events:none}
+.vid-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.02) 52%);pointer-events:none}
 .vid-play{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:52px;height:52px;border-radius:50%;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
   display:flex;align-items:center;justify-content:center;
-  font-size:24px;color:var(--blk);
+  font-size:23px;color:var(--blk);
   transition:transform .25s,background .2s;pointer-events:none;
 }
 .vid-card:hover .vid-play{transform:translate(-50%,-50%) scale(1.12);background:var(--g)}
@@ -717,16 +728,42 @@ footer{
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
   pointer-events:none;
 }
-.vid-skel{border-radius:var(--r16);aspect-ratio:9/16;background:var(--g100);animation:pulse 1.4s ease-in-out infinite}
+.vid-skel{border-radius:14px;aspect-ratio:9/16;background:var(--g100);animation:pulse 1.4s ease-in-out infinite}
 .vid-empty{
-  grid-column:1/-1;border:1px dashed var(--g300);border-radius:var(--r16);
+  grid-column:1/-1;border:1px dashed var(--g300);border-radius:14px;
   padding:clamp(28px,5vw,48px);text-align:center;
 }
 .vid-empty i{font-size:34px;color:var(--g300);display:block;margin-bottom:12px}
 .vid-empty p{font-size:14px;color:var(--g500);line-height:1.7;margin-bottom:16px}
+@media(max-width:600px){
+  .videos-grid{grid-template-columns:1fr 1fr}
+  .videos-grid .vid-card:nth-child(3){grid-column:1/-1;aspect-ratio:16/10}
+}
+/* susun atur macam rujukan: tajuk tengah, 3 embed, butang bawah */
+.videos-head-c{text-align:center;max-width:760px;margin:0 auto clamp(22px,3.5vw,36px)}
+.videos-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(181,225,83,.18);border:1px solid rgba(181,225,83,.55);
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  color:#5f7d18;margin-bottom:clamp(12px,2vw,18px);
+}
+.videos-head-c .videos-title{font-size:clamp(26px,4.6vw,44px);letter-spacing:-.8px}
+.videos-head-c .videos-sub{margin:0 auto;max-width:600px}
+.tt-embeds{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(10px,1.6vw,18px);align-items:start;
+}
+.tt-embed-col{min-width:0;display:flex;justify-content:center}
+.tt-embed-col blockquote{margin:0!important;max-width:100%!important;min-width:0!important;width:100%}
+.tt-embed-col iframe{max-width:100%!important}
+.videos-cta{display:flex;justify-content:center;margin-top:clamp(20px,3vw,32px)}
+@media(max-width:1000px){.tt-embeds{grid-template-columns:1fr;justify-items:center}
+  .tt-embed-col{max-width:420px;width:100%}}
 #ttCreator{max-width:780px;margin:0 auto;min-height:520px}
 #ttCreator blockquote{margin:0!important}
 @media(max-width:900px){.videos-grid{grid-template-columns:repeat(2,1fr)}}
+.videos-grid .vid-card{max-width:100%}
 
 
 .page-about{display:none}
@@ -1088,18 +1125,30 @@ footer{
 <!-- LATEST TIKTOK VIDEOS -->
 <div class="videos-section" id="videos">
   <div class="videos-inner">
-    <div class="videos-head">
-      <div class="anim-fadeup">
-        <h2 class="videos-title" data-en="Latest on TikTok" data-my="Terbaharu di TikTok">Latest on TikTok</h2>
-        <div class="videos-sub" data-en="Follow our journey on the ground — every campaign, every delivery, every story." data-my="Ikuti perjalanan kami di lapangan — setiap kempen, setiap penghantaran, setiap kisah.">Follow our journey on the ground — every campaign, every delivery, every story.</div>
-      </div>
-      <a class="tt-btn anim-fadeup d1" id="ttProfileBtn" href="#" target="_blank" rel="noopener">
-        <i class="ti ti-brand-tiktok"></i> <span data-en="View all videos" data-my="Lihat semua video">View all videos</span>
-      </a>
+    <div class="videos-head-c anim-fadeup">
+      <div class="videos-eyebrow"><i class="ti ti-brand-tiktok"></i> <span data-en="Latest Videos" data-my="Video Terbaharu">Latest Videos</span></div>
+      <h2 class="videos-title" data-en="People We Recently Helped" data-my="Mereka Yang Kami Bantu">People We Recently Helped</h2>
+      <div class="videos-sub" data-en="Every story here started with someone who chose to give." data-my="Setiap kisah di sini bermula dengan seseorang yang memilih untuk memberi.">Every story here started with someone who chose to give.</div>
     </div>
     <div id="ttCreator" style="display:none"></div>
-    <div class="videos-grid" id="videosGrid">
-      <div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div>
+    <div class="tt-embeds" id="ttEmbeds">
+      <!-- Embed rasmi TikTok. Nak tukar/tambah video: buka video di TikTok,
+           Share > Embed, copy code, ganti satu blok .tt-embed-col di bawah. -->
+      <div class="tt-embed-col">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7672220970324643092" data-video-id="7672220970324643092" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> <p>Jual beras RM1 harini .</p> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7672220989211675408?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+      </div>
+      <div class="tt-embed-col">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7593300656820178194" data-video-id="7593300656820178194" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> Dulu ada bisnes, sekarang Uncle Perumal diuji. <a title="uncleperumal" target="_blank" href="https://www.tiktok.com/tag/uncleperumal?refer=embed">#uncleperumal</a> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7593300691646450453?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+      </div>
+      <div class="tt-embed-col">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7592885730083441927" data-video-id="7592885730083441927" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> Dia lapar minta tolong makanan tapi kena pukul. <a title="uncleperumal" target="_blank" href="https://www.tiktok.com/tag/uncleperumal?refer=embed">#uncleperumal</a> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7592885762807384839?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+      </div>
+    </div>
+    <div class="videos-grid" id="videosGrid" style="display:none"></div>
+    <div class="videos-cta">
+      <a class="tt-btn anim-fadeup" id="ttProfileBtn" href="#" target="_blank" rel="noopener">
+        <i class="ti ti-brand-tiktok"></i> <span data-en="View on TikTok" data-my="Lihat di TikTok">View on TikTok</span>
+      </a>
     </div>
   </div>
 </div>
@@ -1631,7 +1680,10 @@ var TIKTOK_HANDLE='syahmeerahim';
               gaya TikTok, bukan gaya laman ni.
    'manual' = grid 4 kad reka sendiri, guna /api/tiktok atau
               senarai TIKTOK_FALLBACK di bawah.                     */
-var TIKTOK_MODE='manual';
+/* 'embed'  = blockquote setiap video + embed.js  (macam laman rujukan)
+   'auto'   = creator profile embed (satu widget, auto tarik 10 video)
+   'manual' = grid thumbnail sendiri, tanpa script TikTok            */
+var TIKTOK_MODE='embed';
 
 /* Senarai backup — diguna kalau widget auto TikTok gagal
    (throttle, rate limit, dsb) DAN env var TIKTOK_VIDEO_URLS
@@ -1642,9 +1694,9 @@ var TIKTOK_MODE='manual';
    Untuk player terbenam + cover automatik, set TIKTOK_VIDEO_URLS
    dalam Cloudflare — Function akan resolve short link jadi ID.   */
 var TIKTOK_FALLBACK=[
-  {id:'7672220970324643092', url:'https://www.tiktok.com/@syahmeerahim/video/7672220970324643092'},
-  {id:'7593300656820178194', url:'https://www.tiktok.com/@syahmeerahim/video/7593300656820178194'},
-  {id:'7592885730083441927', url:'https://www.tiktok.com/@syahmeerahim/video/7592885730083441927'},
+  {id:'7672220970324643092', url:'https://www.tiktok.com/@syahmeerahim/video/7672220970324643092', cover:'video1.jpg', title:'Anak Yang Sangat Matang'},
+  {id:'7593300656820178194', url:'https://www.tiktok.com/@syahmeerahim/video/7593300656820178194', cover:'video2.jpg', title:''},
+  {id:'7592885730083441927', url:'https://www.tiktok.com/@syahmeerahim/video/7592885730083441927', cover:'video3.jpg', title:'Hasrat Seorang Ibu'},
 ];
 
 document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
@@ -1678,7 +1730,21 @@ function renderVideos(list){
       '<div class="vid-shade"></div>'+
       '<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>'+
       (v.title?'<div class="vid-cap">'+ttSafe(v.title)+'</div>':'');
-    if(!v.cover)enrichCover(card,v);
+
+    // Gambar tempatan (video1.jpg dsb) diutamakan. Kalau fail tak wujud,
+    // baru cuba tarik thumbnail dari TikTok melalui browser pelawat.
+    var im=card.querySelector('img');
+    if(im){
+      im.onerror=function(){
+        var ph=document.createElement('div');
+        ph.className='vid-fallback';
+        ph.innerHTML='<i class="ti ti-brand-tiktok"></i>';
+        im.parentNode.replaceChild(ph,im);
+        enrichCover(card,v);
+      };
+    }else{
+      enrichCover(card,v);
+    }
     // Thumbnail sahaja — tekan untuk buka video di TikTok
     var play=function(){
       var link=v.url||('https://www.tiktok.com/@'+TIKTOK_HANDLE+'/video/'+v.id);
@@ -1717,11 +1783,15 @@ function renderCreatorEmbed(){
 }
 
 function fallbackToGrid(){
-  if(TIKTOK_MODE!=='auto')return;   // sudah pun guna grid
+  if(TIKTOK_MODE==='manual')return;
   TIKTOK_MODE='manual';
-  var wrap=document.getElementById('ttCreator');
-  wrap.style.display='none';wrap.innerHTML='';
-  document.getElementById('videosGrid').style.display='';
+  ['ttCreator','ttEmbeds'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.style.display='none';el.innerHTML='';}
+  });
+  var grid=document.getElementById('videosGrid');
+  grid.style.display='';
+  grid.innerHTML='<div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div>';
   loadVideos();
 }
 
@@ -1748,25 +1818,37 @@ function enrichCover(card,v){
 }
 
 function loadVideos(){
-  if(TIKTOK_MODE==='auto'){
-    // tunggu section masuk skrin dulu — kurangkan permintaan ke TikTok
-    // dan elak throttle bila page di-reload berulang kali
-    var sec=document.getElementById('videos');
+  var sec=document.getElementById('videos');
+
+  // Mode 'embed': blockquote sudah ada dalam HTML, TikTok yang render kad
+  // (cover, play count, like count). Script hanya dimuat bila section
+  // masuk skrin — page atas laju, dan kurang permintaan ke TikTok.
+  if(TIKTOK_MODE==='embed'||TIKTOK_MODE==='auto'){
     var io=new IntersectionObserver(function(en){
-      if(en[0].isIntersecting){io.disconnect();renderCreatorEmbed();}
-    },{rootMargin:'300px'});
+      if(!en[0].isIntersecting)return;
+      io.disconnect();
+      if(TIKTOK_MODE==='auto')renderCreatorEmbed();
+      else loadEmbedScript();
+    },{rootMargin:'400px'});
     io.observe(sec);
     return;
   }
+
+  // Mode 'manual': grid thumbnail sendiri, tanpa script TikTok
   fetch('/api/tiktok',{headers:{'Accept':'application/json'}})
     .then(function(r){if(!r.ok)throw new Error('api');return r.json();})
     .then(function(d){
       var list=(d&&d.videos)||[];
-      // handle dalam index.html sentiasa menang — env var di server
-      // mungkin belum diset dan akan pulangkan nilai default yang salah
       renderVideos(list.length?list:TIKTOK_FALLBACK);
     })
     .catch(function(){renderVideos(TIKTOK_FALLBACK);});
+}
+
+function loadEmbedScript(){
+  if(document.getElementById('tt-embed-js'))return;
+  var sc=document.createElement('script');
+  sc.id='tt-embed-js';sc.async=true;sc.src='https://www.tiktok.com/embed.js';
+  document.body.appendChild(sc);
 }
 loadVideos();
 
