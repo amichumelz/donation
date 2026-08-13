@@ -1642,9 +1642,9 @@ var TIKTOK_MODE='manual';
    Untuk player terbenam + cover automatik, set TIKTOK_VIDEO_URLS
    dalam Cloudflare — Function akan resolve short link jadi ID.   */
 var TIKTOK_FALLBACK=[
-  {url:'https://vt.tiktok.com/ZSV1jjCgy/'},
-  {url:'https://vt.tiktok.com/ZSV1juPYT/'},
-  {url:'https://vt.tiktok.com/ZSV1j6Nxs/'},
+  {id:'7672220970324643092', url:'https://www.tiktok.com/@syahmeerahim/video/7672220970324643092'},
+  {id:'7593300656820178194', url:'https://www.tiktok.com/@syahmeerahim/video/7593300656820178194'},
+  {id:'7592885730083441927', url:'https://www.tiktok.com/@syahmeerahim/video/7592885730083441927'},
 ];
 
 document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
@@ -1672,12 +1672,13 @@ function renderVideos(list){
     card.setAttribute('role','button');
     card.setAttribute('tabindex','0');
     card.setAttribute('aria-label','Play TikTok video');
-    var cover=v.cover
-      ? '<img src="'+v.cover+'" alt="" loading="lazy" referrerpolicy="no-referrer">'
-      : '<div class="vid-fallback"><i class="ti ti-brand-tiktok"></i></div>';
-    card.innerHTML=cover+'<div class="vid-shade"></div>'+
+    card.innerHTML=(v.cover
+        ? '<img src="'+v.cover+'" alt="" loading="lazy" referrerpolicy="no-referrer">'
+        : '<div class="vid-fallback"><i class="ti ti-brand-tiktok"></i></div>')+
+      '<div class="vid-shade"></div>'+
       '<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>'+
       (v.title?'<div class="vid-cap">'+ttSafe(v.title)+'</div>':'');
+    if(!v.cover)enrichCover(card,v);
     // Thumbnail sahaja — tekan untuk buka video di TikTok
     var play=function(){
       var link=v.url||('https://www.tiktok.com/@'+TIKTOK_HANDLE+'/video/'+v.id);
@@ -1724,6 +1725,28 @@ function fallbackToGrid(){
   loadVideos();
 }
 
+/* Server kadang diblok TikTok bila panggil oEmbed (IP datacenter).
+   Browser pelawat guna IP biasa, jadi kita cuba dari sini pula.    */
+function enrichCover(card,v){
+  if(!v.url)return;
+  fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(v.url))
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      if(!d||!d.thumbnail_url||card.classList.contains('playing'))return;
+      var img=document.createElement('img');
+      img.src=d.thumbnail_url;img.alt='';img.loading='lazy';
+      img.referrerPolicy='no-referrer';
+      var old=card.querySelector('.vid-fallback');
+      if(old)card.replaceChild(img,old);
+      if(d.title&&!card.querySelector('.vid-cap')){
+        var cap=document.createElement('div');
+        cap.className='vid-cap';cap.textContent=d.title;
+        card.appendChild(cap);
+      }
+    })
+    .catch(function(){/* biar placeholder hitam, kad masih boleh ditekan */});
+}
+
 function loadVideos(){
   if(TIKTOK_MODE==='auto'){
     // tunggu section masuk skrin dulu — kurangkan permintaan ke TikTok
@@ -1739,10 +1762,8 @@ function loadVideos(){
     .then(function(r){if(!r.ok)throw new Error('api');return r.json();})
     .then(function(d){
       var list=(d&&d.videos)||[];
-      if(d&&d.handle)  {
-        TIKTOK_HANDLE=d.handle.replace('@','');
-        document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
-      }
+      // handle dalam index.html sentiasa menang — env var di server
+      // mungkin belum diset dan akan pulangkan nilai default yang salah
       renderVideos(list.length?list:TIKTOK_FALLBACK);
     })
     .catch(function(){renderVideos(TIKTOK_FALLBACK);});

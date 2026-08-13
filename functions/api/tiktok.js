@@ -41,47 +41,67 @@ export async function onRequestGet({ request, env, waitUntil }) {
     .filter((u) => /^https?:\/\/([a-z]{2}\.)?tiktok\.com\//.test(u))
     .slice(0, 8);
 
-  // Short link tak ada ID video di dalamnya — kena ikut redirect dahulu
-  const urls = await Promise.all(
-    rawUrls.map(async (u) => {
-      if (/\/video\/\d+/.test(u)) return u;
-      try {
-        const r = await fetch(u, { redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0' } });
-        return r.url && /\/video\/\d+/.test(r.url) ? r.url.split('?')[0] : u;
-      } catch {
-        return u;
-      }
-    })
-  );
+  /** Panggil oEmbed rasmi TikTok — public, tiada API key */
+  async function oembed(url) {
+    try {
+      const res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AmalSatuHati/1.0)' },
+        cf: { cacheTtl: CACHE_SECONDS, cacheEverything: true },
+      });
+      if (!res.ok) return null;
+      const d = await res.json();
+      return d && d.thumbnail_url ? d : null;
+    } catch {
+      return null;
+    }
+  }
 
-  // oEmbed rasmi TikTok — public, tiada API key diperlukan
+  /** Ikut redirect short link untuk dapatkan URL penuh /video/<id> */
+  async function expand(url) {
+    try {
+      const r = await fetch(url, {
+        redirect: 'follow',
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
+      });
+      return r.url && /\/video\/\d+/.test(r.url) ? r.url.split('?')[0] : null;
+    } catch {
+      return null;
+    }
+  }
+
   const videos = (
     await Promise.all(
-      urls.map(async (url) => {
-        try {
-          const res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`, {
-            headers: { 'User-Agent': 'AmalSatuHati/1.0' },
-            cf: { cacheTtl: CACHE_SECONDS, cacheEverything: true },
-          });
-          if (!res.ok) return null;
-          const d = await res.json();
-          const id = (url.match(/video\/(\d+)/) || [])[1] || d.embed_product_id;
-          if (!id) return null;
-          return {
-            id,
-            url,
-            title: d.title || '',
-            cover: d.thumbnail_url || '',
-            author: d.author_name || handle,
-          };
-        } catch {
-          return null;
+      rawUrls.map(async (input) => {
+        let url = input;
+        let d = null;
+
+        // Short link: expand dahulu, sebab oEmbed lebih dipercayai dengan URL penuh
+        if (!/\/video\/\d+/.test(url)) {
+          const full = await expand(url);
+          if (full) url = full;
         }
+
+        d = await oembed(url);
+        if (!d && url !== input) d = await oembed(input); // cuba semula dengan short link asal
+        if (!d) return null;
+
+        const id = (url.match(/video\/(\d+)/) || [])[1] || d.embed_product_id || null;
+        return {
+          id,
+          url: d.author_url && id ? `${d.author_url}/video/${id}` : url,
+          title: d.title || '',
+          cover: d.thumbnail_url || '',
+          author: d.author_name || handle,
+        };
       })
     )
   ).filter(Boolean);
 
-  const response = new Response(JSON.stringify({ handle, videos }), {
+  // handle sebenar dari video kalau ada, bukan nilai default
+  const derived = videos.find((v) => /tiktok\.com\/@([^/]+)/.test(v.url));
+  const realHandle = derived ? derived.url.match(/tiktok\.com\/@([^/]+)/)[1] : handle;
+
+  const response = new Response(JSON.stringify({ handle: realHandle, videos, configured: rawUrls.length }), {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': `public, max-age=${CACHE_SECONDS}`,
