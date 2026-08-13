@@ -1631,9 +1631,15 @@ var TIKTOK_HANDLE='syahmeerahim';
               senarai TIKTOK_FALLBACK di bawah.                     */
 var TIKTOK_MODE='auto';
 
+/* Tampal ID video di sini (buang tanda // di depan).
+   Ambil dari URL video: tiktok.com/@syahmeerahim/video/[ID INI]
+   Kalau env var TIKTOK_VIDEO_URLS diset dalam Cloudflare,
+   senarai dari sana akan diguna dan ini diabaikan.            */
 var TIKTOK_FALLBACK=[
-  // {id:'7301234567890123456', title:'Agihan bantuan banjir Kelantan'},
-  // {id:'7301234567890123457', title:'Program back to school 2025'},
+  // {id:'7301234567890123456', title:'Agihan bantuan kepada keluarga asnaf'},
+  // {id:'7301234567890123457', title:'Program back to school'},
+  // {id:'7301234567890123458', title:'Bantuan banjir'},
+  // {id:'7301234567890123459', title:'Lawatan ke rumah anak yatim'},
 ];
 
 document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
@@ -1684,12 +1690,16 @@ function renderCreatorEmbed(){
   var wrap=document.getElementById('ttCreator');
   document.getElementById('videosGrid').style.display='none';
   wrap.style.display='block';
+  // Markup ini mesti sama PERSIS dengan yang oEmbed TikTok pulangkan.
+  // data-embed-from="oembed" wajib — tanpa dia widget papar "Profile not available".
   wrap.innerHTML='<blockquote class="tiktok-embed" '+
     'cite="https://www.tiktok.com/@'+TIKTOK_HANDLE+'" '+
-    'data-unique-id="'+TIKTOK_HANDLE+'" data-embed-type="creator" '+
-    'style="max-width:780px;min-width:288px;">'+
-    '<section><a target="_blank" rel="noopener" '+
-    'href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'?refer=creator_embed">@'+TIKTOK_HANDLE+'</a></section>'+
+    'data-unique-id="'+TIKTOK_HANDLE+'" '+
+    'data-embed-from="oembed" '+
+    'data-embed-type="creator" '+
+    'style="max-width:780px; min-width:288px;"> '+
+    '<section> <a target="_blank" '+
+    'href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'?refer=creator_embed">@'+TIKTOK_HANDLE+'</a> </section> '+
     '</blockquote>';
   if(!document.getElementById('tt-embed-js')){
     var sc=document.createElement('script');
