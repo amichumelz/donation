@@ -5,8 +5,9 @@
  * Environment variables (Cloudflare Pages > Settings > Variables and Secrets):
  *   TIKTOK_HANDLE      (Plain) - cth. amalsatuhati  (tanpa @)
  *   TIKTOK_VIDEO_URLS  (Plain) - URL video dipisah koma, terbaharu dahulu.
- *      cth. https://www.tiktok.com/@amalsatuhati/video/7301234567890123456,
- *           https://www.tiktok.com/@amalsatuhati/video/7301234567890123457
+ *      cth. https://www.tiktok.com/@syahmeerahim/video/7301234567890123456
+ *      Short link (https://vt.tiktok.com/XXXX/) pun diterima —
+ *      Function akan ikut redirect untuk dapatkan ID sebenar.
  *
  * Kenapa senarai URL dan bukan auto-fetch?
  * TikTok tidak benarkan sesiapa tarik senarai video akaun tanpa OAuth.
@@ -33,11 +34,25 @@ export async function onRequestGet({ request, env, waitUntil }) {
     if (fromKV) raw = fromKV;
   }
 
-  const urls = raw
+  // Terima URL penuh dan juga short link (vt./vm./tiktok.com/t/)
+  const rawUrls = raw
     .split(/[,\n]/)
     .map((u) => u.trim())
-    .filter((u) => /^https?:\/\/(www\.)?(vm\.)?tiktok\.com\//.test(u))
+    .filter((u) => /^https?:\/\/([a-z]{2}\.)?tiktok\.com\//.test(u))
     .slice(0, 8);
+
+  // Short link tak ada ID video di dalamnya — kena ikut redirect dahulu
+  const urls = await Promise.all(
+    rawUrls.map(async (u) => {
+      if (/\/video\/\d+/.test(u)) return u;
+      try {
+        const r = await fetch(u, { redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0' } });
+        return r.url && /\/video\/\d+/.test(r.url) ? r.url.split('?')[0] : u;
+      } catch {
+        return u;
+      }
+    })
+  );
 
   // oEmbed rasmi TikTok — public, tiada API key diperlukan
   const videos = (

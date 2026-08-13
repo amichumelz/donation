@@ -1631,15 +1631,18 @@ var TIKTOK_HANDLE='syahmeerahim';
               senarai TIKTOK_FALLBACK di bawah.                     */
 var TIKTOK_MODE='auto';
 
-/* Tampal ID video di sini (buang tanda // di depan).
-   Ambil dari URL video: tiktok.com/@syahmeerahim/video/[ID INI]
-   Kalau env var TIKTOK_VIDEO_URLS diset dalam Cloudflare,
-   senarai dari sana akan diguna dan ini diabaikan.            */
+/* Senarai backup — diguna kalau widget auto TikTok gagal
+   (throttle, rate limit, dsb) DAN env var TIKTOK_VIDEO_URLS
+   belum diset dalam Cloudflare.
+
+   Boleh guna short link (vt.tiktok.com) terus di sini. Kad akan
+   papar placeholder hitam; tekan untuk buka video di TikTok.
+   Untuk player terbenam + cover automatik, set TIKTOK_VIDEO_URLS
+   dalam Cloudflare — Function akan resolve short link jadi ID.   */
 var TIKTOK_FALLBACK=[
-  // {id:'7301234567890123456', title:'Agihan bantuan kepada keluarga asnaf'},
-  // {id:'7301234567890123457', title:'Program back to school'},
-  // {id:'7301234567890123458', title:'Bantuan banjir'},
-  // {id:'7301234567890123459', title:'Lawatan ke rumah anak yatim'},
+  {url:'https://vt.tiktok.com/ZSV1jjCgy/'},
+  {url:'https://vt.tiktok.com/ZSV1juPYT/'},
+  {url:'https://vt.tiktok.com/ZSV1j6Nxs/'},
 ];
 
 document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
@@ -1674,6 +1677,8 @@ function renderVideos(list){
       '<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>'+
       (v.title?'<div class="vid-cap">'+ttSafe(v.title)+'</div>':'');
     var play=function(){
+      // Tiada ID (cth. short link) -> buka terus di TikTok
+      if(!v.id){window.open(v.url,'_blank','noopener');return;}
       if(card.classList.contains('playing'))return;
       card.classList.add('playing');
       card.innerHTML='<iframe src="https://www.tiktok.com/embed/v2/'+encodeURIComponent(v.id)+
@@ -1704,12 +1709,38 @@ function renderCreatorEmbed(){
   if(!document.getElementById('tt-embed-js')){
     var sc=document.createElement('script');
     sc.id='tt-embed-js';sc.async=true;sc.src='https://www.tiktok.com/embed.js';
+    sc.onerror=fallbackToGrid;
     document.body.appendChild(sc);
   }
+
+  // Widget TikTok kadang gagal senyap ("overload-protect triggered",
+  // rate limit, atau script tak load). Kalau selepas 7 saat blockquote
+  // masih tak bertukar jadi iframe, kita patah balik ke grid sendiri.
+  setTimeout(function(){
+    if(!wrap.querySelector('iframe'))fallbackToGrid();
+  },7000);
+}
+
+function fallbackToGrid(){
+  if(TIKTOK_MODE!=='auto')return;   // sudah pun guna grid
+  TIKTOK_MODE='manual';
+  var wrap=document.getElementById('ttCreator');
+  wrap.style.display='none';wrap.innerHTML='';
+  document.getElementById('videosGrid').style.display='';
+  loadVideos();
 }
 
 function loadVideos(){
-  if(TIKTOK_MODE==='auto'){renderCreatorEmbed();return;}
+  if(TIKTOK_MODE==='auto'){
+    // tunggu section masuk skrin dulu — kurangkan permintaan ke TikTok
+    // dan elak throttle bila page di-reload berulang kali
+    var sec=document.getElementById('videos');
+    var io=new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){io.disconnect();renderCreatorEmbed();}
+    },{rootMargin:'300px'});
+    io.observe(sec);
+    return;
+  }
   fetch('/api/tiktok',{headers:{'Accept':'application/json'}})
     .then(function(r){if(!r.ok)throw new Error('api');return r.json();})
     .then(function(d){
