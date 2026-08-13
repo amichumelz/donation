@@ -351,6 +351,80 @@ nav{
 }
 .brand-name{font-size:13px;font-weight:700;color:var(--blk)}
 
+/* ====== ABOUT US SECTION ====== */
+.about-section{padding:clamp(48px,7vw,86px) clamp(16px,4vw,40px);background:var(--wht)}
+.about-inner{
+  max-width:1140px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(32px,6vw,72px);align-items:center;
+}
+.about-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(181,225,83,.18);border:1px solid rgba(181,225,83,.55);
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  color:#5f7d18;margin-bottom:clamp(16px,2.5vw,22px);
+}
+.about-eyebrow i{font-size:13px}
+.about-heading{
+  font-size:clamp(28px,4.6vw,48px);font-weight:900;
+  color:var(--blk);line-height:1.08;letter-spacing:-.8px;
+  margin-bottom:clamp(14px,2vw,20px);
+}
+.about-heading span{
+  background:linear-gradient(to top,rgba(181,225,83,.55) 38%,transparent 38%);
+  padding:0 2px;
+}
+.about-body{
+  font-size:clamp(13.5px,1.8vw,16px);color:var(--g600);
+  line-height:1.85;max-width:470px;
+  margin-bottom:clamp(24px,3.5vw,34px);
+}
+.about-btn{
+  background:var(--g);color:var(--blk);border:none;
+  padding:clamp(12px,1.6vw,15px) clamp(24px,3vw,34px);
+  border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:clamp(13px,1.6vw,15px);font-weight:700;
+  cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .15s,transform .2s,box-shadow .2s;
+}
+.about-btn:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 22px rgba(181,225,83,.45)}
+.about-btn:active{transform:translateY(0)}
+.about-media{position:relative}
+.about-frame{
+  position:relative;width:100%;aspect-ratio:1/1;
+  border-radius:20px;overflow:hidden;background:var(--g100);
+  box-shadow:0 18px 50px rgba(0,0,0,.13);
+}
+.about-slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity .6s cubic-bezier(.22,1,.36,1);
+}
+.about-slide.active{opacity:1}
+.about-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.about-nav{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(14px,2.5vw,22px);margin-top:18px;
+}
+.about-arrow{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--g200);background:var(--wht);color:var(--blk);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;line-height:1;cursor:pointer;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.about-arrow:hover{border-color:var(--g);background:rgba(181,225,83,.12);transform:scale(1.07)}
+.about-count{font-size:15px;font-weight:700;color:var(--blk);letter-spacing:1px}
+.about-count .ac-sep{color:var(--g300);margin:0 4px}
+.about-count .ac-tot{color:var(--g400)}
+@media(max-width:900px){
+  .about-inner{grid-template-columns:1fr}
+  .about-body{max-width:100%}
+  .about-media{order:-1}
+  .about-frame{aspect-ratio:4/3}
+}
+
 /* ====== UNIFIED DONATION SECTION ====== */
 .donate-section{padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px);background:var(--g50)}
 .donate-inner{max-width:900px;margin:0 auto}
@@ -592,6 +666,125 @@ footer{
 .back-btn{display:block;margin:9px auto 0;background:none;border:none;color:var(--g400);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:color .15s}
 .back-btn:hover{color:var(--blk)}
 
+/* ====== LATEST TIKTOK VIDEOS ====== */
+.videos-section{padding:clamp(8px,2vw,16px) clamp(16px,4vw,40px) clamp(44px,6vw,72px);background:var(--wht)}
+.videos-inner{max-width:1140px;margin:0 auto}
+.videos-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(18px,3vw,28px)}
+.videos-title{font-size:clamp(22px,4vw,34px);font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:6px}
+.videos-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);line-height:1.7;max-width:560px}
+.tt-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blk);color:var(--wht);border:none;
+  padding:11px 22px;border-radius:var(--r100);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:background .15s,transform .2s,box-shadow .2s;
+}
+.tt-btn:hover{background:var(--g700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.tt-btn i{font-size:17px}
+.videos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.6vw,14px)}
+.vid-card{
+  position:relative;border-radius:var(--r16);overflow:hidden;
+  background:var(--g100);border:1px solid var(--g200);
+  aspect-ratio:9/16;cursor:pointer;
+  transition:transform .25s,box-shadow .25s,border-color .2s;
+}
+.vid-card:hover{transform:translateY(-4px);box-shadow:0 12px 34px rgba(0,0,0,.14);border-color:var(--g)}
+.vid-card.playing{cursor:default;transform:none}
+.vid-card.playing:hover{transform:none;box-shadow:none}
+.vid-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.vid-card:hover img{transform:scale(1.06)}
+.vid-card iframe{width:100%;height:100%;border:0;display:block}
+.vid-fallback{
+  position:absolute;inset:0;
+  background:linear-gradient(150deg,#1f1f1f 0%,#111 60%);
+  display:flex;align-items:center;justify-content:center;
+}
+.vid-fallback i{font-size:44px;color:rgba(255,255,255,.16)}
+.vid-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.05) 55%);pointer-events:none}
+.vid-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;color:var(--blk);
+  transition:transform .25s,background .2s;pointer-events:none;
+}
+.vid-card:hover .vid-play{transform:translate(-50%,-50%) scale(1.12);background:var(--g)}
+.vid-cap{
+  position:absolute;left:12px;right:12px;bottom:12px;
+  color:var(--wht);font-size:12.5px;font-weight:600;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  pointer-events:none;
+}
+.vid-skel{border-radius:var(--r16);aspect-ratio:9/16;background:var(--g100);animation:pulse 1.4s ease-in-out infinite}
+.vid-empty{
+  grid-column:1/-1;border:1px dashed var(--g300);border-radius:var(--r16);
+  padding:clamp(28px,5vw,48px);text-align:center;
+}
+.vid-empty i{font-size:34px;color:var(--g300);display:block;margin-bottom:12px}
+.vid-empty p{font-size:14px;color:var(--g500);line-height:1.7;margin-bottom:16px}
+@media(max-width:900px){.videos-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.page-about{display:none}
+.page-about.show{display:block;animation:fadeIn .35s ease both}
+.pa-head{padding:calc(58px + clamp(34px,5vw,60px)) clamp(16px,4vw,40px) clamp(20px,3.5vw,34px);max-width:1140px;margin:0 auto}
+.crumb{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--g400);margin-bottom:clamp(14px,2.4vw,22px)}
+.crumb a{color:var(--g500);text-decoration:none;cursor:pointer;transition:color .15s}
+.crumb a:hover{color:var(--blk)}
+.pa-title{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;max-width:14ch}
+.pa-title span{background:linear-gradient(to top,rgba(181,225,83,.55) 38%,transparent 38%);padding:0 2px}
+.pa-essay{padding:clamp(8px,2vw,16px) clamp(16px,4vw,40px) clamp(40px,6vw,72px);max-width:1140px;margin:0 auto}
+.pa-essay-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:start}
+.pa-essay p{font-size:clamp(14.5px,1.9vw,17px);line-height:1.9;color:var(--g600);margin-bottom:18px}
+.pa-essay p.lead{font-size:clamp(16px,2.3vw,20px);line-height:1.75;color:var(--blk);font-weight:500}
+.pa-img{width:100%;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.13);aspect-ratio:4/5;background:var(--g100)}
+.pa-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pa-caption{font-size:12.5px;color:var(--g400);margin-top:10px;line-height:1.6}
+.pa-pillars{padding:clamp(36px,6vw,64px) clamp(16px,4vw,40px);background:var(--g50)}
+.pa-pillars-inner{max-width:1140px;margin:0 auto}
+.pa-sec-title{font-size:clamp(22px,4vw,34px);font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
+.pa-sec-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);line-height:1.7;max-width:620px;margin-bottom:clamp(22px,3.5vw,34px)}
+.pa-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,16px)}
+.pa-card{background:var(--wht);border:1px solid var(--g200);border-radius:var(--r16);padding:clamp(18px,3vw,26px);transition:border-color .2s,transform .25s,box-shadow .25s}
+.pa-card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
+.pa-card-icon{width:38px;height:38px;border-radius:10px;background:var(--g100);display:flex;align-items:center;justify-content:center;margin-bottom:clamp(12px,2vw,18px);transition:background .2s}
+.pa-card:hover .pa-card-icon{background:var(--g)}
+.pa-card-icon i{font-size:19px;color:var(--blk)}
+.pa-card h3{font-size:clamp(14px,2vw,15.5px);font-weight:700;margin-bottom:7px}
+.pa-card p{font-size:clamp(12.5px,1.6vw,13.5px);color:var(--g500);line-height:1.75}
+.pa-founder{padding:clamp(48px,7vw,86px) clamp(16px,4vw,40px)}
+.pa-founder-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,68px);align-items:center}
+.pa-photo{position:relative;width:100%;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--g100);box-shadow:0 18px 50px rgba(0,0,0,.14)}
+.pa-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pa-badge{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:100px;padding:8px 16px;font-size:12.5px;font-weight:800;display:flex;align-items:center;gap:7px}
+.pa-badge i{color:var(--gd);font-size:15px}
+.pa-fname{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.8px;line-height:1.08;margin-bottom:8px}
+.pa-frole{font-size:clamp(13px,1.7vw,15px);font-weight:700;color:#5f7d18;letter-spacing:.4px;text-transform:uppercase;margin-bottom:clamp(14px,2vw,20px)}
+.pa-ftext{font-size:clamp(14.5px,1.9vw,17px);line-height:1.9;color:var(--g600);max-width:540px;margin-bottom:clamp(20px,3vw,28px)}
+.pa-quote{border-left:3px solid var(--g);padding:4px 0 4px 18px;font-size:clamp(14px,1.9vw,17px);font-style:italic;font-weight:500;color:var(--blk);line-height:1.7}
+.pa-cta{padding:0 clamp(16px,4vw,40px) clamp(48px,7vw,80px)}
+.pa-cta-inner{max-width:1140px;margin:0 auto;background:var(--blk);color:var(--wht);border-radius:20px;padding:clamp(28px,5vw,52px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pa-cta-inner h3{font-size:clamp(22px,3.6vw,34px);font-weight:900;line-height:1.15;letter-spacing:-.5px;margin-bottom:8px}
+.pa-cta-inner h3 span{color:var(--g)}
+.pa-cta-inner p{font-size:clamp(13px,1.7vw,15px);color:rgba(255,255,255,.5);line-height:1.7;max-width:440px}
+.pa-cta-btn{background:var(--g);color:var(--blk);border:none;padding:clamp(13px,1.8vw,16px) clamp(28px,3.5vw,40px);border-radius:var(--r100);font-family:'DM Sans',sans-serif;font-size:clamp(14px,1.8vw,16px);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:background .15s,transform .2s,box-shadow .2s}
+.pa-cta-btn:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 8px 26px rgba(181,225,83,.4)}
+.nav-links a.active{opacity:1;font-weight:700}
+.nav-links a.active::after{transform:scaleX(1)}
+@media(max-width:900px){
+  .pa-essay-grid{grid-template-columns:1fr}
+  .pa-img{aspect-ratio:16/10}
+  .pa-cards{grid-template-columns:1fr 1fr}
+  .pa-founder-inner{grid-template-columns:1fr}
+  .pa-photo{aspect-ratio:4/3;max-width:520px}
+}
+@media(max-width:600px){
+  .pa-cards{grid-template-columns:1fr}
+  .pa-title{max-width:100%}
+}
+
 /* ====== RESPONSIVE ====== */
 @media(max-width:900px){
   .nav-links,.nav-brand{display:none}
@@ -700,7 +893,7 @@ footer{
       <a onclick="goTo('home')" data-en="Home" data-my="Laman Utama">Home</a>
       <a onclick="goTo('donate-section')" data-en="Donation" data-my="Derma">Donation</a>
       <a onclick="goTo('how')" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
-      <a onclick="goTo('faq')" data-en="About Us" data-my="Tentang Kami">About Us</a>
+      <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
     </div>
   </div>
   <!-- Language Toggle -->
@@ -722,10 +915,12 @@ footer{
   <a onclick="goTo('home');closeMenu()" data-en="Home" data-my="Laman Utama">Home</a>
   <a onclick="goTo('donate-section');closeMenu()" data-en="Donation" data-my="Derma">Donation</a>
   <a onclick="goTo('how');closeMenu()" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
-  <a onclick="goTo('faq');closeMenu()" data-en="About Us" data-my="Tentang Kami">About Us</a>
+  <a onclick="showPage('about');closeMenu()" data-en="About Us" data-my="Tentang Kami">About Us</a>
 </div>
 
 <!-- HERO SLIDESHOW -->
+<!-- ===== PAGE: HOME ===== -->
+<div id="page-home">
 <div class="hero-wrap" id="home">
   <div class="hero" id="heroSlider">
     <div class="hero-slide active">
@@ -850,6 +1045,51 @@ footer{
   </div>
 </div>
 
+<!-- ABOUT US SECTION -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-left anim-left">
+      <div class="about-eyebrow"><i class="ti ti-sparkles"></i> <span data-en="Introduction of Us" data-my="Pengenalan Kami">Introduction of Us</span></div>
+      <h2 class="about-heading" data-en="About Pertubuhan <span>Amal Satu Hati</span>" data-my="Tentang Pertubuhan <span>Amal Satu Hati</span>">About Pertubuhan <span>Amal Satu Hati</span></h2>
+      <p class="about-body" data-en="Pertubuhan Amal Satu Hati is an organization dedicated to bringing hope and support to individuals and communities in need. Through various charitable, educational, health, and humanitarian efforts, we aim to create a more caring, compassionate, and united society where everyone has the opportunity to live with dignity." data-my="Pertubuhan Amal Satu Hati ialah sebuah pertubuhan yang komited membawa harapan dan sokongan kepada individu serta komuniti yang memerlukan. Melalui pelbagai usaha kebajikan, pendidikan, kesihatan dan kemanusiaan, kami berhasrat membentuk masyarakat yang lebih prihatin, penyayang dan bersatu, di mana setiap orang berpeluang hidup dengan bermaruah.">Pertubuhan Amal Satu Hati is an organization dedicated to bringing hope and support to individuals and communities in need. Through various charitable, educational, health, and humanitarian efforts, we aim to create a more caring, compassionate, and united society where everyone has the opportunity to live with dignity.</p>
+      <a class="about-btn" onclick="showPage('about')"><span data-en="Continue Reading" data-my="Baca Selanjutnya">Continue Reading</span> <i class="ti ti-arrow-right"></i></a>
+    </div>
+
+    <div class="about-media anim-right">
+      <div class="about-frame" id="aboutFrame">
+        <!-- Tukar src gambar di bawah dengan gambar sebenar aktiviti anda -->
+        <div class="about-slide active"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=900&q=85&auto=format&fit=crop" alt="Community outreach"></div>
+        <div class="about-slide"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=85&auto=format&fit=crop" alt="Volunteers at work"></div>
+        <div class="about-slide"><img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=900&q=85&auto=format&fit=crop" alt="Helping the community"></div>
+        <div class="about-slide"><img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=900&q=85&auto=format&fit=crop" alt="Helping hands"></div>
+      </div>
+      <div class="about-nav">
+        <button class="about-arrow" onclick="aboutSlide(-1)" aria-label="Previous photo">&#8592;</button>
+        <div class="about-count"><span id="aboutIdx">1</span><span class="ac-sep">/</span><span class="ac-tot" id="aboutTot">4</span></div>
+        <button class="about-arrow" onclick="aboutSlide(1)" aria-label="Next photo">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LATEST TIKTOK VIDEOS -->
+<div class="videos-section" id="videos">
+  <div class="videos-inner">
+    <div class="videos-head">
+      <div class="anim-fadeup">
+        <h2 class="videos-title" data-en="Latest on TikTok" data-my="Terbaharu di TikTok">Latest on TikTok</h2>
+        <div class="videos-sub" data-en="Follow our journey on the ground — every campaign, every delivery, every story." data-my="Ikuti perjalanan kami di lapangan — setiap kempen, setiap penghantaran, setiap kisah.">Follow our journey on the ground — every campaign, every delivery, every story.</div>
+      </div>
+      <a class="tt-btn anim-fadeup d1" id="ttProfileBtn" href="#" target="_blank" rel="noopener">
+        <i class="ti ti-brand-tiktok"></i> <span data-en="View all videos" data-my="Lihat semua video">View all videos</span>
+      </a>
+    </div>
+    <div class="videos-grid" id="videosGrid">
+      <div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div><div class="vid-skel"></div>
+    </div>
+  </div>
+</div>
+
 <!-- UNIFIED DONATION SECTION -->
 <div class="donate-section" id="donate-section">
   <div class="donate-inner">
@@ -957,6 +1197,98 @@ footer{
   <div id="faq-list"></div>
 </div>
 
+</div><!-- /#page-home -->
+
+<!-- ===== PAGE: ABOUT US ===== -->
+<div class="page-about" id="page-about">
+
+  <div class="pa-head">
+    <div class="crumb">
+      <a onclick="showPage('home')" data-en="Home" data-my="Laman Utama">Home</a>
+      <i class="ti ti-chevron-right" style="font-size:14px"></i>
+      <span data-en="About Us" data-my="Tentang Kami">About Us</span>
+    </div>
+    <div class="about-eyebrow"><i class="ti ti-sparkles"></i> <span data-en="Introduction of Us" data-my="Pengenalan Kami">Introduction of Us</span></div>
+    <h1 class="pa-title" data-en="About Pertubuhan <span>Amal Satu Hati</span>" data-my="Tentang Pertubuhan <span>Amal Satu Hati</span>">About Pertubuhan <span>Amal Satu Hati</span></h1>
+  </div>
+
+  <div class="pa-essay">
+    <div class="pa-essay-grid">
+      <div class="anim-fadeup">
+        <p class="lead" data-en="Pertubuhan Amal Satu Hati is an organization dedicated to bringing hope and support to individuals and communities in need." data-my="Pertubuhan Amal Satu Hati ialah sebuah pertubuhan yang komited membawa harapan dan sokongan kepada individu serta komuniti yang memerlukan.">Pertubuhan Amal Satu Hati is an organization dedicated to bringing hope and support to individuals and communities in need.</p>
+        <p data-en="Through various charitable, educational, health, and humanitarian efforts, we aim to create a more caring, compassionate, and united society where everyone has the opportunity to live with dignity." data-my="Melalui pelbagai usaha kebajikan, pendidikan, kesihatan dan kemanusiaan, kami berhasrat membentuk masyarakat yang lebih prihatin, penyayang dan bersatu, di mana setiap orang berpeluang hidup dengan bermaruah.">Through various charitable, educational, health, and humanitarian efforts, we aim to create a more caring, compassionate, and united society where everyone has the opportunity to live with dignity.</p>
+        <p data-en="Every programme we run begins the same way &mdash; by listening to the people on the ground. From food aid for families going through hard times, to school supplies for children, to medical assistance for those who cannot afford treatment, our work is guided by real needs, not assumptions." data-my="Setiap program kami bermula dengan cara yang sama &mdash; dengan mendengar suara mereka di lapangan. Daripada bantuan makanan untuk keluarga yang sedang bersusah, keperluan sekolah untuk anak-anak, sehingga bantuan perubatan untuk mereka yang tidak mampu, kerja kami dipandu oleh keperluan sebenar, bukan andaian.">Every programme we run begins the same way &mdash; by listening to the people on the ground. From food aid for families going through hard times, to school supplies for children, to medical assistance for those who cannot afford treatment, our work is guided by real needs, not assumptions.</p>
+        <p data-en="We believe kindness grows when it is shared. Every contribution, no matter the size, becomes part of something bigger &mdash; a community that looks after one another." data-my="Kami percaya kebaikan akan berkembang apabila ia dikongsi. Setiap sumbangan, sekecil mana pun, menjadi sebahagian daripada sesuatu yang lebih besar &mdash; sebuah komuniti yang saling menjaga.">We believe kindness grows when it is shared. Every contribution, no matter the size, becomes part of something bigger &mdash; a community that looks after one another.</p>
+      </div>
+      <div class="anim-right">
+        <div class="pa-img">
+          <!-- Tukar src ini dengan gambar aktiviti sebenar -->
+          <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=900&q=85&auto=format&fit=crop" alt="Community programme">
+        </div>
+        <div class="pa-caption" data-en="Our volunteers during a community aid distribution." data-my="Sukarelawan kami semasa program agihan bantuan komuniti.">Our volunteers during a community aid distribution.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pa-pillars">
+    <div class="pa-pillars-inner">
+      <h2 class="pa-sec-title anim-fadeup" data-en="What We Do" data-my="Apa Yang Kami Lakukan">What We Do</h2>
+      <p class="pa-sec-sub anim-fadeup d1" data-en="Four areas where your donation goes to work, every single day." data-my="Empat bidang di mana sumbangan anda digunakan, setiap hari.">Four areas where your donation goes to work, every single day.</p>
+      <div class="pa-cards">
+        <div class="pa-card anim-fadeup d1">
+          <div class="pa-card-icon"><i class="ti ti-heart-handshake"></i></div>
+          <h3 data-en="Social Welfare" data-my="Kebajikan Sosial">Social Welfare</h3>
+          <p data-en="Food aid, essentials and emergency support for families going through difficult times." data-my="Bantuan makanan, keperluan asas dan sokongan kecemasan untuk keluarga yang menghadapi kesukaran.">Food aid, essentials and emergency support for families going through difficult times.</p>
+        </div>
+        <div class="pa-card anim-fadeup d2">
+          <div class="pa-card-icon"><i class="ti ti-school"></i></div>
+          <h3 data-en="Education" data-my="Pendidikan">Education</h3>
+          <p data-en="School supplies, learning programmes and support so no child is left behind." data-my="Keperluan sekolah, program pembelajaran dan sokongan supaya tiada anak ketinggalan.">School supplies, learning programmes and support so no child is left behind.</p>
+        </div>
+        <div class="pa-card anim-fadeup d3">
+          <div class="pa-card-icon"><i class="ti ti-stethoscope"></i></div>
+          <h3 data-en="Health" data-my="Kesihatan">Health</h3>
+          <p data-en="Medical assistance and health awareness for those who cannot afford treatment." data-my="Bantuan perubatan dan kesedaran kesihatan untuk mereka yang tidak mampu mendapatkan rawatan.">Medical assistance and health awareness for those who cannot afford treatment.</p>
+        </div>
+        <div class="pa-card anim-fadeup d4">
+          <div class="pa-card-icon"><i class="ti ti-world-heart"></i></div>
+          <h3 data-en="Humanitarian" data-my="Kemanusiaan">Humanitarian</h3>
+          <p data-en="Relief efforts during floods, disasters and crises &mdash; reaching people fast when it matters." data-my="Usaha bantuan semasa banjir, bencana dan krisis &mdash; sampai kepada mangsa dengan pantas.">Relief efforts during floods, disasters and crises &mdash; reaching people fast when it matters.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pa-founder" id="founder">
+    <div class="pa-founder-inner">
+      <div class="pa-photo anim-left">
+        <!-- GANTI dengan gambar sebenar Syahmee Rahim: letak fail founder.jpg dalam folder yang sama -->
+        <img src="founder.jpg" alt="Syahmee Rahim, pengasas Pertubuhan Amal Satu Hati"
+             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85&auto=format&fit=crop'">
+        <div class="pa-badge"><i class="ti ti-rosette-discount-check-filled"></i> <span data-en="Founder" data-my="Pengasas">Founder</span></div>
+      </div>
+      <div class="anim-right">
+        <div class="about-eyebrow"><i class="ti ti-user-heart"></i> <span data-en="Meet Our Founder" data-my="Kenali Pengasas Kami">Meet Our Founder</span></div>
+        <h2 class="pa-fname">Syahmee Rahim</h2>
+        <div class="pa-frole" data-en="Founder &amp; Content Creator" data-my="Pengasas &amp; Pencipta Kandungan">Founder &amp; Content Creator</div>
+        <p class="pa-ftext" data-en="Syahmee Rahim is a content creator who uses digital platforms to share meaningful stories, connect with the community, and inspire positive change. With a passion for creating positive impact, Syahmee Rahim hopes to use content and influence as a platform to spread kindness, compassion, and unity within the community." data-my="Syahmee Rahim ialah seorang pencipta kandungan yang menggunakan platform digital untuk berkongsi kisah bermakna, mendekati komuniti dan memberi inspirasi ke arah perubahan positif. Dengan semangat untuk memberi impak yang baik, Syahmee Rahim berharap dapat menjadikan kandungan dan pengaruhnya sebagai wadah menyebarkan kebaikan, belas kasihan dan perpaduan dalam masyarakat.">Syahmee Rahim is a content creator who uses digital platforms to share meaningful stories, connect with the community, and inspire positive change. With a passion for creating positive impact, Syahmee Rahim hopes to use content and influence as a platform to spread kindness, compassion, and unity within the community.</p>
+        <div class="pa-quote" data-en="&ldquo;Kindness should be easy to join. That is all we are trying to build here.&rdquo;" data-my="&ldquo;Kebaikan sepatutnya mudah untuk disertai. Itu sahaja yang cuba kami bina di sini.&rdquo;">&ldquo;Kindness should be easy to join. That is all we are trying to build here.&rdquo;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pa-cta">
+    <div class="pa-cta-inner anim-scalein">
+      <div>
+        <h3 data-en="Be part of the <span>next story.</span>" data-my="Jadi sebahagian <span>kisah seterusnya.</span>">Be part of the <span>next story.</span></h3>
+        <p data-en="Your donation reaches real families across Malaysia. Every ringgit is accounted for." data-my="Sumbangan anda sampai kepada keluarga sebenar di seluruh Malaysia. Setiap ringgit dikira." >Your donation reaches real families across Malaysia. Every ringgit is accounted for.</p>
+      </div>
+      <button class="pa-cta-btn" onclick="openMainDonate()"><i class="ti ti-heart"></i> <span data-en="Donate Now" data-my="Derma Sekarang">Donate Now</span></button>
+    </div>
+  </div>
+
+</div><!-- /#page-about -->
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -987,7 +1319,7 @@ footer{
       </div>
       <div class="footer-col">
         <h4 data-en="Company" data-my="Syarikat">Company</h4>
-        <a data-en="About Us" data-my="Tentang Kami">About Us</a>
+        <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
         <a data-en="Careers" data-my="Kerjaya">Careers</a>
         <a data-en="Services" data-my="Perkhidmatan">Services</a>
         <a data-en="Pricing" data-my="Harga">Pricing</a>
@@ -1010,8 +1342,8 @@ footer{
   <div class="modal">
     <div class="modal-header">
       <div>
-        <div class="modal-title"><i class="ti ti-lock"></i> Secure Payment Simulation</div>
-        <div class="modal-sub">Amal Satu Hati · Demo Gateway</div>
+        <div class="modal-title"><i class="ti ti-lock"></i> <span id="m-title">Secure Payment</span></div>
+        <div class="modal-sub" id="m-subtitle">Amal Satu Hati · Secure Gateway</div>
       </div>
       <button class="modal-x" onclick="closeModal()"><i class="ti ti-x"></i></button>
     </div>
@@ -1048,6 +1380,9 @@ footer{
           <input class="m-inp" style="margin-bottom:0" type="text" placeholder="Full name" id="dname">
           <input class="m-inp" style="margin-bottom:0" type="email" placeholder="Email for receipt" id="demail">
         </div>
+        <input class="m-inp" type="tel" placeholder="Phone number (e.g. 0123456789)" id="dphone" style="margin-bottom:0">
+        <div id="m-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.6;margin-top:10px"></div>
+        <div id="pay-method-block">
         <label class="flabel" style="margin-top:9px">Payment Method</label>
         <div class="pay-grid">
           <button class="pay-opt act" onclick="pickPay(this,'fpx')"><i class="ti ti-building-bank"></i><div><div class="pay-name">FPX Online</div><div class="pay-sub">Internet Banking</div></div></button>
@@ -1055,8 +1390,9 @@ footer{
           <button class="pay-opt" onclick="pickPay(this,'qr')"><i class="ti ti-qrcode"></i><div><div class="pay-name">DuitNow QR</div><div class="pay-sub">Scan & Pay</div></div></button>
           <button class="pay-opt" onclick="pickPay(this,'ew')"><i class="ti ti-wallet"></i><div><div class="pay-name">e-Wallet</div><div class="pay-sub">TnG / GrabPay</div></div></button>
         </div>
-        <button class="sub-btn" onclick="goStep()"><i class="ti ti-lock"></i> Continue Payment</button>
-        <div class="sec-note"><i class="ti ti-shield-check"></i> Simulated secure · SSL 256-bit · PCI DSS</div>
+        </div>
+        <button class="sub-btn" id="m-continue" onclick="goStep()"><i class="ti ti-lock"></i> Continue Payment</button>
+        <div class="sec-note" id="m-secnote"><i class="ti ti-shield-check"></i> Secured payment · FPX &amp; card · SSL 256-bit</div>
       </div>
 
       <!-- Step: FPX -->
@@ -1223,8 +1559,16 @@ function switchLang(lang){
     els.forEach(function(el){el.classList.remove('fading');});
     // re-sync live donation display with new language
     updateDonateDisplay();
+    // rerender empty state video dalam bahasa baharu
+    if(document.querySelector('.vid-empty'))renderVideos(lastVideos);
+    try{localStorage.setItem('ash_lang',lang);}catch(e){}
   },180);
 }
+/* remember language across pages (index <-> about) */
+try{
+  var savedLang=localStorage.getItem('ash_lang');
+  if(savedLang==='my'){switchLang('my');}
+}catch(e){}
 
 /* ── NAV mobile ── */
 function toggleMenu(){
@@ -1236,9 +1580,114 @@ function closeMenu(){
   document.getElementById('mmenu').classList.remove('open');
 }
 function goTo(id){
+  // kalau sedang di page About, balik ke Home dulu sebelum scroll
+  if(document.getElementById('page-about').classList.contains('show')){
+    showPage('home',true);
+    setTimeout(function(){
+      var t=document.getElementById(id);
+      if(t)t.scrollIntoView({behavior:'smooth'});
+    },60);
+    return;
+  }
   var el=document.getElementById(id);
   if(el)el.scrollIntoView({behavior:'smooth'});
 }
+
+/* ── LATEST TIKTOK VIDEOS ──────────────────────────────────
+   Tukar handle di bawah kepada akaun TikTok sebenar.
+   Video diambil dari /api/tiktok (Cloudflare Pages Function).
+   Kalau API belum siap, dia guna senarai TIKTOK_FALLBACK —
+   cuma tampal ID video (nombor panjang dalam URL TikTok).
+   Contoh URL : https://www.tiktok.com/@amalsatuhati/video/7301234567890123456
+   ID-nya     : 7301234567890123456
+──────────────────────────────────────────────────────────── */
+var TIKTOK_HANDLE='amalsatuhati';
+var TIKTOK_FALLBACK=[
+  // {id:'7301234567890123456', title:'Agihan bantuan banjir Kelantan'},
+  // {id:'7301234567890123457', title:'Program back to school 2025'},
+];
+
+document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
+
+var lastVideos=[];
+function ttSafe(t){var d=document.createElement('div');d.textContent=t||'';return d.innerHTML;}
+
+function renderVideos(list){
+  var grid=document.getElementById('videosGrid');
+  lastVideos=list||[];
+  if(!list||!list.length){
+    grid.innerHTML='<div class="vid-empty">'+
+      '<i class="ti ti-brand-tiktok"></i>'+
+      '<p>'+(currentLang==='my'
+        ? 'Video terbaharu akan dipaparkan di sini tidak lama lagi.'
+        : 'Our latest videos will appear here soon.')+'</p>'+
+      '<a class="tt-btn" href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'" target="_blank" rel="noopener">'+
+      '<i class="ti ti-brand-tiktok"></i> '+(currentLang==='my'?'Ikuti kami':'Follow us')+'</a></div>';
+    return;
+  }
+  grid.innerHTML='';
+  list.slice(0,4).forEach(function(v){
+    var card=document.createElement('div');
+    card.className='vid-card';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label','Play TikTok video');
+    var cover=v.cover
+      ? '<img src="'+v.cover+'" alt="" loading="lazy" referrerpolicy="no-referrer">'
+      : '<div class="vid-fallback"><i class="ti ti-brand-tiktok"></i></div>';
+    card.innerHTML=cover+'<div class="vid-shade"></div>'+
+      '<div class="vid-play"><i class="ti ti-player-play-filled"></i></div>'+
+      (v.title?'<div class="vid-cap">'+ttSafe(v.title)+'</div>':'');
+    var play=function(){
+      if(card.classList.contains('playing'))return;
+      card.classList.add('playing');
+      card.innerHTML='<iframe src="https://www.tiktok.com/embed/v2/'+encodeURIComponent(v.id)+
+        '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="TikTok video"></iframe>';
+    };
+    card.onclick=play;
+    card.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}};
+    grid.appendChild(card);
+  });
+}
+
+function loadVideos(){
+  fetch('/api/tiktok',{headers:{'Accept':'application/json'}})
+    .then(function(r){if(!r.ok)throw new Error('api');return r.json();})
+    .then(function(d){
+      var list=(d&&d.videos)||[];
+      if(d&&d.handle)  {
+        TIKTOK_HANDLE=d.handle.replace('@','');
+        document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
+      }
+      renderVideos(list.length?list:TIKTOK_FALLBACK);
+    })
+    .catch(function(){renderVideos(TIKTOK_FALLBACK);});
+}
+loadVideos();
+
+/* ── PAGE ROUTER (Home <-> About Us, satu fail) ── */
+function showPage(page,skipScroll){
+  var home=document.getElementById('page-home');
+  var about=document.getElementById('page-about');
+  var isAbout=(page==='about');
+  home.style.display=isAbout?'none':'block';
+  about.classList.toggle('show',isAbout);
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.classList.toggle('active', isAbout && /showPage\('about'\)/.test(a.getAttribute('onclick')||''));
+  });
+  closeMenu();
+  if(!skipScroll)window.scrollTo({top:0,behavior:'auto'});
+  if(location.hash!==(isAbout?'#about':'')){
+    history.replaceState(null,'',isAbout?'#about':location.pathname+location.search);
+  }
+  // trigger semula animasi scroll untuk kandungan yang baru kelihatan
+  document.querySelectorAll('.anim-fadeup,.anim-scalein,.anim-left,.anim-right').forEach(function(el){
+    if(!el.classList.contains('in'))sObs.observe(el);
+  });
+}
+window.addEventListener('hashchange',function(){
+  showPage(location.hash==='#about'?'about':'home');
+});
 
 /* ── SCROLL ANIMATIONS ── */
 var sObs=new IntersectionObserver(function(entries){
@@ -1439,6 +1888,10 @@ function resetM(){
   document.querySelectorAll('.amt-btn').forEach(function(b,i){b.classList.toggle('act',i===1);});
   document.querySelectorAll('.pay-opt').forEach(function(b,i){b.classList.toggle('act',i===0);});
   document.getElementById('camt').style.display='none';
+  var eb=document.getElementById('m-error');
+  if(eb){eb.style.display='none';eb.textContent='';}
+  var cb=document.getElementById('m-continue');
+  if(cb){cb.disabled=false;cb.style.opacity='1';}
   updAmt();
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
@@ -1465,11 +1918,122 @@ function pickPay(btn,m){
 function updAmt(){
   document.getElementById('m-aval').textContent='RM '+(amt||0).toLocaleString('ms-MY',{minimumFractionDigits:2});
 }
-function goStep(){
-  if(!amt||amt<=0){alert('Please enter a valid donation amount.');return;}
-  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
-  document.getElementById('s-'+method).classList.add('act');
+/* ── PEMBAYARAN ───────────────────────────────────────────
+   PAYMENT_LIVE = true  -> derma sebenar melalui gateway
+   PAYMENT_LIVE = false -> mod demo lama (simulasi sahaja)
+
+   Gateway mana (Bayarcash / toyyibPay) ditentukan di server,
+   bukan di sini. Tiada secret key dalam fail ini — semuanya
+   dalam Cloudflare Pages > Settings > Variables and Secrets.
+   PAYMENT_LABEL cuma teks pada resit.
+──────────────────────────────────────────────────────────── */
+var PAYMENT_LIVE=true;
+var PAYMENT_API='/api/create-bill';
+var PAYMENT_LABEL='Bayarcash';
+
+function mError(msg){
+  var box=document.getElementById('m-error');
+  if(!msg){box.style.display='none';box.textContent='';return;}
+  box.textContent=msg;box.style.display='block';
 }
+
+function goStep(){
+  mError('');
+  if(!amt||amt<1){mError(currentLang==='my'?'Sila masukkan jumlah derma sekurang-kurangnya RM1.':'Please enter a donation amount of at least RM1.');return;}
+
+  if(!PAYMENT_LIVE){
+    document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+    document.getElementById('s-'+method).classList.add('act');
+    return;
+  }
+
+  var name=(document.getElementById('dname').value||'').trim();
+  var email=(document.getElementById('demail').value||'').trim();
+  var phone=(document.getElementById('dphone').value||'').replace(/[^0-9+]/g,'');
+  if(name.length<2){mError(currentLang==='my'?'Sila masukkan nama penuh anda.':'Please enter your full name.');return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){mError(currentLang==='my'?'Sila masukkan alamat e-mel yang sah.':'Please enter a valid email address.');return;}
+  if(phone.replace(/\D/g,'').length<9){mError(currentLang==='my'?'Sila masukkan nombor telefon yang sah.':'Please enter a valid phone number.');return;}
+
+  var btn=document.getElementById('m-continue');
+  btn.disabled=true;btn.style.opacity='.6';
+  document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+  document.getElementById('proc').style.display='block';
+
+  fetch(PAYMENT_API,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      amount:Number(amt),
+      name:name,
+      email:email,
+      phone:phone,
+      campaign:camp.name,
+      frequency:typ
+    })
+  })
+  .then(function(r){return r.json().then(function(d){return {ok:r.ok,data:d};});})
+  .then(function(res){
+    if(!res.ok||!res.data||!res.data.paymentUrl){
+      throw new Error((res.data&&res.data.error)||'Bill creation failed');
+    }
+    window.location.href=res.data.paymentUrl;
+  })
+  .catch(function(err){
+    document.getElementById('proc').style.display='none';
+    document.getElementById('s-details').classList.add('act');
+    btn.disabled=false;btn.style.opacity='1';
+    mError((currentLang==='my'
+      ? 'Maaf, kami tidak dapat menyambung ke gateway pembayaran sekarang. Sila cuba sekali lagi. ('
+      : 'Sorry, we could not reach the payment gateway right now. Please try again. (')+err.message+')');
+  });
+}
+
+/* sembunyikan pilihan payment method sebab gateway handle di page mereka */
+if(PAYMENT_LIVE){
+  var pmb=document.getElementById('pay-method-block');
+  if(pmb)pmb.style.display='none';
+}
+
+/* ── STATUS SELEPAS BAYAR ──────────────────────────────────
+   /api/return sahkan checksum gateway dahulu, kemudian bawa
+   penderma balik ke sini dengan ?pay=success|pending|failed|cancelled
+──────────────────────────────────────────────────────────── */
+(function(){
+  var q=new URLSearchParams(location.search);
+  if(!q.has('pay'))return;
+  var status=q.get('pay');
+  var ref=q.get('ref')||'-';
+  var my=function(a,b){return currentLang==='my'?a:b;};
+  history.replaceState(null,'',location.pathname);
+  setTimeout(function(){
+    openMainDonate();
+    document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
+    document.getElementById('proc').style.display='none';
+    if(status==='success'){
+      document.getElementById('succ').style.display='block';
+      document.getElementById('r-ref').textContent=ref;
+      document.getElementById('r-date').textContent=new Date().toLocaleString('ms-MY');
+      document.getElementById('r-name').textContent=q.get('name')||'-';
+      document.getElementById('r-prog').textContent=q.get('campaign')||'Best Use';
+      document.getElementById('r-meth').textContent=PAYMENT_LABEL;
+      document.getElementById('r-amt').textContent=q.get('amount')?('RM '+Number(q.get('amount')).toFixed(2)):'-';
+    }else{
+      document.getElementById('s-details').classList.add('act');
+      var msg;
+      if(status==='pending'){
+        msg=my('Pembayaran anda masih dalam proses. Kami akan e-mel resit sebaik sahaja ia disahkan. Rujukan: '+ref,
+               'Your payment is still being processed. We will email your receipt once it clears. Reference: '+ref);
+      }else if(status==='cancelled'){
+        msg=my('Pembayaran dibatalkan. Tiada caj dikenakan. Rujukan: '+ref,
+               'The payment was cancelled. You have not been charged. Reference: '+ref);
+      }else{
+        msg=my('Pembayaran tidak berjaya. Tiada caj dikenakan. Sila cuba sekali lagi. Rujukan: '+ref,
+               'The payment did not go through. You have not been charged. Please try again. Reference: '+ref);
+      }
+      mError(msg);
+    }
+  },300);
+})();
 function goBack(){
   document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
   document.getElementById('s-details').classList.add('act');
@@ -1499,6 +2063,22 @@ function doProc(){
     addNewDonor(toastName,camp.name,amt);
   },2800);
 }
+/* ── ABOUT US PHOTO CAROUSEL ── */
+var aboutIdx=0;
+var aboutSlides=document.querySelectorAll('.about-slide');
+if(aboutSlides.length){
+  document.getElementById('aboutTot').textContent=aboutSlides.length;
+  var aboutTimer=setInterval(function(){aboutSlide(1);},6000);
+}
+function aboutGoto(n){
+  if(!aboutSlides.length)return;
+  aboutSlides[aboutIdx].classList.remove('active');
+  aboutIdx=(n+aboutSlides.length)%aboutSlides.length;
+  aboutSlides[aboutIdx].classList.add('active');
+  document.getElementById('aboutIdx').textContent=aboutIdx+1;
+}
+function aboutSlide(dir){aboutGoto(aboutIdx+dir);}
+
 /* ── HERO SLIDESHOW ── */
 var heroIdx=0;
 var heroSlides=document.querySelectorAll('.hero-slide');
@@ -1603,6 +2183,9 @@ function fExp(input){
   var d=document.getElementById('cexp-d');
   if(d)d.textContent=v||'MM/YY';
 }
+
+/* ── ROUTER INIT (buka terus About Us kalau URL ada #about) ── */
+if(location.hash==='#about'){showPage('about');}
 </script>
 
 <div class="toast-container" id="toast-container"></div>
