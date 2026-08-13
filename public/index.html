@@ -759,7 +759,7 @@ footer{
    min-width blockquote. */
 .tt-embed-col{flex:0 0 auto;width:325px;max-width:100%}
 .tt-embed-col blockquote{margin:0 auto!important}
-.tt-embed-col iframe{max-width:100%}
+.tt-embed-col iframe{width:100%;height:580px;border:none;border-radius:12px;background:#000;display:block}
 @media(max-width:1060px){
   .tt-embeds{gap:20px}
   .tt-embed-col:nth-child(3){display:none}   /* 2 video sahaja bila sempit */
@@ -1204,16 +1204,15 @@ footer{
     </div>
     <div id="ttCreator" style="display:none"></div>
     <div class="tt-embeds" id="ttEmbeds">
-      <!-- Embed rasmi TikTok. Nak tukar/tambah video: buka video di TikTok,
-           Share > Embed, copy code, ganti satu blok .tt-embed-col di bawah. -->
+      <!-- Direct TikTok Iframe Embeds. Bypass external script loading for reliability. -->
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7672220970324643092" data-video-id="7672220970324643092" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> <p>Jual beras RM1 harini .</p> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7672220989211675408?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <iframe src="https://www.tiktok.com/embed/v2/7672220970324643092" allowfullscreen loading="lazy" title="Jual beras RM1 harini"></iframe>
       </div>
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7593300656820178194" data-video-id="7593300656820178194" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> Dulu ada bisnes, sekarang Uncle Perumal diuji. <a title="uncleperumal" target="_blank" href="https://www.tiktok.com/tag/uncleperumal?refer=embed">#uncleperumal</a> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7593300691646450453?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <iframe src="https://www.tiktok.com/embed/v2/7593300656820178194" allowfullscreen loading="lazy" title="Uncle Perumal diuji"></iframe>
       </div>
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7592885730083441927" data-video-id="7592885730083441927" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> Dia lapar minta tolong makanan tapi kena pukul. <a title="uncleperumal" target="_blank" href="https://www.tiktok.com/tag/uncleperumal?refer=embed">#uncleperumal</a> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7592885762807384839?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <iframe src="https://www.tiktok.com/embed/v2/7592885730083441927" allowfullscreen loading="lazy" title="Minta tolong makanan"></iframe>
       </div>
     </div>
     <div class="videos-grid" id="videosGrid" style="display:none"></div>
@@ -1895,12 +1894,13 @@ function loadVideos(){
   // Mode 'embed': blockquote sudah ada dalam HTML, TikTok yang render kad
   // (cover, play count, like count). Script hanya dimuat bila section
   // masuk skrin — page atas laju, dan kurang permintaan ke TikTok.
-  if(TIKTOK_MODE==='embed'||TIKTOK_MODE==='auto'){
+  if(TIKTOK_MODE==='embed')return; // Native lazy iframe embeds loaded directly by browser
+
+  if(TIKTOK_MODE==='auto'){
     var io=new IntersectionObserver(function(en){
       if(!en[0].isIntersecting)return;
       io.disconnect();
-      if(TIKTOK_MODE==='auto')renderCreatorEmbed();
-      else loadEmbedScript();
+      renderCreatorEmbed();
     },{rootMargin:'400px'});
     io.observe(sec);
     return;
