@@ -1598,7 +1598,7 @@ var TIKTOK_HANDLE='syahmeerahim';
               gaya TikTok, bukan gaya laman ni.
    'manual' = grid 4 kad reka sendiri, guna /api/tiktok atau
               senarai TIKTOK_FALLBACK di bawah.                     */
-var TIKTOK_MODE='manual';
+var TIKTOK_MODE='auto';
 
 /* Senarai backup — diguna kalau widget auto TikTok gagal
    (throttle, rate limit, dsb) DAN env var TIKTOK_VIDEO_URLS
@@ -1664,17 +1664,12 @@ function renderCreatorEmbed(){
   var wrap=document.getElementById('ttCreator');
   document.getElementById('videosGrid').style.display='none';
   wrap.style.display='block';
-  // Markup ini mesti sama PERSIS dengan yang oEmbed TikTok pulangkan.
-  // data-embed-from="oembed" wajib — tanpa dia widget papar "Profile not available".
-  wrap.innerHTML='<blockquote class="tiktok-embed" '+
-    'cite="https://www.tiktok.com/@'+TIKTOK_HANDLE+'" '+
-    'data-unique-id="'+TIKTOK_HANDLE+'" '+
-    'data-embed-from="oembed" '+
-    'data-embed-type="creator" '+
-    'style="max-width:780px; min-width:288px;"> '+
-    '<section> <a target="_blank" '+
-    'href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'?refer=creator_embed">@'+TIKTOK_HANDLE+'</a> </section> '+
-    '</blockquote>';
+  // Markup ini disalin terus dari penjana embed rasmi TikTok.
+  wrap.innerHTML='<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@'+TIKTOK_HANDLE+'" '+
+    'data-unique-id="'+TIKTOK_HANDLE+'" data-embed-type="creator" '+
+    'style="max-width: 780px; min-width: 288px;" > <section> '+
+    '<a target="_blank" href="https://www.tiktok.com/@'+TIKTOK_HANDLE+'?refer=creator_embed">@'+TIKTOK_HANDLE+'</a> '+
+    '</section> </blockquote>';
   if(!document.getElementById('tt-embed-js')){
     var sc=document.createElement('script');
     sc.id='tt-embed-js';sc.async=true;sc.src='https://www.tiktok.com/embed.js';
@@ -1687,7 +1682,7 @@ function renderCreatorEmbed(){
   // masih tak bertukar jadi iframe, kita patah balik ke grid sendiri.
   setTimeout(function(){
     if(!wrap.querySelector('iframe'))fallbackToGrid();
-  },7000);
+  },10000);
 }
 
 function fallbackToGrid(){
