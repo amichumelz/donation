@@ -461,32 +461,165 @@ nav{
 .gallery-section{padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px)}
 .gallery-section h2{font-size:clamp(22px,4vw,34px);font-weight:900;margin-bottom:6px;letter-spacing:-.4px}
 .gallery-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);margin-bottom:clamp(20px,3vw,30px);line-height:1.65}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:auto;
-  gap:10px;
+
+.gallery-carousel-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
-.gal-item{border-radius:12px;overflow:hidden;position:relative;cursor:pointer;background:var(--g100)}
-.gal-item:nth-child(1){grid-column:span 2;grid-row:span 2}
-.gal-item:nth-child(4){grid-column:span 2}
-.gal-item:nth-child(7){grid-column:span 2}
-.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1);aspect-ratio:1}
-.gal-item:nth-child(1) img,.gal-item:nth-child(4) img,.gal-item:nth-child(7) img{aspect-ratio:auto;height:100%;min-height:180px}
-.gal-item:hover img{transform:scale(1.06)}
-.gal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
-.gal-item:hover .gal-overlay{background:rgba(0,0,0,.3)}
-.gal-overlay i{color:var(--wht);font-size:28px;opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s}
-.gal-item:hover .gal-overlay i{opacity:1;transform:scale(1)}
-@media(max-width:700px){
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .gal-item:nth-child(1){grid-column:span 2}
-  .gal-item:nth-child(4),.gal-item:nth-child(7){grid-column:span 1}
+.gallery-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 10px 0;
 }
-@media(max-width:900px){
-  .donate-stats{grid-template-columns:1fr 1fr 1fr}
-  .gallery-grid{grid-template-columns:repeat(3,1fr)}
-  .gal-item:nth-child(1){grid-column:span 2}
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+.gal-item {
+  flex: 0 0 calc(25% - 12px);
+  scroll-snap-align: start;
+  aspect-ratio: 3/4;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--g100);
+}
+.gal-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.gal-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
+}
+.gal-item:hover img {
+  transform: scale(1.06);
+}
+.gal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s;
+}
+.gal-item:hover .gal-overlay {
+  background: rgba(0,0,0,.35);
+}
+.gal-overlay i {
+  color: var(--wht);
+  font-size: 28px;
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .3s, transform .3s;
+}
+.gal-item:hover .gal-overlay i {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--wht);
+  color: var(--blk);
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.gal-nav-btn:hover {
+  background: var(--g);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(181,225,83,0.35);
+}
+.gal-nav-btn.prev { left: 10px; }
+.gal-nav-btn.next { right: 10px; }
+
+/* LIGHTBOX MODAL */
+.lightbox-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 5vh;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.92);
+  backdrop-filter: blur(10px);
+}
+.lightbox-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  animation: scaleInLightbox 0.28s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes scaleInLightbox {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 45px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+.lightbox-close:hover {
+  color: var(--g);
+  transform: scale(1.1);
+}
+
+@media(max-width: 1024px) {
+  .gal-item {
+    flex: 0 0 calc(33.333% - 11px);
+  }
+}
+@media(max-width: 768px) {
+  .gallery-carousel-container {
+    padding: 0 10px;
+  }
+  .gal-item {
+    flex: 0 0 calc(50% - 8px);
+  }
+  .gal-nav-btn {
+    display: none;
+  }
+}
+@media(max-width: 480px) {
+  .gal-item {
+    flex: 0 0 75%;
+  }
 }
 /* ====== COUNTER ====== */
 .counter-section{
@@ -1410,39 +1543,10 @@ footer{
 <div class="gallery-section" id="gallery">
   <h2 class="anim-fadeup" data-en="Our Gallery" data-my="Galeri Kami">Our Gallery</h2>
   <div class="gallery-sub anim-fadeup d1" data-en="Meaningful moments with our community — from volunteer programs to community development projects." data-my="Momen-momen bermakna bersama komuniti kami — dari program sukarela hingga projek pembangunan komuniti.">Meaningful moments with our community — from volunteer programs to community development projects.</div>
-  <div class="gallery-grid anim-scalein">
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80&auto=format&fit=crop" alt="Community event">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80&auto=format&fit=crop" alt="Volunteers">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&q=80&auto=format&fit=crop" alt="Donation drive">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=700&q=80&auto=format&fit=crop" alt="Outreach program">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&q=80&auto=format&fit=crop" alt="Green project">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80&auto=format&fit=crop" alt="Healthcare">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=700&q=80&auto=format&fit=crop" alt="Relief work">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
-    <div class="gal-item">
-      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&q=80&auto=format&fit=crop" alt="Helping hands">
-      <div class="gal-overlay"><i class="ti ti-zoom-in"></i></div>
-    </div>
+  <div class="gallery-carousel-container anim-scalein">
+    <button class="gal-nav-btn prev" onclick="scrollGal(-1)" aria-label="Previous image"><i class="ti ti-chevron-left"></i></button>
+    <div class="gallery-track" id="galleryTrack"></div>
+    <button class="gal-nav-btn next" onclick="scrollGal(1)" aria-label="Next image"><i class="ti ti-chevron-right"></i></button>
   </div>
 </div>
 
@@ -2535,6 +2639,79 @@ function doProc(){
     addNewDonor(toastName,camp.name,amt);
   },2800);
 }
+/* ── GALLERY CAROUSEL & LIGHTBOX ── */
+var GALLERY_IMAGES = [
+  'images/WhatsApp Image 2026-08-13 at 09.22.08.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.24.21.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.28.05.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.29.43.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.33.57.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.34.15.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.50.48.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.53.58.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 09.59.30.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.01.47.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.38.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.39 (1).jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.39 (2).jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.40.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.41.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.42.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.43.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.44.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.45.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.46.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.47.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.48.jpeg',
+  'images/WhatsApp Image 2026-08-13 at 10.13.49.jpeg'
+];
+
+function buildGallery() {
+  var track = document.getElementById('galleryTrack');
+  if(!track) return;
+  track.innerHTML = '';
+  GALLERY_IMAGES.forEach(function(src, i) {
+    var item = document.createElement('div');
+    item.className = 'gal-item';
+    item.onclick = function() { openLightbox(src); };
+    
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Gallery image ' + (i + 1);
+    img.loading = 'lazy';
+    
+    var overlay = document.createElement('div');
+    overlay.className = 'gal-overlay';
+    overlay.innerHTML = '<i class="ti ti-zoom-in"></i>';
+    
+    item.appendChild(img);
+    item.appendChild(overlay);
+    track.appendChild(item);
+  });
+}
+
+function scrollGal(dir) {
+  var track = document.getElementById('galleryTrack');
+  if(!track) return;
+  var card = track.querySelector('.gal-item');
+  if(!card) return;
+  var cardWidth = card.offsetWidth + 16;
+  track.scrollBy({ left: dir * cardWidth * 2, behavior: 'smooth' });
+}
+
+function openLightbox(src) {
+  var modal = document.getElementById('lightbox');
+  var img = document.getElementById('lightboxImg');
+  modal.style.display = 'block';
+  img.src = src;
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+buildGallery();
+
 /* ── ABOUT US PHOTO CAROUSEL ── */
 var aboutIdx=0;
 var aboutSlides=document.querySelectorAll('.about-slide');
@@ -2659,6 +2836,12 @@ function fExp(input){
 /* ── ROUTER INIT (buka terus About Us kalau URL ada #about) ── */
 if(location.hash==='#about'){showPage('about');}
 </script>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-content" id="lightboxImg" alt="Enlarged gallery view">
+</div>
 
 <div class="toast-container" id="toast-container"></div>
 </body>
