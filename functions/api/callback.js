@@ -28,7 +28,7 @@ function safeEqual(a = '', b = '') {
 }
 
 const BAYARCASH_STATUS = { 0: 'new', 1: 'pending', 2: 'failed', 3: 'success', 4: 'cancelled' };
-const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed' };
+const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed', 4: 'pending' };
 
 export async function onRequestPost({ request, env }) {
   const provider = (env.PAYMENT_PROVIDER || 'bayarcash').toLowerCase();
@@ -47,9 +47,32 @@ export async function onRequestPost({ request, env }) {
   if (provider === 'toyyibpay') {
     orderNumber = data.order_id || '';
     status = TOYYIBPAY_STATUS[Number(data.status)] || 'unknown';
-    gatewayRef = data.billcode || data.refno || null;
+    const billCode = data.billcode || '';
+    gatewayRef = billCode || data.refno || null;
     amountPaid = data.amount ? Number(data.amount) / 100 : null;
-    verified = true; // toyyibPay tiada checksum — sahkan semula dengan getBillTransactions kalau perlu
+    /* Jangan percaya POST ini bulat-bulat — sesiapa boleh hantar status palsu.
+       Kita tanya semula toyyibPay tentang bill ini. Jawapan dari API mereka
+       adalah sumber kebenaran, bukan apa yang dihantar ke endpoint kita. */
+    const base = env.PAYMENT_ENV === 'live' ? 'https://toyyibpay.com' : 'https://dev.toyyibpay.com';
+    try {
+      const check = await fetch(`${base}/index.php/api/getBillTransactions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ billCode: billCode }),
+      });
+      const rows = await check.json();
+      const row = Array.isArray(rows) ? rows.find((r) => r.billExternalReferenceNo === orderNumber) || rows[0] : null;
+      if (row) {
+        verified = true;
+        status = TOYYIBPAY_STATUS[Number(row.billpaymentStatus)] || 'unknown';
+        amountPaid = row.billpaymentAmount ? Number(row.billpaymentAmount) : amountPaid;
+        gatewayRef = row.billpaymentInvoiceNo || gatewayRef;
+      } else {
+        console.warn('callback: bill tidak dijumpai di toyyibPay', billCode);
+      }
+    } catch (err) {
+      console.error('callback: gagal sahkan dengan toyyibPay', err.message);
+    }
   } else {
     // ── Bayarcash: sahkan checksum sebelum percaya apa-apa ──
     const payload = {
@@ -107,8 +130,4 @@ export async function onRequestPost({ request, env }) {
 
   // Gateway cuma perlukan 200 OK. Bayarcash retry 5 kali setiap 5 minit kalau gagal.
   return new Response('OK', { status: 200 });
-}
-
-export async function onRequest() {
-  return new Response('Method not allowed', { status: 405 });
 }

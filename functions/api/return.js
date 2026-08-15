@@ -18,7 +18,7 @@ async function hmacHex(secret, message) {
 }
 
 const BAYARCASH_STATUS = { 0: 'pending', 1: 'pending', 2: 'failed', 3: 'success', 4: 'cancelled' };
-const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed' };
+const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed', 4: 'pending' };
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
@@ -66,8 +66,4 @@ export async function onRequestGet({ request, env }) {
   if (name) params.set('name', name);
 
   return Response.redirect(`${siteUrl}/?${params.toString()}`, 302);
-}
-
-export async function onRequest() {
-  return new Response('Method not allowed', { status: 405 });
 }

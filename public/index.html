@@ -2813,7 +2813,20 @@ function goStep(){
       method:method
     })
   })
-  .then(function(r){return r.json().then(function(d){return {ok:r.ok,data:d};});})
+  .then(function(r){
+    // Kalau endpoint tiada, Cloudflare pulangkan HTML — bukan JSON.
+    // Baca sebagai teks dahulu supaya mesej error berguna, bukan
+    // "The string did not match the expected pattern."
+    return r.text().then(function(t){
+      var d=null;
+      try{d=JSON.parse(t);}catch(e){
+        throw new Error(r.status===404
+          ? 'API endpoint not found (404). Pastikan folder functions/ ada dalam repo.'
+          : 'Server returned '+r.status+' (bukan JSON).');
+      }
+      return {ok:r.ok,data:d};
+    });
+  })
   .then(function(res){
     if(!res.ok||!res.data||!res.data.paymentUrl){
       throw new Error((res.data&&res.data.error)||'Bill creation failed');

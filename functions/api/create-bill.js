@@ -216,7 +216,3 @@ async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount,
 
   return { paymentUrl: `${base}/${billCode}`, gatewayRef: billCode };
 }
-
-export async function onRequest() {
-  return new Response('Method not allowed', { status: 405 });
-}
