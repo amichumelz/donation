@@ -55,10 +55,13 @@ nav{
   padding:0 max(clamp(16px,4vw,40px), calc((100% - 1140px) / 2));
   animation:navDrop .5s cubic-bezier(.22,1,.36,1) both;
 }
-.nav-brand{display:flex;align-items:center;gap:10px;border-right:1px solid var(--g200);padding-right:clamp(12px,1.6vw,20px);margin-right:clamp(12px,1.6vw,20px);white-space:nowrap}
+.nav-brand{display:flex;align-items:center;gap:10px;white-space:nowrap}
 .nav-logo-img{height:34px;width:auto;object-fit:contain;display:block}
 .nav-name{font-size:16px;font-weight:800;letter-spacing:-.2px;color:var(--blk)}
-.nav-links{display:flex;gap:clamp(12px,2.2vw,26px);white-space:nowrap}
+.nav-links{
+  display:flex;gap:clamp(12px,2.2vw,26px);white-space:nowrap;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
 .nav-links a{font-size:14px;font-weight:500;color:var(--blk);text-decoration:none;opacity:.65;cursor:pointer;transition:opacity .15s;position:relative}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--g);transform:scaleX(0);transition:transform .2s;border-radius:2px}
 .nav-links a:hover{opacity:1}
@@ -160,11 +163,11 @@ nav{
 .hero-content{
   position:absolute;inset:0;z-index:3;
   display:flex;align-items:flex-end;justify-content:space-between;
-  padding:clamp(16px,3vw,32px) clamp(20px,4vw,40px);
+  padding:clamp(16px,3vw,32px) clamp(45px,6vw,90px);
   gap:12px;
 }
 .hero-big{
-  font-size:clamp(64px,13vw,130px);font-weight:900;
+  font-size:clamp(54px,9vw,110px);font-weight:900;
   color:var(--wht);line-height:.92;letter-spacing:clamp(-3px,-0.5vw,-2px);
   animation:fadeUp .7s .2s cubic-bezier(.22,1,.36,1) both;
   flex-shrink:1;min-width:0;
@@ -1334,7 +1337,7 @@ footer{
 .m-inp:disabled{background:var(--g100);color:var(--g400);cursor:not-allowed}
 
 /* ====== RESPONSIVE ====== */
-@media(max-width:900px){
+@media(max-width:1024px){
   .nav-links,.nav-brand{display:none}
   .hamburger{display:flex}
   .nav-logo-right{display:flex!important;order:-1;margin-right:auto;height:34px}
@@ -1432,19 +1435,17 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <div class="nav-left">
-    <div class="nav-brand">
-      <img src="images/logo.png" alt="Amal Satu Hati Logo" class="nav-logo-img">
-      <span class="nav-name">Amal Satu Hati</span>
-    </div>
-    <div class="nav-links">
-      <a onclick="goTo('home')" data-en="Home" data-my="Laman Utama">Home</a>
-      <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
-      <a onclick="goTo('videos')" data-en="Videos" data-my="Video">Videos</a>
-      <a onclick="goTo('gallery')" data-en="Gallery" data-my="Galeri">Gallery</a>
-      <a onclick="showPage('donate')" data-en="Donate" data-my="Derma">Donate</a>
-      <a onclick="goTo('faq')" data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
-    </div>
+  <div class="nav-brand">
+    <img src="images/logo.png" alt="Amal Satu Hati Logo" class="nav-logo-img">
+    <span class="nav-name">Amal Satu Hati</span>
+  </div>
+  <div class="nav-links">
+    <a onclick="goTo('home')" data-en="Home" data-my="Laman Utama">Home</a>
+    <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
+    <a onclick="goTo('videos')" data-en="Videos" data-my="Video">Videos</a>
+    <a onclick="goTo('gallery')" data-en="Gallery" data-my="Galeri">Gallery</a>
+    <a onclick="showPage('donate')" data-en="Donate" data-my="Derma">Donate</a>
+    <a onclick="goTo('faq')" data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
   </div>
   <!-- Language Toggle -->
   <div class="lang-toggle" id="langToggle">
