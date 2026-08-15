@@ -227,3 +227,9 @@ async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount,
 
   return { paymentUrl: `${base}/${billCode}`, gatewayRef: billCode };
 }
+
+/* GET pada endpoint ini tiada gunanya, tapi tanpa handler Cloudflare akan
+   pulangkan HTML laman — mengelirukan semasa debug. Jadi kita jawab JSON. */
+export async function onRequestGet() {
+  return json({ error: 'Use POST. Buka /api/health untuk diagnostik.' }, 405);
+}
