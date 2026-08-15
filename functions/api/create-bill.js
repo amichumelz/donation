@@ -54,7 +54,18 @@ function normalizePhone(raw) {
   return p;
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  // Balut segalanya — kalau apa-apa terlepas, kita masih pulangkan JSON
+  // dan bukan halaman ralat HTML Cloudflare yang tak boleh dibaca browser.
+  try {
+    return await handleCreateBill(context);
+  } catch (err) {
+    console.error('create-bill CRASH:', err && err.stack ? err.stack : err);
+    return json({ error: 'Server error: ' + (err && err.message ? err.message : String(err)) }, 500);
+  }
+}
+
+async function handleCreateBill({ request, env }) {
   let body;
   try {
     body = await request.json();
