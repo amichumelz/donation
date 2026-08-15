@@ -1278,6 +1278,34 @@ footer{
   .pa-title{max-width:100%}
 }
 
+/* ====== LATAR SECTION BERSELANG-SELI ======
+   Setiap section dapat latar berbeza dari jirannya supaya mata
+   nampak di mana satu bahagian habis dan satu lagi bermula.
+   Urutan: putih -> imej -> putih -> kelabu -> hijau -> putih -> kelabu -> hitam
+============================================================ */
+.videos-section{
+  background:var(--g50);
+  border-top:1px solid var(--g200);
+  border-bottom:1px solid var(--g200);
+}
+.counter-wrap{
+  background:linear-gradient(180deg,rgba(181,225,83,.16) 0%,rgba(181,225,83,.05) 100%);
+  border-bottom:1px solid var(--g200);
+}
+.gallery-section{background:var(--wht)}
+.faq-section{
+  background:var(--g50);
+  border-top:1px solid var(--g200);
+}
+/* pemisah halus antara dua section putih berturut-turut */
+.about-section{border-top:1px solid var(--g100)}
+
+/* page About & Donate ikut rentak sama */
+.pa-pillars{border-top:1px solid var(--g200);border-bottom:1px solid var(--g200)}
+.pa-founder{background:var(--wht)}
+.dp-copy{background:var(--g50);border-top:1px solid var(--g200);padding-top:clamp(36px,5vw,56px)}
+.dp-copy .dp-block:first-child{padding-top:0}
+
 /* ====== RESPONSIVE ====== */
 @media(max-width:900px){
   .nav-links,.nav-brand{display:none}
@@ -1648,7 +1676,7 @@ footer{
 
 
 <!-- COUNTER -->
-<div style="width:100%;overflow:hidden">
+<div class="counter-wrap" style="width:100%;overflow:hidden">
 <div class="counter-section" id="how">
   <div class="c-side anim-left">
     <img class="c-img-big" onerror="this.style.display='none'" src="images/WhatsApp Image 2026-08-13 at 10.13.41.jpeg" alt="Counter left big">
