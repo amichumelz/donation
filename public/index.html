@@ -1241,7 +1241,7 @@ footer{
 .pa-founder{padding:clamp(48px,7vw,86px) clamp(16px,4vw,40px)}
 .pa-founder-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,68px);align-items:center}
 .pa-photo{position:relative;width:100%;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--g100);box-shadow:0 18px 50px rgba(0,0,0,.14)}
-.pa-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pa-photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.38);transform-origin:center 45%}
 .pa-badge{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:100px;padding:8px 16px;font-size:12.5px;font-weight:800;display:flex;align-items:center;gap:7px}
 .pa-badge i{color:var(--gd);font-size:15px}
 .pa-fname{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.8px;line-height:1.08;margin-bottom:8px}
@@ -1460,7 +1460,7 @@ footer{
       <div class="hero-big">Amal Satu<br>Hati</div>
       <div class="hero-right">
         <div class="hero-tagline" data-en="Help<br>Others" data-my="Bantu<br>Sesama">Help<br>Others</div>
-        <button class="btn-start" onclick="goTo('donate-section')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
+        <button class="btn-start" onclick="showPage('donate')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
       </div>
     </div>
     <!-- Arrows -->
@@ -1644,45 +1644,7 @@ footer{
   </div>
 </div>
 
-<!-- UNIFIED DONATION SECTION -->
-<div class="donate-section" id="donate-section">
-  <div class="donate-inner">
-    <h2 class="anim-fadeup" data-en="Together We Can! 💚" data-my="Bersama Kita Boleh! 💚">Together We Can! 💚</h2>
-    <div class="donate-sub anim-fadeup d1" data-en="Every ringgit you donate makes a real impact on those in need. Join thousands of donors from across Malaysia and the world." data-my="Setiap ringgit yang anda sumbangkan memberi impak nyata kepada mereka yang memerlukan. Sertai ribuan penderma dari seluruh Malaysia dan dunia.">Every ringgit you donate makes a real impact on those in need. Join thousands of donors from across Malaysia and the world.</div>
-    <div class="donate-hero anim-scalein">
-      <div class="donate-stats">
-        <div class="d-stat">
-          <div class="d-stat-val raised" id="d-raised">RM 674,580</div>
-          <div class="d-stat-lbl" data-en="Total Raised" data-my="Jumlah Terkumpul">Total Raised</div>
-        </div>
-        <div class="d-stat">
-          <div class="d-stat-val target">RM 1,000,000</div>
-          <div class="d-stat-lbl" data-en="Our Target" data-my="Sasaran Kami">Our Target</div>
-        </div>
-        <div class="d-stat">
-          <div class="d-stat-val donors" id="d-donors">14,372+</div>
-          <div class="d-stat-lbl" data-en="People Have Donated" data-my="Orang Telah Menderma">People Have Donated</div>
-        </div>
-      </div>
-      <div class="donate-bar-wrap">
-        <div class="donate-bar-bg">
-          <div class="donate-bar-fill" id="donateBar" data-pct="67.4"></div>
-        </div>
-        <div class="donate-bar-info">
-          <span>0</span>
-          <span class="donate-bar-pct" id="donatePct" data-en="67.4% achieved" data-my="67.4% tercapai">67.4% achieved</span>
-          <span>RM 1,000,000</span>
-        </div>
-      </div>
-      <div class="donate-cta">
-        <button class="btn-donate-main" onclick="showPage('donate')" data-en="Donate Now" data-my="Derma Sekarang">
-          <i class="ti ti-heart"></i> <span data-en="Donate Now" data-my="Derma Sekarang">Donate Now</span>
-        </button>
-        <div class="donate-secure"><i class="ti ti-shield-check"></i> <span data-en="Secure &amp; verified payment" data-my="Bayaran selamat &amp; disahkan">Secure &amp; verified payment</span></div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 <!-- COUNTER -->
@@ -1787,8 +1749,8 @@ footer{
   <div class="pa-founder" id="founder">
     <div class="pa-founder-inner">
       <div class="pa-photo anim-left">
-        <!-- GANTI dengan gambar sebenar Syahmee Rahim: letak fail founder.jpg dalam folder yang sama -->
-        <img src="founder.jpg" alt="Syahmee Rahim, pengasas Pertubuhan Amal Satu Hati"
+        <!-- GANTI dengan gambar sebenar Syahmee Rahim -->
+        <img src="images/founder.jpeg" alt="Syahmee Rahim, pengasas Pertubuhan Amal Satu Hati"
              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85&auto=format&fit=crop'">
         <div class="pa-badge"><i class="ti ti-rosette-discount-check-filled"></i> <span data-en="Founder" data-my="Pengasas">Founder</span></div>
       </div>
