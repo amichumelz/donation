@@ -24,7 +24,8 @@ export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const q = url.searchParams;
   const provider = (env.PAYMENT_PROVIDER || 'bayarcash').toLowerCase();
-  const siteUrl = (env.SITE_URL || url.origin).replace(/\/$/, '');
+  let siteUrl = String(env.SITE_URL || url.origin).trim().replace(/\/+$/, '');
+  if (!/^https?:\/\//i.test(siteUrl)) siteUrl = 'https://' + siteUrl;
 
   let status = 'failed', ref = '', amount = '', name = '';
 
@@ -58,7 +59,7 @@ export async function onRequestGet({ request, env }) {
   // Ambil nama dari KV kalau ada, supaya resit nampak peribadi
   if (env.DONATIONS && ref) {
     const rec = await env.DONATIONS.get(`order:${ref}`, 'json');
-    if (rec?.name) name = rec.name;
+    if (rec?.name) name = rec.anonymous ? 'Anonymous' : rec.name;
   }
 
   const params = new URLSearchParams({ pay: status, ref });

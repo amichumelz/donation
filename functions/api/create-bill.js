@@ -17,7 +17,7 @@
  *   TOYYIBPAY_CATEGORY     (Secret)
  *
  * ── Kedua-dua ────────────────────────────────────────────────
- *   PAYMENT_ENV            (Plaintext) "sandbox" (default) atau "live"
+ *   PAYMENT_ENV            (Plaintext) "sandbox" untuk ujian. Lalai = live.
  *   SITE_URL               (Plaintext) cth. https://amalsatuhati.pages.dev
  *   DONATIONS              (KV binding, optional)
  */
@@ -47,6 +47,14 @@ async function bayarcashChecksum(secret, payload) {
 }
 
 /** 0123456789 -> 60123456789 (Bayarcash terima nombor Malaysia sahaja) */
+/** Pastikan URL ada skema — "domain.com" -> "https://domain.com" */
+function normalizeUrl(u, fallback) {
+  let v = String(u || '').trim().replace(/\/+$/, '');
+  if (!v) return fallback;
+  if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
+  return v;
+}
+
 function normalizePhone(raw) {
   let p = String(raw || '').replace(/\D/g, '');
   if (p.startsWith('0')) p = '60' + p.slice(1);
@@ -75,7 +83,8 @@ async function handleCreateBill({ request, env }) {
 
   // ── validasi di server (jangan sekali-kali percaya input dari browser) ──
   const amount = Number(body.amount);
-  const name = String(body.name || '').trim().slice(0, 60);
+  const anonymous = body.anonymous === true;
+  const name = anonymous ? 'Anonymous' : String(body.name || '').trim().slice(0, 60);
   const email = String(body.email || '').trim().slice(0, 80);
   const phone = normalizePhone(body.phone);
   const campaign = String(body.campaign || 'Best Use').trim().slice(0, 40);
@@ -88,10 +97,11 @@ async function handleCreateBill({ request, env }) {
     return json({ error: 'Valid email is required.' }, 400);
   if (phone.length < 10) return json({ error: 'Valid Malaysian phone number is required.' }, 400);
 
-  const siteUrl = (env.SITE_URL || new URL(request.url).origin).replace(/\/$/, '');
+  const siteUrl = normalizeUrl(env.SITE_URL, new URL(request.url).origin);
   const orderNumber =
     'ASH' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase();
-  const sandbox = env.PAYMENT_ENV !== 'live';
+  // LALAI = LIVE. Set PAYMENT_ENV="sandbox" secara eksplisit untuk mod ujian.
+  const sandbox = String(env.PAYMENT_ENV || '').trim().toLowerCase() === 'sandbox';
   const provider = (env.PAYMENT_PROVIDER || 'bayarcash').toLowerCase();
 
   try {
@@ -105,7 +115,7 @@ async function handleCreateBill({ request, env }) {
       await env.DONATIONS.put(
         `order:${orderNumber}`,
         JSON.stringify({
-          orderNumber, amount, name, email, phone, campaign, provider,
+          orderNumber, amount, name, email, phone, campaign, provider, anonymous,
           gatewayRef: result.gatewayRef, status: 'pending',
           createdAt: new Date().toISOString(),
         }),
@@ -220,10 +230,23 @@ async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: form,
   });
-  const data = await res.json().catch(() => null);
+  const raw = await res.text();
+  let data = null;
+  try { data = JSON.parse(raw); } catch { /* toyyibPay pulangkan teks kosong bila kredential tak sah */ }
+
   const billCode = Array.isArray(data) && data[0] && data[0].BillCode;
-  if (!billCode)
-    throw new Error((Array.isArray(data) ? data[0]?.msg : data?.msg) || 'Bill creation failed.');
+  if (!billCode) {
+    const msg = (Array.isArray(data) ? data[0]?.msg : data?.msg);
+    if (msg) throw new Error(msg);
+    if (!raw.trim()) {
+      throw new Error(
+        `toyyibPay pulangkan respons kosong dari ${base}. ` +
+        `Biasanya bermakna secret key/category code bukan untuk environment ini ` +
+        `(PAYMENT_ENV sekarang: ${sandbox ? 'sandbox' : 'live'}).`
+      );
+    }
+    throw new Error('toyyibPay: ' + raw.slice(0, 120));
+  }
 
   return { paymentUrl: `${base}/${billCode}`, gatewayRef: billCode };
 }

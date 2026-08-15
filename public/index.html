@@ -1310,6 +1310,29 @@ footer{
 .dp-copy{background:var(--g50);border-top:1px solid var(--g200);padding-top:clamp(36px,5vw,56px)}
 .dp-copy .dp-block:first-child{padding-top:0}
 
+/* logo dalam resit */
+.r-logo{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:14px}
+.r-logo img{max-height:52px;width:auto;object-fit:contain}
+.r-logo-fallback{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;letter-spacing:-.2px;color:var(--blk)}
+.r-logo-fallback .rl-star{color:var(--g);font-size:20px;line-height:1}
+.r-logo-org{font-size:11px;color:var(--g400);letter-spacing:.3px}
+
+/* pilihan derma tanpa nama */
+.anon-row{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--g50);border:1px solid var(--g200);border-radius:8px;
+  padding:11px 12px;margin-bottom:16px;cursor:pointer;
+  transition:border-color .15s,background .15s;
+}
+.anon-row:hover{border-color:var(--g)}
+.anon-row input{
+  width:17px;height:17px;margin:1px 0 0;flex-shrink:0;
+  accent-color:var(--gd);cursor:pointer;
+}
+.anon-txt{font-size:12.5px;line-height:1.55;color:var(--blk)}
+.anon-txt small{display:block;color:var(--g500);font-size:11.5px;margin-top:2px}
+.m-inp:disabled{background:var(--g100);color:var(--g400);cursor:not-allowed}
+
 /* ====== RESPONSIVE ====== */
 @media(max-width:900px){
   .nav-links,.nav-brand{display:none}
@@ -1968,7 +1991,7 @@ footer{
     <div class="modal-body">
       <div class="m-camp" id="m-camp">
         <img class="m-thumb" id="m-thumb" src="" alt="">
-        <div><div class="m-cname" id="m-cname">Best Use</div><div class="m-corg" id="m-corg">Amal Satu Hati</div></div>
+        <div><div class="m-cname" id="m-cname">Derma Ikhlas</div><div class="m-corg" id="m-corg">Pertubuhan Amal Satu Hati</div></div>
       </div>
       <div class="m-amtrow">
         <div><div class="m-alabel">Donation Amount</div><div class="m-atype" id="m-atype">One Time</div></div>
@@ -2002,6 +2025,13 @@ footer{
           </div>
           <input class="m-inp" type="tel" placeholder="Phone number (e.g. 0123456789)" id="dphone">
         </div>
+
+        <label class="anon-row" for="danon">
+          <input type="checkbox" id="danon" onchange="toggleAnon(this.checked)">
+          <span class="anon-txt"><span data-en="Donate anonymously" data-my="Derma tanpa nama">Donate anonymously</span>
+            <small data-en="Your name will not be shown publicly. We still need your email to send the receipt." data-my="Nama anda tidak akan dipaparkan kepada umum. Emel masih diperlukan untuk menghantar resit.">Your name will not be shown publicly. We still need your email to send the receipt.</small>
+          </span>
+        </label>
 
         <div id="pay-method-block">
           <label class="flabel">Payment Method</label>
@@ -2086,6 +2116,13 @@ footer{
         <div class="succ-title">Thank You! 🎉</div>
         <p class="succ-desc">Your donation has been received. May your generosity be blessed.</p>
         <div class="receipt">
+          <div class="r-logo">
+            <!-- Letak logo sebenar sebagai images/logo.png -->
+            <img src="images/logo.png" alt="Pertubuhan Amal Satu Hati"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="r-logo-fallback" style="display:none"><span class="rl-star">&#10022;</span> Amal Satu Hati</div>
+            <div class="r-logo-org">Pertubuhan Amal Satu Hati</div>
+          </div>
           <div class="r-row"><span class="r-key">Reference No.</span><span id="r-ref">–</span></div>
           <div class="r-row"><span class="r-key">Date & Time</span><span id="r-date">–</span></div>
           <div class="r-row"><span class="r-key">Name</span><span id="r-name">–</span></div>
@@ -2703,7 +2740,29 @@ function scheduleDonor(){
 scheduleDonor();
 
 /* ── MODAL STATE ── */
-var amt=30,method='fpx',camp={name:'Best Use',thumb:'',org:'Amal Satu Hati'},typ='One Time';
+/* ── NAMA KEMPEN LALAI ──────────────────────────────────────
+   Tukar di sini sahaja. Nama ini muncul dalam modal, dalam
+   resit, dan sebagai nama bill dalam dashboard toyyibPay.
+   Contoh: 'Derma Ikhlas', 'Tabung Kecemasan', 'Bantuan Asnaf'
+──────────────────────────────────────────────────────────── */
+var DEFAULT_CAMPAIGN = {
+  name: 'Derma Ikhlas',
+  org: 'Pertubuhan Amal Satu Hati'
+};
+
+var amt=30,method='fpx',isAnon=false,
+    camp={name:DEFAULT_CAMPAIGN.name,thumb:'',org:DEFAULT_CAMPAIGN.org},
+    typ='One Time';
+
+/* Derma tanpa nama — nama ditukar 'Anonymous', emel tetap perlu untuk resit */
+function toggleAnon(on){
+  isAnon=!!on;
+  var n=document.getElementById('dname');
+  n.disabled=isAnon;
+  n.placeholder=isAnon?'Anonymous':'Full name';
+  if(isAnon)n.value='';
+  mError('');
+}
 
 function openDonate(name,thumb,org){
   camp={name:name,thumb:thumb,org:org};
@@ -2714,15 +2773,19 @@ function openDonate(name,thumb,org){
   showModal();
 }
 function openMainDonate(){
-  camp={name:'Best Use',thumb:'',org:'Amal Satu Hati'};
-  document.getElementById('m-cname').textContent='Best Use';
-  document.getElementById('m-corg').textContent='Amal Satu Hati';
+  camp={name:DEFAULT_CAMPAIGN.name,thumb:'',org:DEFAULT_CAMPAIGN.org};
+  document.getElementById('m-cname').textContent=DEFAULT_CAMPAIGN.name;
+  document.getElementById('m-corg').textContent=DEFAULT_CAMPAIGN.org;
   document.getElementById('m-thumb').style.display='none';
   showModal();
 }
 function showModal(){resetM();document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
 function resetM(){
-  amt=30;method='fpx';
+  amt=30;method='fpx';isAnon=false;
+  var an=document.getElementById('danon');
+  if(an)an.checked=false;
+  var dn=document.getElementById('dname');
+  if(dn){dn.disabled=false;dn.placeholder='Full name';}
   document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
   document.getElementById('s-details').classList.add('act');
   document.getElementById('proc').style.display='none';
@@ -2789,10 +2852,10 @@ function goStep(){
     return;
   }
 
-  var name=(document.getElementById('dname').value||'').trim();
+  var name=isAnon?'Anonymous':(document.getElementById('dname').value||'').trim();
   var email=(document.getElementById('demail').value||'').trim();
   var phone=(document.getElementById('dphone').value||'').replace(/[^0-9+]/g,'');
-  if(name.length<2){mError(currentLang==='my'?'Sila masukkan nama penuh anda.':'Please enter your full name.');return;}
+  if(!isAnon&&name.length<2){mError(currentLang==='my'?'Sila masukkan nama penuh anda.':'Please enter your full name.');return;}
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){mError(currentLang==='my'?'Sila masukkan alamat e-mel yang sah.':'Please enter a valid email address.');return;}
   if(phone.replace(/\D/g,'').length<9){mError(currentLang==='my'?'Sila masukkan nombor telefon yang sah.':'Please enter a valid phone number.');return;}
 
@@ -2811,7 +2874,8 @@ function goStep(){
       phone:phone,
       campaign:camp.name,
       frequency:typ,
-      method:method
+      method:method,
+      anonymous:isAnon
     })
   })
   .then(function(r){
@@ -2866,7 +2930,7 @@ function goStep(){
       document.getElementById('r-ref').textContent=ref;
       document.getElementById('r-date').textContent=new Date().toLocaleString('ms-MY');
       document.getElementById('r-name').textContent=q.get('name')||'-';
-      document.getElementById('r-prog').textContent=q.get('campaign')||'Best Use';
+      document.getElementById('r-prog').textContent=q.get('campaign')||DEFAULT_CAMPAIGN.name;
       document.getElementById('r-meth').textContent=PAYMENT_LABEL;
       document.getElementById('r-amt').textContent=q.get('amount')?('RM '+Number(q.get('amount')).toFixed(2)):'-';
     }else{
