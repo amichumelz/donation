@@ -51,13 +51,14 @@ nav{
   background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--g200);height:58px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(16px,4vw,32px);
+  /* jajar dengan kandungan: bar penuh lebar, isi kandung ikut 1140px */
+  padding:0 max(clamp(16px,4vw,40px), calc((100% - 1140px) / 2));
   animation:navDrop .5s cubic-bezier(.22,1,.36,1) both;
 }
-.nav-brand{display:flex;align-items:center;gap:10px;border-right:1px solid var(--g200);padding-right:20px;margin-right:20px}
+.nav-brand{display:flex;align-items:center;gap:10px;border-right:1px solid var(--g200);padding-right:clamp(12px,1.6vw,20px);margin-right:clamp(12px,1.6vw,20px);white-space:nowrap}
 .nav-star{font-size:22px;line-height:1;animation:fadeIn .8s .3s both}
 .nav-name{font-size:16px;font-weight:800;letter-spacing:-.2px;color:var(--blk)}
-.nav-links{display:flex;gap:clamp(16px,3vw,28px)}
+.nav-links{display:flex;gap:clamp(12px,2.2vw,26px);white-space:nowrap}
 .nav-links a{font-size:14px;font-weight:500;color:var(--blk);text-decoration:none;opacity:.65;cursor:pointer;transition:opacity .15s;position:relative}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--g);transform:scaleX(0);transition:transform .2s;border-radius:2px}
 .nav-links a:hover{opacity:1}
@@ -84,7 +85,7 @@ nav{
 .mobile-menu{
   display:none;position:fixed;top:58px;left:0;right:0;
   background:var(--wht);border-bottom:1px solid var(--g200);
-  padding:20px clamp(16px,4vw,32px);z-index:999;
+  padding:20px max(clamp(16px,4vw,40px), calc((100% - 1140px) / 2));z-index:999;
   flex-direction:column;gap:4px;
   transform:translateY(-10px);opacity:0;transition:transform .25s,opacity .25s;
 }
@@ -986,8 +987,29 @@ footer{
   transition:background .15s;
 }
 .tl-cta:hover{background:var(--g)}
-@media(max-width:1060px){.tl-card:nth-child(3),.tt-embed-col:nth-child(3){display:none}}
-@media(max-width:740px){.tl-card:nth-child(2),.tt-embed-col:nth-child(2){display:none}}
+/* Skrin sempit: semua video kekal, tolak ke kiri/kanan untuk lihat */
+@media(max-width:1060px){
+  .tl-grid,.tt-embeds{
+    display:flex;flex-wrap:nowrap;justify-content:flex-start;
+    overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;-ms-overflow-style:none;
+    padding-bottom:8px;
+    /* biar kad boleh scroll sampai tepi skrin */
+    margin-left:calc(-1 * clamp(16px,4vw,40px));
+    margin-right:calc(-1 * clamp(16px,4vw,40px));
+    padding-left:clamp(16px,4vw,40px);
+    padding-right:clamp(16px,4vw,40px);
+  }
+  .tl-grid::-webkit-scrollbar,.tt-embeds::-webkit-scrollbar{display:none}
+  .tl-card,.tt-embed-col{scroll-snap-align:center;flex:0 0 300px;width:300px}
+  .swipe-hint{display:flex}
+}
+.swipe-hint{
+  display:none;align-items:center;justify-content:center;gap:7px;
+  font-size:12.5px;color:var(--g400);margin-top:10px;
+}
+.swipe-hint i{font-size:15px}
 .videos-cta{display:flex;justify-content:center;margin-top:clamp(20px,3vw,30px)}
 .tt-btn{
   display:inline-flex;align-items:center;gap:8px;
@@ -1305,9 +1327,11 @@ footer{
     </div>
     <div class="nav-links">
       <a onclick="goTo('home')" data-en="Home" data-my="Laman Utama">Home</a>
-      <a onclick="goTo('donate-section')" data-en="Donation" data-my="Derma">Donation</a>
-      <a onclick="goTo('how')" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
       <a onclick="showPage('about')" data-en="About Us" data-my="Tentang Kami">About Us</a>
+      <a onclick="goTo('videos')" data-en="Videos" data-my="Video">Videos</a>
+      <a onclick="goTo('gallery')" data-en="Gallery" data-my="Galeri">Gallery</a>
+      <a onclick="goTo('donate-section')" data-en="Donate" data-my="Derma">Donate</a>
+      <a onclick="goTo('faq')" data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
     </div>
   </div>
   <!-- Language Toggle -->
@@ -1327,9 +1351,11 @@ footer{
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mmenu">
   <a onclick="goTo('home');closeMenu()" data-en="Home" data-my="Laman Utama">Home</a>
-  <a onclick="goTo('donate-section');closeMenu()" data-en="Donation" data-my="Derma">Donation</a>
-  <a onclick="goTo('how');closeMenu()" data-en="How It Works" data-my="Cara Kerja">How It Works</a>
   <a onclick="showPage('about');closeMenu()" data-en="About Us" data-my="Tentang Kami">About Us</a>
+  <a onclick="goTo('videos');closeMenu()" data-en="Videos" data-my="Video">Videos</a>
+  <a onclick="goTo('gallery');closeMenu()" data-en="Gallery" data-my="Galeri">Gallery</a>
+  <a onclick="goTo('faq');closeMenu()" data-en="FAQ" data-my="Soalan Lazim">FAQ</a>
+  <a class="m-cta" onclick="openMainDonate();closeMenu()" data-en="Donate Now" data-my="Derma Sekarang">Donate Now</a>
 </div>
 
 <!-- HERO SLIDESHOW -->
@@ -1538,6 +1564,7 @@ footer{
     </div>
     <div id="ttCreator" style="display:none"></div>
     <div class="tl-grid" id="tlGrid"></div>
+    <div class="swipe-hint"><i class="ti ti-arrows-horizontal"></i> <span data-en="Swipe to see more" data-my="Tolak ke tepi untuk lihat lagi">Swipe to see more</span></div>
     <div class="tt-embeds" id="ttEmbeds">
       <!-- Embed rasmi TikTok. Nak tukar/tambah video: buka video di TikTok,
            Share > Embed, copy code, ganti satu blok .tt-embed-col di bawah. -->
@@ -2587,7 +2614,7 @@ function updAmt(){
 ──────────────────────────────────────────────────────────── */
 var PAYMENT_LIVE=true;
 var PAYMENT_API='/api/create-bill';
-var PAYMENT_LABEL='Bayarcash';
+var PAYMENT_LABEL='toyyibPay';   // tukar ikut gateway yang diset di server
 
 function mError(msg){
   var box=document.getElementById('m-error');
