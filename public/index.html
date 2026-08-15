@@ -113,6 +113,48 @@ nav{
   width:100%;height:100%;object-fit:cover;object-position:center 25%;
   display:block;
 }
+.hero-collage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 8px;
+  background: #000;
+}
+.hero-collage img {
+  flex: 1;
+  width: 33.333%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: flex 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.hero-collage img:hover {
+  flex: 1.5;
+}
+.about-collage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+  background: var(--g100);
+}
+.about-collage img {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: flex 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.about-collage img:hover {
+  flex: 1.35;
+}
+@media(max-width: 600px) {
+  .hero-collage { gap: 4px; }
+  .about-collage { gap: 3px; }
+}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.58) 0%,rgba(0,0,0,.08) 55%);z-index:2}
 .hero-content{
   position:absolute;inset:0;z-index:3;
@@ -1296,19 +1338,39 @@ footer{
 <div class="hero-wrap" id="home">
   <div class="hero" id="heroSlider">
     <div class="hero-slide active">
-      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1400&q=85&auto=format&fit=crop&crop=top" alt="Helping hands">
+      <div class="hero-collage">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.22.08.jpeg" alt="Helping hands 1">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.22.08 (1).jpeg" alt="Helping hands 2">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.24.21.jpeg" alt="Helping hands 3">
+      </div>
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Community support">
+      <div class="hero-collage">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.24.25.jpeg" alt="Community support 1">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.27.59.jpeg" alt="Community support 2">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.28.05.jpeg" alt="Community support 3">
+      </div>
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Volunteer work">
+      <div class="hero-collage">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.28.18.jpeg" alt="Volunteer work 1">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.28.26.jpeg" alt="Volunteer work 2">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.29.43.jpeg" alt="Volunteer work 3">
+      </div>
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Disaster relief">
+      <div class="hero-collage">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.33.57.jpeg" alt="Disaster relief 1">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.34.00.jpeg" alt="Disaster relief 2">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.34.03.jpeg" alt="Disaster relief 3">
+      </div>
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=85&auto=format&fit=crop&crop=center" alt="Environmental cause">
+      <div class="hero-collage">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.34.15.jpeg" alt="Environmental cause 1">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.36.46.jpeg" alt="Environmental cause 2">
+        <img src="images/WhatsApp Image 2026-08-13 at 09.50.48.jpeg" alt="Environmental cause 3">
+      </div>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -1432,10 +1494,30 @@ footer{
     <div class="about-media anim-right">
       <div class="about-frame" id="aboutFrame">
         <!-- Tukar src gambar di bawah dengan gambar sebenar aktiviti anda -->
-        <div class="about-slide active"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=900&q=85&auto=format&fit=crop" alt="Community outreach"></div>
-        <div class="about-slide"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=85&auto=format&fit=crop" alt="Volunteers at work"></div>
-        <div class="about-slide"><img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=900&q=85&auto=format&fit=crop" alt="Helping the community"></div>
-        <div class="about-slide"><img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=900&q=85&auto=format&fit=crop" alt="Helping hands"></div>
+        <div class="about-slide active">
+          <div class="about-collage">
+            <img src="images/WhatsApp Image 2026-08-13 at 09.53.58.jpeg" alt="Community outreach 1">
+            <img src="images/WhatsApp Image 2026-08-13 at 09.57.15.jpeg" alt="Community outreach 2">
+          </div>
+        </div>
+        <div class="about-slide">
+          <div class="about-collage">
+            <img src="images/WhatsApp Image 2026-08-13 at 09.59.30.jpeg" alt="Volunteers 1">
+            <img src="images/WhatsApp Image 2026-08-13 at 10.01.47.jpeg" alt="Volunteers 2">
+          </div>
+        </div>
+        <div class="about-slide">
+          <div class="about-collage">
+            <img src="images/WhatsApp Image 2026-08-13 at 10.02.03.jpeg" alt="Helping the community 1">
+            <img src="images/WhatsApp Image 2026-08-13 at 10.13.38.jpeg" alt="Helping the community 2">
+          </div>
+        </div>
+        <div class="about-slide">
+          <div class="about-collage">
+            <img src="images/WhatsApp Image 2026-08-13 at 10.13.39.jpeg" alt="Helping hands 1">
+            <img src="images/WhatsApp Image 2026-08-13 at 10.13.40.jpeg" alt="Helping hands 2">
+          </div>
+        </div>
       </div>
       <div class="about-nav">
         <button class="about-arrow" onclick="aboutSlide(-1)" aria-label="Previous photo">&#8592;</button>
@@ -1523,8 +1605,8 @@ footer{
 <div style="width:100%;overflow:hidden">
 <div class="counter-section" id="how">
   <div class="c-side anim-left">
-    <img class="c-img-big" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=280&q=80&fit=crop&auto=format" alt="">
-    <img class="c-img-sm" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=200&q=80&fit=crop&auto=format" alt="">
+    <img class="c-img-big" onerror="this.style.display='none'" src="images/WhatsApp Image 2026-08-13 at 10.13.41.jpeg" alt="Counter left big">
+    <img class="c-img-sm" onerror="this.style.display='none'" src="images/WhatsApp Image 2026-08-13 at 10.13.42.jpeg" alt="Counter left small">
   </div>
   <div class="c-center anim-fadeup">
     <div class="c-pre" data-en="Be The Part Of FundRaisers With Over" data-my="Jadi Sebahagian Penggalang Dana Dengan Lebih">Be The Part Of FundRaisers With Over</div>
@@ -1533,8 +1615,8 @@ footer{
     <button class="btn-join" onclick="openMainDonate()" data-en="Join Now!" data-my="Sertai Sekarang!">Join Now!</button>
   </div>
   <div class="c-side anim-right">
-    <img class="c-img-sm" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=200&q=80&fit=crop&auto=format" onerror="this.style.display='none'" alt="">
-    <img class="c-img-big" src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=280&q=80&fit=crop&auto=format" onerror="this.style.display='none'" alt="">
+    <img class="c-img-sm" src="images/WhatsApp Image 2026-08-13 at 10.13.43.jpeg" onerror="this.style.display='none'" alt="Counter right small">
+    <img class="c-img-big" src="images/WhatsApp Image 2026-08-13 at 10.13.44.jpeg" onerror="this.style.display='none'" alt="Counter right big">
   </div>
 </div>
 </div>
@@ -1582,7 +1664,7 @@ footer{
       <div class="anim-right">
         <div class="pa-img">
           <!-- Tukar src ini dengan gambar aktiviti sebenar -->
-          <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=900&q=85&auto=format&fit=crop" alt="Community programme">
+          <img src="images/WhatsApp Image 2026-08-13 at 10.13.45.jpeg" alt="Community programme">
         </div>
         <div class="pa-caption" data-en="Our volunteers during a community aid distribution." data-my="Sukarelawan kami semasa program agihan bantuan komuniti.">Our volunteers during a community aid distribution.</div>
       </div>
@@ -2666,6 +2748,28 @@ var GALLERY_IMAGES = [
   'images/WhatsApp Image 2026-08-13 at 10.13.49.jpeg'
 ];
 
+var galInterval;
+function startGalAutoPlay() {
+  stopGalAutoPlay();
+  galInterval = setInterval(function() {
+    var track = document.getElementById('galleryTrack');
+    if(!track) return;
+    var card = track.querySelector('.gal-item');
+    if(!card) return;
+    var maxScroll = track.scrollWidth - track.clientWidth;
+    if(track.scrollLeft >= maxScroll - 5) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      var cardWidth = card.offsetWidth + 16;
+      track.scrollBy({ left: cardWidth * 1.5, behavior: 'smooth' });
+    }
+  }, 2800);
+}
+
+function stopGalAutoPlay() {
+  if(galInterval) clearInterval(galInterval);
+}
+
 function buildGallery() {
   var track = document.getElementById('galleryTrack');
   if(!track) return;
@@ -2688,15 +2792,26 @@ function buildGallery() {
     item.appendChild(overlay);
     track.appendChild(item);
   });
+
+  // Setup auto-scroll behavior
+  startGalAutoPlay();
+  
+  // Pause on hover or touch interaction
+  track.addEventListener('mouseenter', stopGalAutoPlay);
+  track.addEventListener('mouseleave', startGalAutoPlay);
+  track.addEventListener('touchstart', stopGalAutoPlay, {passive: true});
+  track.addEventListener('touchend', startGalAutoPlay, {passive: true});
 }
 
 function scrollGal(dir) {
+  stopGalAutoPlay();
   var track = document.getElementById('galleryTrack');
   if(!track) return;
   var card = track.querySelector('.gal-item');
   if(!card) return;
   var cardWidth = card.offsetWidth + 16;
   track.scrollBy({ left: dir * cardWidth * 2, behavior: 'smooth' });
+  setTimeout(startGalAutoPlay, 5000);
 }
 
 function openLightbox(src) {
