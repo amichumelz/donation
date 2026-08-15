@@ -68,6 +68,7 @@ export async function onRequestPost({ request, env }) {
   const email = String(body.email || '').trim().slice(0, 80);
   const phone = normalizePhone(body.phone);
   const campaign = String(body.campaign || 'Best Use').trim().slice(0, 40);
+  const method = body.method === 'qr' ? 'qr' : 'fpx';   // hanya dua saluran disokong
 
   if (!Number.isFinite(amount) || amount < MIN || amount > MAX)
     return json({ error: `Amount must be between RM${MIN} and RM${MAX}.` }, 400);
@@ -83,7 +84,7 @@ export async function onRequestPost({ request, env }) {
   const provider = (env.PAYMENT_PROVIDER || 'bayarcash').toLowerCase();
 
   try {
-    const args = { env, sandbox, siteUrl, orderNumber, amount, name, email, phone, campaign };
+    const args = { env, sandbox, siteUrl, orderNumber, amount, name, email, phone, campaign, method };
     const result =
       provider === 'toyyibpay'
         ? await createToyyibpayBill(args)
@@ -159,21 +160,26 @@ async function createBayarcashIntent({ env, sandbox, siteUrl, orderNumber, amoun
 }
 
 /* ─────────────────────────── TOYYIBPAY ─────────────────────────── */
-async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount, name, email, phone, campaign }) {
+async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount, name, email, phone, campaign, method }) {
   if (!env.TOYYIBPAY_SECRET_KEY || !env.TOYYIBPAY_CATEGORY)
     throw new Error('toyyibPay is not configured yet.');
 
   const base = sandbox ? 'https://dev.toyyibpay.com' : 'https://toyyibpay.com';
   const billName = ('Derma ' + campaign).replace(/[^a-zA-Z0-9 _]/g, '').slice(0, 30);
 
-  const form = new URLSearchParams({
+  // billDescription: huruf/nombor/space/underscore sahaja, max 100 aksara
+  const billDescription = `Sumbangan ${campaign} Pertubuhan Amal Satu Hati`
+    .replace(/[^a-zA-Z0-9 _]/g, '')
+    .slice(0, 100);
+
+  const fields = {
     userSecretKey: env.TOYYIBPAY_SECRET_KEY,
     categoryCode: env.TOYYIBPAY_CATEGORY,
     billName,
-    billDescription: `Sumbangan kepada ${campaign} - Pertubuhan Amal Satu Hati`.slice(0, 100),
-    billPriceSetting: '1',
-    billPayorInfo: '1',
-    billAmount: String(Math.round(amount * 100)), // sen
+    billDescription,
+    billPriceSetting: '1',                        // harga tetap
+    billPayorInfo: '1',                           // minta nama/emel/telefon
+    billAmount: String(Math.round(amount * 100)), // dalam sen
     billReturnUrl: `${siteUrl}/api/return`,
     billCallbackUrl: `${siteUrl}/api/callback`,
     billExternalReferenceNo: orderNumber,
@@ -182,11 +188,21 @@ async function createToyyibpayBill({ env, sandbox, siteUrl, orderNumber, amount,
     billPhone: phone,
     billSplitPayment: '0',
     billSplitPaymentArgs: '',
-    billPaymentChannel: '2',
+    billPaymentChannel: '0',                      // 0 = FPX sahaja (bukan kad)
     billContentEmail: 'Terima kasih atas sumbangan anda.',
-    billChargeToCustomer: '1',
+    // "0" bermaksud caj FPX ditanggung PENDERMA.
+    // Kalau dibiarkan kosong, caj jatuh pada pemilik bill (kita).
+    billChargeToCustomer: '0',
     billExpiryDays: '3',
-  });
+  };
+
+  // DuitNow QR — akaun toyyibPay mesti ada DuitNow QR diaktifkan dahulu
+  if (method === 'qr') {
+    fields.enableDuitNowQR = '1';
+    fields.chargeDuitNowQR = '1';   // 1 = caj ditanggung penderma
+  }
+
+  const form = new URLSearchParams(fields);
 
   const res = await fetch(`${base}/index.php/api/createBill`, {
     method: 'POST',
