@@ -2710,7 +2710,8 @@ function seedDonors(){
 seedDonors();
 
 function scheduleDonor(){
-  setTimeout(function(){addNewDonor();scheduleDonor();},Math.random()*8000+6000);
+  // Simulasi penderma dummy muncul setiap 2 hingga 5 minit (120s - 300s)
+  setTimeout(function(){addNewDonor();scheduleDonor();},Math.random()*180000+120000);
 }
 scheduleDonor();
 
