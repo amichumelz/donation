@@ -3196,6 +3196,28 @@ fetchLiveTotals();
     donateTotal+=addAmt;
     donateDonors+=1;
     updateDonateDisplay();
+
+    /* Simpan dummy donor ni ke KV (/api/totals) supaya angka konsisten
+       merentas semua pelawat & reload — bukan reset setiap kali page dibuka.
+       Server ada throttle sendiri supaya angka tak melambung bila ramai
+       tab/pelawat trigger serentak, jadi kita cuma sync paparan bila
+       server sahkan ia betul-betul di-simpan (updated:true). Kalau
+       ditolak (throttled) atau gagal, paparan local yang dah ditambah
+       tadi dikekalkan supaya angka tak nampak jatuh balik. */
+    fetch('/api/totals',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({amount:addAmt})
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d && d.updated && typeof d.raised==='number'){
+        donateTotal=d.raised;
+        donateDonors=d.donors;
+        updateDonateDisplay();
+      }
+    })
+    .catch(function(){ /* diam-diam gagal — paparan local masih terpapar */ });
   };
 })();
 
