@@ -231,29 +231,27 @@ nav{
   position:relative;
   overflow:hidden;
   background:#000;
+  clip-path:inset(0);
 }
 .intro-bg-collage {
-  position: absolute;
-  top: -30%;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 160%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: clamp(8px, 1.5vw, 16px);
-  padding: clamp(12px, 2vw, 24px);
+  gap: 0;
+  padding: 0;
   z-index: 1;
   pointer-events: none;
-  will-change: transform;
 }
 .intro-bg-collage img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.02);
 }
 .intro-section::before{
   content:'';position:absolute;inset:0;
@@ -271,8 +269,6 @@ nav{
   .intro-bg-collage{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    height: 140%;
-    top: -20%;
   }
 }
 .intro-inner{
@@ -3212,33 +3208,7 @@ function fExp(input){
   if(d)d.textContent=v||'MM/YY';
 }
 
-// Parallax scroll effect for Intro Collage
-(function() {
-  var bg = document.querySelector('.intro-bg-collage');
-  if (!bg) return;
-  
-  var ticking = false;
-  function updateParallax() {
-    var rect = bg.parentElement.getBoundingClientRect();
-    if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
-      var speed = 0.28;
-      var yPos = rect.top * speed - 90;
-      bg.style.transform = 'translate3d(0, ' + yPos + 'px, 0)';
-    }
-    ticking = false;
-  }
-  
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-  
-  window.addEventListener('scroll', onScroll);
-  window.addEventListener('resize', onScroll);
-  updateParallax();
-})();
+
 
 /* ── ROUTER INIT (buka terus About Us kalau URL ada #about) ── */
 if(location.hash==='#about'||location.hash==='#donate'){showPage(location.hash.replace('#',''));}
