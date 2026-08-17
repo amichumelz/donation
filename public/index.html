@@ -1838,7 +1838,7 @@ footer{
         </div>
         <div>
           <div class="dp-stat-lbl" data-en="Our Goal" data-my="Sasaran Kami">Our Goal</div>
-          <div class="dp-stat-val" id="dp-goal">MYR 1,000,000</div>
+          <div class="dp-stat-val" id="dp-goal">MYR 30,000</div>
         </div>
 
         <div class="dp-bar-wrap">
@@ -1846,7 +1846,7 @@ footer{
           <div class="dp-bar-info">
             <span>MYR 0</span>
             <span id="dpPct" data-en="0% achieved" data-my="0% tercapai">0% achieved</span>
-            <span id="dp-goal-2">MYR 1,000,000</span>
+            <span id="dp-goal-2">MYR 30,000</span>
           </div>
         </div>
 
@@ -3130,14 +3130,14 @@ var dHero=document.querySelector('.donate-hero');
 if(dHero)dBarObs.observe(dHero);
 
 /* ── LIVE DONATION TOTAL UPDATE ── */
-var donateTotal=674580;
-var donateDonors=14372;
+var donateTotal=8000;
+var donateDonors=160;
 function updateDonateDisplay(){
   var el=document.getElementById('d-raised');
   var de=document.getElementById('d-donors');
   var pe=document.getElementById('donatePct');
   var bar=document.getElementById('donateBar');
-  var pct=Math.min(100,(donateTotal/1000000)*100).toFixed(1);
+  var pct=Math.min(100,(donateTotal/30000)*100).toFixed(1);
   if(el)el.textContent='RM '+donateTotal.toLocaleString('ms-MY');
   if(de)de.textContent=donateDonors.toLocaleString('ms-MY')+'+';
   if(pe){
