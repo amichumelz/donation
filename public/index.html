@@ -3169,6 +3169,23 @@ function updateDonateDisplay(){
     dpP.textContent=(currentLang==='my')?pMY:pEN;
   }
 }
+
+// Muat angka terkumpul dari KV database untuk ketahanan merentas reload
+function fetchLiveTotals(){
+  fetch('/api/totals')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d && typeof d.raised === 'number'){
+        donateTotal=d.raised;
+        donateDonors=d.donors;
+        updateDonateDisplay();
+      }
+    })
+    .catch(function(){
+      updateDonateDisplay(); // fallback kepada RM 8,000 jika API tiada/gagal
+    });
+}
+fetchLiveTotals();
 /* wrap addNewDonor after it's defined */
 (function(){
   var _orig=addNewDonor;
