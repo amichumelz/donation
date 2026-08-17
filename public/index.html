@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -202,29 +202,6 @@ nav{
 .hero-arrow.prev{left:clamp(10px,2vw,18px)}
 .hero-arrow.next{right:clamp(10px,2vw,18px)}
 
-/* ====== FAST SECTION ====== */
-.fast-section{padding:clamp(36px,6vw,56px) clamp(16px,4vw,40px)}
-.fast-headline{font-size:clamp(20px,3.5vw,28px);font-weight:800;margin-bottom:6px;line-height:1.2;letter-spacing:-.3px}
-.fast-headline em{font-style:italic;font-weight:700}
-.fast-sub{font-size:clamp(13px,2vw,15px);color:var(--g600);max-width:740px;margin-bottom:clamp(24px,4vw,36px);line-height:1.65}
-.fast-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,16px)}
-.fast-card{
-  border:1px solid var(--g200);border-radius:var(--r16);
-  padding:clamp(18px,3vw,24px);background:var(--wht);
-  transition:border-color .2s,transform .25s,box-shadow .25s;
-}
-.fast-card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
-.fast-icon{
-  width:36px;height:36px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:clamp(12px,2vw,18px);background:var(--g100);
-  transition:background .2s;
-}
-.fast-card:hover .fast-icon{background:var(--g)}
-.fast-icon i{font-size:18px;color:var(--blk)}
-.fast-card h3{font-size:clamp(13.5px,2vw,15px);font-weight:700;margin-bottom:7px}
-.fast-card p{font-size:clamp(12px,1.6vw,13.5px);color:var(--g500);line-height:1.7}
-
 /* ====== INTRO SECTION ====== */
 .intro-section{
   padding:clamp(48px,7vw,80px) clamp(16px,4vw,40px);
@@ -240,7 +217,6 @@ nav{
   transform: translate(-50%, -50%);
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -251,7 +227,8 @@ nav{
 }
 .intro-bg-collage img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
   object-fit: cover;
   object-position: center;
   display: block;
@@ -272,7 +249,6 @@ nav{
   .intro-bg-collage{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    aspect-ratio: 1 / 2;
   }
 }
 .intro-inner{
@@ -1480,8 +1456,8 @@ footer{
   </div>
   <!-- Language Toggle -->
   <div class="lang-toggle" id="langToggle">
-    <button class="lang-opt active" id="btn-en" onclick="switchLang('en')">EN</button>
-    <button class="lang-opt" id="btn-my" onclick="switchLang('my')">BM</button>
+    <button class="lang-opt" id="btn-en" onclick="switchLang('en')">EN</button>
+    <button class="lang-opt active" id="btn-my" onclick="switchLang('my')">BM</button>
   </div>
   <div class="nav-logo-right">
     <img src="images/logo.png" alt="Logo Syarikat" id="company-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onload="this.nextElementSibling.style.display='none'">
@@ -1509,37 +1485,38 @@ footer{
   <div class="hero" id="heroSlider">
     <div class="hero-slide active">
       <div class="hero-collage">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.22.08.jpeg" alt="Helping hands 1">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.22.08 (1).jpeg" alt="Helping hands 2">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.24.21.jpeg" alt="Helping hands 3">
+        <img src="images/11.jpeg" alt="Helping hands 1">
+        <img src="images/12.jpeg" alt="Helping hands 2">
+        <img src="images/13.jpeg" alt="Helping hands 3">
       </div>
     </div>
     <div class="hero-slide">
       <div class="hero-collage">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.24.25.jpeg" alt="Community support 1">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.27.59.jpeg" alt="Community support 2">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.28.05.jpeg" alt="Community support 3">
+        <img src="images/14.jpeg" alt="Community support 1">
+        <img src="images/15.jpeg" alt="Community support 2">
+        <img src="images/16.jpeg" alt="Community support 3">
       </div>
     </div>
     <div class="hero-slide">
       <div class="hero-collage">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.28.18.jpeg" alt="Volunteer work 1">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.28.26.jpeg" alt="Volunteer work 2">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.29.43.jpeg" alt="Volunteer work 3">
+        <img src="images/17.jpeg" alt="Volunteer work 1">
+        <img src="images/18.jpeg" alt="Volunteer work 2">
+        <img src="images/19.jpeg" alt="Volunteer work 3">
       </div>
     </div>
     <div class="hero-slide">
       <div class="hero-collage">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.33.57.jpeg" alt="Disaster relief 1">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.34.00.jpeg" alt="Disaster relief 2">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.34.03.jpeg" alt="Disaster relief 3">
+        <img src="images/20.jpeg" alt="Disaster relief 1">
+        <img src="images/21.jpeg" alt="Disaster relief 2">
+        <img src="images/22.jpeg" alt="Disaster relief 3">
       </div>
     </div>
     <div class="hero-slide">
       <div class="hero-collage">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.34.15.jpeg" alt="Environmental cause 1">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.36.46.jpeg" alt="Environmental cause 2">
-        <img src="images/WhatsApp Image 2026-08-13 at 09.50.48.jpeg" alt="Environmental cause 3">
+        <img src="images/23.jpeg" alt="Environmental cause 1">
+        <img src="images/24.jpeg" alt="Environmental cause 2">
+        <img src="images/25.jpeg" alt="Environmental cause 3">
+        <img src="images/26.jpeg" alt="Environmental cause 4">
       </div>
     </div>
     <div class="hero-overlay"></div>
@@ -1574,26 +1551,26 @@ footer{
         <!-- Tukar src gambar di bawah dengan gambar sebenar aktiviti anda -->
         <div class="about-slide active">
           <div class="about-collage">
-            <img src="images/WhatsApp Image 2026-08-13 at 09.53.58.jpeg" alt="Community outreach 1">
-            <img src="images/WhatsApp Image 2026-08-13 at 09.57.15.jpeg" alt="Community outreach 2">
+            <img src="images/30.jpeg" alt="Community outreach 1">
+            <img src="images/31.jpeg" alt="Community outreach 2">
           </div>
         </div>
         <div class="about-slide">
           <div class="about-collage">
-            <img src="images/WhatsApp Image 2026-08-13 at 09.59.30.jpeg" alt="Volunteers 1">
-            <img src="images/WhatsApp Image 2026-08-13 at 10.01.47.jpeg" alt="Volunteers 2">
+            <img src="images/32.jpeg" alt="Volunteers 1">
+            <img src="images/33.jpeg" alt="Volunteers 2">
           </div>
         </div>
         <div class="about-slide">
           <div class="about-collage">
-            <img src="images/WhatsApp Image 2026-08-13 at 10.02.03.jpeg" alt="Helping the community 1">
-            <img src="images/WhatsApp Image 2026-08-13 at 10.13.38.jpeg" alt="Helping the community 2">
+            <img src="images/34.jpeg" alt="Helping the community 1">
+            <img src="images/35.jpeg" alt="Helping the community 2">
           </div>
         </div>
         <div class="about-slide">
           <div class="about-collage">
-            <img src="images/WhatsApp Image 2026-08-13 at 10.13.39.jpeg" alt="Helping hands 1">
-            <img src="images/WhatsApp Image 2026-08-13 at 10.13.40.jpeg" alt="Helping hands 2">
+            <img src="images/36.jpeg" alt="Helping hands 1">
+            <img src="images/37.jpeg" alt="Helping hands 2">
           </div>
         </div>
       </div>
@@ -1620,7 +1597,6 @@ footer{
   </div>
   <div class="intro-inner">
     <div class="intro-left anim-left">
-      <div class="intro-eyebrow"><i class="ti ti-heart-filled"></i> <span data-en="About Amal Satu Hati" data-my="Tentang Amal Satu Hati">About Amal Satu Hati</span></div>
       <h2 class="intro-heading" data-en="Every Ringgit <span>Matters.</span><br>Every Life <span>Changes.</span>" data-my="Setiap Ringgit <span>Bermakna.</span><br>Setiap Nyawa <span>Berubah.</span>">Every Ringgit <span>Matters.</span><br>Every Life <span>Changes.</span></h2>
       <p class="intro-body" data-en="Amal Satu Hati is Malaysia's trusted donation platform — connecting generous hearts with those who need it most. From flood relief to education funds, your support reaches real people, fast." data-my="Amal Satu Hati adalah platform derma terpercaya Malaysia — menghubungkan hati yang murah hati dengan mereka yang paling memerlukan. Dari bantuan banjir hingga tabung pendidikan, sokongan anda sampai kepada orang sebenar, dengan cepat.">Amal Satu Hati is Malaysia's trusted donation platform — connecting generous hearts with those who need it most. From flood relief to education funds, your support reaches real people, fast.</p>
       <div class="intro-actions">
@@ -1654,28 +1630,6 @@ footer{
     </div>
   </div>
 </div>
-<div class="fast-section">
-  <div class="fast-headline anim-fadeup" data-en="Fund, Fast As <em>Flash</em>" data-my="Dana, Pantas Seperti <em>Kilat</em>">Fund, Fast As <em>Flash</em></div>
-  <div class="fast-sub anim-fadeup d1" data-en="Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform." data-my="Galang dana dengan pantas! Tingkatkan tujuan anda dalam masa seminit dengan platform pengumpulan dana kami yang super laju.">Fundraise at the speed of thought! Elevate your cause in just a minute with our lightning-fast fundraising platform.</div>
-  <div class="fast-cards">
-    <div class="fast-card anim-fadeup d1">
-      <div class="fast-icon"><i class="ti ti-bolt"></i></div>
-      <h3 data-en="Ignite Impact" data-my="Nyalakan Impak">Ignite Impact</h3>
-      <p data-en="Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference." data-my="Ceritakan tujuan anda dan impak positif yang dibawa. Nyatakan dengan jelas bagaimana sumbangan boleh membuat perbezaan yang bermakna.">Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference.</p>
-    </div>
-    <div class="fast-card anim-fadeup d2">
-      <div class="fast-icon"><i class="ti ti-speakerphone"></i></div>
-      <h3 data-en="Spread The Word" data-my="Sebarkan Berita">Spread The Word</h3>
-      <p data-en="Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms." data-my="Gunakan kelajuan media sosial dan rangkaian dalam talian. Kongsikan kempen anda dengan pantas merentasi pelbagai platform.">Leverage the speed of social media and online networks. Share your fundraising campaign swiftly across various platforms.</p>
-    </div>
-    <div class="fast-card anim-fadeup d3">
-      <div class="fast-icon"><i class="ti ti-world"></i></div>
-      <h3 data-en="Connect Globally" data-my="Hubungi Dunia">Connect Globally</h3>
-      <p data-en="Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities." data-my="Bina rangkaian sosial yang kuat di sekeliling tujuan anda. Galakkan penyokong untuk berkongsi kempen dalam komuniti mereka.">Build a strong social network around your cause. Encourage supporters to share the campaign within their local communities.</p>
-    </div>
-  </div>
-</div>
-
 <!-- LATEST TIKTOK VIDEOS -->
 <div class="videos-section" id="videos">
   <div class="videos-inner">
@@ -1691,13 +1645,13 @@ footer{
       <!-- Embed rasmi TikTok. Nak tukar/tambah video: buka video di TikTok,
            Share > Embed, copy code, ganti satu blok .tt-embed-col di bawah. -->
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7672220970324643092" data-video-id="7672220970324643092" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> <p>Jual beras RM1 harini .</p> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7672220989211675408?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <blockquote class="tiktok-embed" cite="https://vt.tiktok.com/ZSV2sxtjU/" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://vt.tiktok.com/ZSV2sxtjU/">Tonton di TikTok</a> </section> </blockquote>
       </div>
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7667012374653570324" data-video-id="7667012374653570324" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> <p>Tetaplah berusaha menjadi Ibu yang terbaik &#129303;</p> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7667012400859712272?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <blockquote class="tiktok-embed" cite="https://vt.tiktok.com/ZSV2sCT5R/" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://vt.tiktok.com/ZSV2sCT5R/">Tonton di TikTok</a> </section> </blockquote>
       </div>
       <div class="tt-embed-col">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@syahmeerahim/video/7593300656820178194" data-video-id="7593300656820178194" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://www.tiktok.com/@syahmeerahim?refer=embed">@syahmeerahim</a> Dulu ada bisnes, sekarang Uncle Perumal diuji. <a title="uncleperumal" target="_blank" href="https://www.tiktok.com/tag/uncleperumal?refer=embed">#uncleperumal</a> <a target="_blank" title="&#9834; original sound - Syahmee" href="https://www.tiktok.com/music/original-sound-Syahmee-7593300691646450453?refer=embed">&#9834; original sound - Syahmee</a> </section> </blockquote>
+        <blockquote class="tiktok-embed" cite="https://vt.tiktok.com/ZSV2sT6Y6/" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@syahmeerahim" href="https://vt.tiktok.com/ZSV2sT6Y6/">Tonton di TikTok</a> </section> </blockquote>
       </div>
     </div>
     <div class="videos-grid" id="videosGrid" style="display:none"></div>
@@ -1927,6 +1881,7 @@ footer{
       <div>
         <div class="footer-brand-row"><span class="fstar">✦</span> Amal Satu Hati</div>
         <div class="footer-desc" data-en="Together helping those in need.<br>Every donation makes a real impact." data-my="Bersama membantu mereka yang memerlukan.<br>Setiap sumbangan memberi impak nyata.">Together helping those in need.<br>Every donation makes a real impact.</div>
+        <div class="footer-desc" style="margin-top:8px" data-en="Registration No: PPM-008-10-20042026" data-my="No. Pendaftaran Pertubuhan: PPM-008-10-20042026">Registration No: PPM-008-10-20042026</div>
       </div>
       <div class="footer-col">
         <h4 data-en="Donate" data-my="Derma">Donate</h4>
@@ -2151,7 +2106,7 @@ const faqs=[
   }
 ];
 
-var currentLang='en';
+var currentLang='my';
 
 function buildFaq(lang, animate){
   var fl=document.getElementById('faq-list');
@@ -2178,7 +2133,7 @@ function buildFaq(lang, animate){
     fl.appendChild(div);
   });
 }
-buildFaq('en', true);
+buildFaq('my', true);
 
 function tFaq(btn){
   var it=btn.parentElement,was=it.classList.contains('open');
@@ -2215,9 +2170,18 @@ function switchLang(lang){
   },180);
 }
 /* remember language across pages (index <-> about) */
+/* Default site language is Bahasa Melayu; only switch to English if the visitor previously chose it */
 try{
   var savedLang=localStorage.getItem('ash_lang');
-  if(savedLang==='my'){switchLang('my');}
+  if(savedLang==='en'){
+    currentLang='my';
+    switchLang('en');
+  }else{
+    document.getElementById('btn-en').classList.remove('active');
+    document.getElementById('btn-my').classList.add('active');
+    var initEls=document.querySelectorAll('[data-en][data-my]');
+    initEls.forEach(function(el){el.innerHTML=el.getAttribute('data-my');});
+  }
 }catch(e){}
 
 /* ── NAV mobile ── */
@@ -2267,25 +2231,25 @@ var TIKTOK_DISPLAY_NAME='Syahmee';
 ──────────────────────────────────────────────────────────────────── */
 var LOCAL_VIDEOS=[
   {
-    src:'videos/beras-rm1.mp4',
-    poster:'videos/beras-rm1.jpeg',
-    caption:'Jual beras RM1 harini .',
+    src:'videos/video-1.mp4',
+    poster:'videos/video-1.jpeg',
+    caption:'',
     music:'original sound - Syahmee',
-    url:'https://www.tiktok.com/@syahmeerahim/video/7672220970324643092'
+    url:'https://vt.tiktok.com/ZSV2sxtjU/'
   },
   {
-    src:'videos/ibu-terbaik.mp4',
-    poster:'videos/ibu-terbaik.jpeg',
-    caption:'Tetaplah berusaha menjadi Ibu yang terbaik \uD83E\uDD0D',
+    src:'videos/video-2.mp4',
+    poster:'videos/video-2.jpeg',
+    caption:'',
     music:'original sound - Syahmee',
-    url:'https://www.tiktok.com/@syahmeerahim/video/7667012374653570324'
+    url:'https://vt.tiktok.com/ZSV2sCT5R/'
   },
   {
-    src:'videos/uncle-perumal.mp4',
-    poster:'videos/uncle-perumal.jpeg',
-    caption:'Dulu ada bisnes, sekarang Uncle Perumal diuji. #uncleperumal',
+    src:'videos/video-3.mp4',
+    poster:'videos/video-3.jpeg',
+    caption:'',
     music:'original sound - Syahmee',
-    url:'https://www.tiktok.com/@syahmeerahim/video/7593300656820178194'
+    url:'https://vt.tiktok.com/ZSV2sT6Y6/'
   },
 ];
 
@@ -2299,7 +2263,7 @@ var LOCAL_VIDEOS=[
    'embed'  = blockquote setiap video + embed.js  (perlukan TikTok)
    'auto'   = creator profile embed (satu widget, auto tarik 10 video)
    'manual' = grid thumbnail sendiri, tanpa script TikTok            */
-var TIKTOK_MODE='local';
+var TIKTOK_MODE='embed';
 
 /* Senarai backup — diguna kalau widget auto TikTok gagal
    (throttle, rate limit, dsb) DAN env var TIKTOK_VIDEO_URLS
@@ -2310,9 +2274,9 @@ var TIKTOK_MODE='local';
    Untuk player terbenam + cover automatik, set TIKTOK_VIDEO_URLS
    dalam Cloudflare — Function akan resolve short link jadi ID.   */
 var TIKTOK_FALLBACK=[
-  {id:'7672220970324643092', url:'https://www.tiktok.com/@syahmeerahim/video/7672220970324643092', cover:'video1.jpg', title:'Anak Yang Sangat Matang'},
-  {id:'7593300656820178194', url:'https://www.tiktok.com/@syahmeerahim/video/7593300656820178194', cover:'video2.jpg', title:''},
-  {id:'7592885730083441927', url:'https://www.tiktok.com/@syahmeerahim/video/7592885730083441927', cover:'video3.jpg', title:'Hasrat Seorang Ibu'},
+  {id:'', url:'https://vt.tiktok.com/ZSV2sxtjU/', cover:'video1.jpg', title:''},
+  {id:'', url:'https://vt.tiktok.com/ZSV2sCT5R/', cover:'video2.jpg', title:''},
+  {id:'', url:'https://vt.tiktok.com/ZSV2sT6Y6/', cover:'video3.jpg', title:''},
 ];
 
 document.getElementById('ttProfileBtn').href='https://www.tiktok.com/@'+TIKTOK_HANDLE;
