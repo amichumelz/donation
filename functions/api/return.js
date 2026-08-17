@@ -51,7 +51,7 @@ export async function onRequestGet({ request, env }) {
   let siteUrl = String(env.SITE_URL || url.origin).trim().replace(/\/+$/, '');
   if (!/^https?:\/\//i.test(siteUrl)) siteUrl = 'https://' + siteUrl;
 
-  let status = 'failed', ref = '', amount = '', name = '';
+  let status = 'failed', ref = '', amount = '', name = '', campaign = '';
 
   if (provider === 'toyyibpay') {
     status = TOYYIBPAY_STATUS[Number(q.get('status_id'))] || 'failed';
@@ -83,7 +83,11 @@ export async function onRequestGet({ request, env }) {
   // Ambil rekod order dari KV — untuk nama peribadi DAN untuk elak double-count
   if (env.DONATIONS && ref) {
     const rec = await env.DONATIONS.get(`order:${ref}`, 'json');
-    if (rec?.name) name = rec.anonymous ? 'Anonymous' : rec.name;
+    if (rec) {
+      if (rec.name) name = rec.anonymous ? 'Anonymous' : rec.name;
+      if (rec.amount && !amount) amount = String(rec.amount);
+      if (rec.campaign) campaign = rec.campaign;
+    }
 
     if (status === 'success' && rec && rec.status !== 'success') {
       // Tanda order ini sudah dikira, supaya refresh page tak tambah lagi
@@ -99,6 +103,7 @@ export async function onRequestGet({ request, env }) {
   const params = new URLSearchParams({ pay: status, ref });
   if (amount) params.set('amount', amount);
   if (name) params.set('name', name);
+  if (campaign) params.set('campaign', campaign);
 
   return Response.redirect(`${siteUrl}/?${params.toString()}`, 302);
 }

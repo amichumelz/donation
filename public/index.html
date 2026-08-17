@@ -2898,7 +2898,22 @@ function goStep(){
   var my=function(a,b){return currentLang==='my'?a:b;};
   history.replaceState(null,'',location.pathname);
   setTimeout(function(){
-    openMainDonate();
+    // Set status modal mengikut data derma sebenar (bukan reset ke default RM 30)
+    var amtParam = q.get('amount');
+    var campName = q.get('campaign') || DEFAULT_CAMPAIGN.name;
+    camp={name:campName,thumb:'',org:DEFAULT_CAMPAIGN.org};
+    document.getElementById('m-cname').textContent=campName;
+    document.getElementById('m-corg').textContent=DEFAULT_CAMPAIGN.org;
+    document.getElementById('m-thumb').style.display='none';
+    if(amtParam) {
+      amt = parseFloat(amtParam) || 30;
+    }
+    updAmt();
+
+    // Buka modal secara langsung
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow='hidden';
+
     document.querySelectorAll('.psteps').forEach(function(s){s.classList.remove('act');});
     document.getElementById('proc').style.display='none';
     if(status==='success'){
@@ -2906,9 +2921,9 @@ function goStep(){
       document.getElementById('r-ref').textContent=ref;
       document.getElementById('r-date').textContent=new Date().toLocaleString('ms-MY');
       document.getElementById('r-name').textContent=q.get('name')||'-';
-      document.getElementById('r-prog').textContent=q.get('campaign')||DEFAULT_CAMPAIGN.name;
+      document.getElementById('r-prog').textContent=campName;
       document.getElementById('r-meth').textContent=PAYMENT_LABEL;
-      document.getElementById('r-amt').textContent=q.get('amount')?('RM '+Number(q.get('amount')).toFixed(2)):'-';
+      document.getElementById('r-amt').textContent=amtParam?('RM '+Number(amtParam).toFixed(2)):'-';
     }else{
       document.getElementById('s-details').classList.add('act');
       var msg;
