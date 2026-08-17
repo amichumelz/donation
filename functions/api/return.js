@@ -6,6 +6,18 @@
  *
  * Bayarcash v3 : GET dengan query params + checksum
  * toyyibPay    : GET dengan status_id, billcode, order_id
+ *
+ * Selepas status disahkan 'success', jumlah keseluruhan (KV key "totals")
+ * di-increment SEKALI SAHAJA bagi setiap order — guna status order dalam
+ * KV ("order:<ref>") sebagai penanda supaya refresh/back button pada
+ * halaman ini tak kira derma yang sama dua kali.
+ *
+ * NOTA KESELAMATAN: untuk toyyibPay, return_url ini TIADA checksum
+ * (toyyibPay hanya sediakan checksum pada callback_url server-to-server).
+ * Jadi status_id di sini boleh secara teori dipalsukan oleh sesiapa yang
+ * tahu order_id. Untuk perlindungan penuh, buat juga /api/callback yang
+ * disahkan server-to-server dan pindahkan logik increment ke situ untuk
+ * toyyibPay. Bayarcash pula selamat sebab checksum disahkan di bawah.
  */
 
 async function hmacHex(secret, message) {
@@ -19,6 +31,18 @@ async function hmacHex(secret, message) {
 
 const BAYARCASH_STATUS = { 0: 'pending', 1: 'pending', 2: 'failed', 3: 'success', 4: 'cancelled' };
 const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed', 4: 'pending' };
+const TOTALS_KEY = 'totals';
+const DEFAULT_TOTALS = { raised: 8000, donors: 160 };
+
+/** Tambah satu derma ke jumlah keseluruhan dalam KV. */
+async function incrementTotals(env, amount) {
+  const stored = (await env.DONATIONS.get(TOTALS_KEY, 'json')) || DEFAULT_TOTALS;
+  const updated = {
+    raised: Number((stored.raised + amount).toFixed(2)),
+    donors: stored.donors + 1,
+  };
+  await env.DONATIONS.put(TOTALS_KEY, JSON.stringify(updated));
+}
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
@@ -56,10 +80,20 @@ export async function onRequestGet({ request, env }) {
     if (!ok) console.warn('return_url checksum mismatch', ref);
   }
 
-  // Ambil nama dari KV kalau ada, supaya resit nampak peribadi
+  // Ambil rekod order dari KV — untuk nama peribadi DAN untuk elak double-count
   if (env.DONATIONS && ref) {
     const rec = await env.DONATIONS.get(`order:${ref}`, 'json');
     if (rec?.name) name = rec.anonymous ? 'Anonymous' : rec.name;
+
+    if (status === 'success' && rec && rec.status !== 'success') {
+      // Tanda order ini sudah dikira, supaya refresh page tak tambah lagi
+      await env.DONATIONS.put(
+        `order:${ref}`,
+        JSON.stringify({ ...rec, status: 'success', confirmedAt: new Date().toISOString() })
+      );
+      const amt = Number(amount) || Number(rec.amount) || 0;
+      if (amt > 0) await incrementTotals(env, amt);
+    }
   }
 
   const params = new URLSearchParams({ pay: status, ref });
