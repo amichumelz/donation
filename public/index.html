@@ -6,7 +6,7 @@
 <title>Amal Satu Hati — Fund Help Others</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 /* ====== RESET & BASE ====== */
@@ -162,24 +162,23 @@ nav{
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.58) 0%,rgba(0,0,0,.08) 55%);z-index:2}
 .hero-content{
   position:absolute;inset:0;z-index:3;
-  display:flex;align-items:flex-end;justify-content:space-between;
-  padding:clamp(16px,3vw,32px) clamp(45px,6vw,90px);
-  gap:12px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  padding:clamp(16px,3vw,32px) clamp(16px,3.5vw,36px);
+  gap:16px;
 }
 .hero-big{
-  font-size:clamp(54px,9vw,110px);font-weight:900;
-  color:var(--wht);line-height:.92;letter-spacing:clamp(-3px,-0.5vw,-2px);
+  font-family:'Bodoni Moda',serif;
+  font-size:clamp(30px,5.2vw,56px);font-weight:700;
+  color:var(--wht);line-height:1.1;letter-spacing:-0.5px;
   animation:fadeUp .7s .2s cubic-bezier(.22,1,.36,1) both;
-  flex-shrink:1;min-width:0;
-}
-.hero-right{
-  display:flex;flex-direction:column;align-items:flex-end;gap:clamp(10px,2vw,20px);
-  padding-bottom:clamp(4px,1vw,10px);flex-shrink:0;max-width:55%;
+  max-width:85%;
 }
 .hero-tagline{
-  font-size:clamp(18px,3.5vw,34px);font-weight:700;
-  color:var(--wht);line-height:1.15;text-align:right;
+  font-size:clamp(13.5px,1.8vw,16.5px);font-weight:400;
+  color:rgba(255,255,255,0.92);line-height:1.4;text-align:left;
   animation:slideLeft .7s .3s cubic-bezier(.22,1,.36,1) both;
+  max-width:80%;
+  margin-top:2px;
 }
 .btn-start{
   background:var(--g);color:var(--blk);border:none;
@@ -190,6 +189,7 @@ nav{
   transition:background .15s,transform .2s,box-shadow .2s;
   animation:slideLeft .7s .4s cubic-bezier(.22,1,.36,1) both;
   max-width:100%;
+  margin-top:4px;
 }
 .btn-start:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 6px 20px rgba(181,225,83,.45)}
 .btn-start:active{transform:translateY(0)}
@@ -1357,10 +1357,9 @@ footer{
   .footer-top{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;align-items:flex-start}
   .social-links{flex-wrap:wrap}
-  .hero-big{font-size:clamp(36px,11vw,52px)}
-  .hero-right{max-width:52%}
+  .hero-big{font-size:clamp(26px,8vw,38px)}
   .btn-start{font-size:12px;padding:9px 14px}
-  .hero-tagline{font-size:clamp(14px,4vw,20px)}
+  .hero-tagline{font-size:clamp(12.5px,3.8vw,14px);max-width:100%}
 }
 
 /* ====== LANG TOGGLE ====== */
@@ -1521,11 +1520,9 @@ footer{
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-big">Amal Satu<br>Hati</div>
-      <div class="hero-right">
-        <div class="hero-tagline" data-en="Help<br>Others" data-my="Bantu<br>Sesama">Help<br>Others</div>
-        <button class="btn-start" onclick="showPage('donate')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
-      </div>
+      <div class="hero-big">Be The Reason Someone Believes In Humanity</div>
+      <div class="hero-tagline" data-en="What may seem small to you could mean everything to someone else" data-my="Apa yang kelihatan kecil bagi anda boleh bermakna segala-galanya bagi orang lain">What may seem small to you could mean everything to someone else</div>
+      <button class="btn-start" onclick="showPage('donate')" data-en="Start Donating" data-my="Mula Menyumbang">Start Donating</button>
     </div>
     <!-- Arrows -->
     <button class="hero-arrow prev" onclick="heroSlide(-1)" aria-label="Previous">&#8249;</button>
