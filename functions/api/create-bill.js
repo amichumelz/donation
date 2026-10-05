@@ -22,7 +22,7 @@
  *   DONATIONS              (KV binding, optional)
  */
 
-const MIN = 1, MAX = 30000;
+const MIN = 1, MAX = 100000;
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {

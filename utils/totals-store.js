@@ -1,7 +1,7 @@
-const TOTALS_KEY = 'totals';
+const TOTALS_KEY = 'totals_v2';
 const DEFAULT_TOTALS = {
-  raised: 8000,
-  donors: 160,
+  raised: 5000,
+  donors: 100,
   realRaised: 0,
   realDonors: 0,
   dummyRaised: 0,
