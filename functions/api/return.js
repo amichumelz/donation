@@ -31,8 +31,8 @@ async function hmacHex(secret, message) {
 
 const BAYARCASH_STATUS = { 0: 'pending', 1: 'pending', 2: 'failed', 3: 'success', 4: 'cancelled' };
 const TOYYIBPAY_STATUS = { 1: 'success', 2: 'pending', 3: 'failed', 4: 'pending' };
-const TOTALS_KEY = 'totals_v2';
-const DEFAULT_TOTALS = { raised: 5000, donors: 100 };
+const TOTALS_KEY = 'totals_v3';
+const DEFAULT_TOTALS = { raised: 2450, donors: 68 };
 
 /** Tambah satu derma ke jumlah keseluruhan dalam KV. */
 async function incrementTotals(env, amount) {

@@ -2615,7 +2615,7 @@ var CAMPAIGNS=['GreenFund: Sustain Earth Now','SeniorHealth: Support Campaign','
 var FIRST=['Ahmad','Siti','Muhammad','Nurul','Hafiz','Amirah','Zulkifli','Farah','Rashid','Liyana','Azri','Nadia','Khairul','Dina','Syafiq','Hana','Izzat','Rania','Faris','Ain'];
 var LAST=['Abdullah','Rahman','Hassan','Ibrahim','Yusof','Aziz','Ismail','Omar','Hamid','Karim','Lim','Tan','Lee','Wong','Kumar','Singh'];
 var COLORS=['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#059669','#9333ea','#ea580c','#0284c7'];
-var AMOUNTS=[15,20,45,100];
+var AMOUNTS=[10,12,15,16,18,19];
 var donorLog=[];
 
 function randFrom(arr){return arr[Math.floor(Math.random()*arr.length)];}
@@ -2710,8 +2710,8 @@ function seedDonors(){
 seedDonors();
 
 function scheduleDonor(){
-  // Simulasi penderma dummy muncul setiap ~20 saat (selang 15s - 25s)
-  setTimeout(function(){addNewDonor();scheduleDonor();},Math.random()*10000+15000);
+  // Simulasi penderma dummy muncul lebih santai setiap 1 hingga 2 minit (selang 60s - 120s)
+  setTimeout(function(){addNewDonor();scheduleDonor();},Math.random()*60000+60000);
 }
 scheduleDonor();
 
@@ -3146,8 +3146,8 @@ var dHero=document.querySelector('.donate-hero');
 if(dHero)dBarObs.observe(dHero);
 
 /* ── LIVE DONATION TOTAL UPDATE ── */
-var donateTotal=5000;
-var donateDonors=100;
+var donateTotal=2450;
+var donateDonors=68;
 function updateDonateDisplay(){
   var el=document.getElementById('d-raised');
   var de=document.getElementById('d-donors');
@@ -3198,7 +3198,7 @@ function fetchLiveTotals(){
       }
     })
     .catch(function(){
-      updateDonateDisplay(); // fallback kepada RM 5,000 jika API tiada/gagal
+      updateDonateDisplay(); // fallback kepada RM 2,450 jika API tiada/gagal
     });
 }
 fetchLiveTotals();
